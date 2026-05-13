@@ -92,6 +92,18 @@ export default function Home() {
     });
   }, [searchTerm]);
 
+  const TYPE_LABELS: Record<string, string> = {
+    sake: '사케',
+    shochu: '쇼츄',
+    awamori: '아와모리',
+    beer: '맥주',
+    whisky: '위스키',
+    liqueur: '리큐르',
+    food: '푸드',
+    service: '서비스',
+    other: '기타'
+  };
+
   const getFlavorBadge = (flavor?: string) => {
     if (!flavor) return null;
     const styles: Record<string, string> = {
@@ -100,12 +112,12 @@ export default function Home() {
       balance: 'bg-emerald-50 text-emerald-600 border-emerald-100'
     };
     const labels: Record<string, string> = {
-      amaguchi: 'Sweet (아마구치)',
-      karaguchi: 'Dry (카라구치)',
-      balance: 'Balance (밸런스)'
+      amaguchi: '아마구치',
+      karaguchi: '카라구치',
+      balance: '밸런스'
     };
     return (
-      <span className={`px-2 py-0.5 rounded text-[0.6rem] font-bold border ${styles[flavor]}`}>
+      <span className={`inline-flex items-center px-2 py-0.5 rounded text-[0.65rem] font-bold border leading-none ${styles[flavor]}`}>
         {labels[flavor]}
       </span>
     );
@@ -225,16 +237,11 @@ export default function Home() {
                 <>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {selectedBooth.details.type && (
-                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[0.7rem] font-bold border border-primary/20">
-                        {selectedBooth.details.type.toUpperCase()}
+                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-[0.7rem] font-bold border border-primary/20 leading-none">
+                        {TYPE_LABELS[selectedBooth.details.type] || selectedBooth.details.type.toUpperCase()}
                       </span>
                     )}
                     {getFlavorBadge(selectedBooth.details.flavor)}
-                    {selectedBooth.details.tags?.map(tag => (
-                      <span key={tag} className="px-3 py-1 rounded-full bg-accent/5 text-accent text-[0.7rem] font-bold border border-accent/10">
-                        #{tag}
-                      </span>
-                    ))}
                   </div>
                   
                   <section className="bg-primary/5 p-5 rounded-2xl border border-primary/10">
@@ -488,19 +495,14 @@ export default function Home() {
                         <span className="text-[0.8rem] font-black leading-none">{booth.id.replace(booth.region, '')}</span>
                       </div>
                       <div className="flex-grow">
-                        <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                          <h3 className={`text-base font-bold ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
-                          {getFlavorBadge(booth.details?.flavor)}
-                        </div>
+                        <h3 className={`text-base font-bold mb-1.5 ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                         <div className="flex items-center gap-2">
-                          <span className="px-1.5 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10">
-                            {booth.details?.region_name || '정보없음'}
-                          </span>
                           {booth.details?.type && (
-                            <span className="text-[0.65rem] text-text-dim/60 font-medium">
-                              • {booth.details.type.toUpperCase()}
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10 leading-none">
+                              {TYPE_LABELS[booth.details.type] || booth.details.type.toUpperCase()}
                             </span>
                           )}
+                          {getFlavorBadge(booth.details?.flavor)}
                         </div>
                       </div>
                       {!visitedBooths.includes(booth.id) && <span className="text-primary/30 self-center">❯</span>}
@@ -511,15 +513,6 @@ export default function Home() {
                         <p className="text-[0.75rem] text-text-dim leading-relaxed line-clamp-2 italic">
                           "{booth.details.features}"
                         </p>
-                        {booth.details.tags && (
-                          <div className="flex flex-wrap gap-1.5 mt-2.5">
-                            {booth.details.tags.slice(0, 4).map(tag => (
-                              <span key={tag} className="text-[0.65rem] text-primary/60 font-medium bg-primary/5 px-2 py-0.5 rounded-full">
-                                #{tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     )}
                     
@@ -589,19 +582,14 @@ export default function Home() {
                                 <span className="text-[0.8rem] font-black leading-none">{booth.id.replace(booth.region, '')}</span>
                               </div>
                               <div className="flex-grow">
-                                <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                  <h3 className={`text-base font-bold ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
-                                  {getFlavorBadge(booth.details?.flavor)}
-                                </div>
+                                <h3 className={`text-base font-bold mb-1.5 ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                                 <div className="flex items-center gap-2">
-                                  <span className="px-1.5 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10">
-                                    {booth.details?.region_name || '정보없음'}
-                                  </span>
                                   {booth.details?.type && (
-                                    <span className="text-[0.65rem] text-text-dim/60 font-medium">
-                                      • {booth.details.type.toUpperCase()}
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10 leading-none">
+                                      {TYPE_LABELS[booth.details.type] || booth.details.type.toUpperCase()}
                                     </span>
                                   )}
+                                  {getFlavorBadge(booth.details?.flavor)}
                                 </div>
                               </div>
                               {!visitedBooths.includes(booth.id) && <span className="text-primary/30 self-center">❯</span>}
@@ -612,15 +600,6 @@ export default function Home() {
                                 <p className="text-[0.75rem] text-text-dim leading-relaxed line-clamp-2">
                                   {booth.details.features}
                                 </p>
-                                {booth.details.tags && (
-                                  <div className="flex flex-wrap gap-1.5 mt-2.5">
-                                    {booth.details.tags.slice(0, 3).map(tag => (
-                                      <span key={tag} className="text-[0.65rem] text-primary/60 font-medium bg-primary/5 px-2 py-0.5 rounded-full">
-                                        #{tag}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
                               </div>
                             )}
 
