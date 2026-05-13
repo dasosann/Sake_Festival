@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { FESTIVAL_BOOTHS, ALL_BOOTHS, BoothInfo } from './boothData';
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<'map' | 'search' | 'schedule'>('map');
+  const [activeTab, setActiveTab] = useState<'map' | 'search' | 'collection' | 'schedule'>('map');
   const [activeHall, setActiveHall] = useState<1 | 2>(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedRegions, setExpandedRegions] = useState<string[]>([]);
