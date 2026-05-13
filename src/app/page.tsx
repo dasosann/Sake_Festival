@@ -329,7 +329,6 @@ export default function Home() {
         {activeTab === 'map' && (
           <section className="fade-in">
             <div className="mb-8 flex flex-col gap-4 text-center">
-              <h2 className="text-xl font-bold text-text">Booth Map</h2>
               <div className="flex bg-bg-sub p-1 rounded-xl w-fit mx-auto shadow-inner">
                 <button 
                   className={`py-2 px-6 rounded-lg text-sm font-bold transition-all duration-300 ${activeHall === 1 ? 'bg-white text-primary shadow-sm' : 'text-text-dim'}`}
@@ -458,7 +457,6 @@ export default function Home() {
         {activeTab === 'search' && (
           <section className="fade-in px-2 sm:px-0">
             <div className="mb-8 flex flex-col gap-4">
-              <h2 className="text-xl font-bold">Booth Search</h2>
               <div className="relative">
                 <input 
                   type="text" 
@@ -656,9 +654,7 @@ export default function Home() {
         {/* Tab 3: Schedule */}
         {activeTab === 'schedule' && (
           <section className="fade-in px-2 sm:px-0">
-            <div className="mb-8">
-              <h2 className="text-xl font-bold">Event Schedule</h2>
-            </div>
+            <div className="mb-8"></div>
             <div className="glass-card divide-y divide-glass-border overflow-hidden">
               {[
                 { time: "11:00", title: "축제 개막", desc: "2026 사케 페스티벌의 성대한 시작" },
