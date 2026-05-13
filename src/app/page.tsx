@@ -1,20 +1,66 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { FESTIVAL_BOOTHS, ALL_BOOTHS } from './boothData';
+import { useState, useMemo, useEffect } from 'react';
+import { FESTIVAL_BOOTHS, ALL_BOOTHS, BoothInfo } from './boothData';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'map' | 'search' | 'schedule'>('map');
   const [activeHall, setActiveHall] = useState<1 | 2>(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedRegions, setExpandedRegions] = useState<string[]>([]);
+  const [selectedBooth, setSelectedBooth] = useState<BoothInfo | null>(null);
 
-  const filteredBooths = useMemo(() => 
-    ALL_BOOTHS.filter(booth => 
-      booth.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booth.id.toLowerCase().includes(searchTerm.toLowerCase())
-    ), [searchTerm]
-  );
+  // Close modal with ESC key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedBooth(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  const filteredBooths = useMemo(() => {
+    const term = searchTerm.toLowerCase();
+    return ALL_BOOTHS.filter(booth => {
+      const flavorMap: Record<string, string[]> = {
+        amaguchi: ['amaguchi', '아마구치', '단맛', '달콤'],
+        karaguchi: ['karaguchi', '카라구치', '드라이', '담백'],
+        balance: ['balance', '밸런스', '균형', '조화']
+      };
+      
+      const flavorTerms = booth.details?.flavor ? flavorMap[booth.details.flavor] : [];
+      
+      return (
+        booth.name.toLowerCase().includes(term) ||
+        booth.id.toLowerCase().includes(term) ||
+        (booth.details?.history || '').toLowerCase().includes(term) ||
+        (booth.details?.features || '').toLowerCase().includes(term) ||
+        (booth.details?.region_name || '').toLowerCase().includes(term) ||
+        (booth.details?.type || '').toLowerCase().includes(term) ||
+        (booth.details?.tags || []).some(tag => tag.toLowerCase().includes(term)) ||
+        flavorTerms.some(f => f.includes(term))
+      );
+    });
+  }, [searchTerm]);
+
+  const getFlavorBadge = (flavor?: string) => {
+    if (!flavor) return null;
+    const styles: Record<string, string> = {
+      amaguchi: 'bg-pink-50 text-pink-600 border-pink-100',
+      karaguchi: 'bg-blue-50 text-blue-600 border-blue-100',
+      balance: 'bg-emerald-50 text-emerald-600 border-emerald-100'
+    };
+    const labels: Record<string, string> = {
+      amaguchi: 'Sweet (아마구치)',
+      karaguchi: 'Dry (카라구치)',
+      balance: 'Balance (밸런스)'
+    };
+    return (
+      <span className={`px-2 py-0.5 rounded text-[0.6rem] font-bold border ${styles[flavor]}`}>
+        {labels[flavor]}
+      </span>
+    );
+  };
 
   const getBoothColorClass = (prefix: string) => {
     const colors: Record<string, string> = {
@@ -37,12 +83,12 @@ export default function Home() {
     return colors[prefix] || 'bg-bg-sub border-[#ddd] text-[#888]';
   };
 
-  const getBoothName = (id: string) => {
-    return ALL_BOOTHS.find(b => b.id === id)?.name || id;
+  const getBoothData = (id: string) => {
+    return ALL_BOOTHS.find(b => b.id === id);
   };
 
   // Helper to render a block of booths
-  const renderBlock = (prefix: string, count: number, cols: number, label?: string) => (
+  const renderBlock = (prefix: string, count: number, cols: number, label?: string, startOffset: number = 1) => (
     <div className="relative group">
       {label && <div className="absolute -top-[15px] left-0 text-[0.6rem] font-bold text-[#666] pointer-events-none whitespace-nowrap">{label}</div>}
       <div 
@@ -50,15 +96,17 @@ export default function Home() {
         style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
       >
         {Array.from({ length: count }).map((_, i) => {
-          const boothId = `${prefix}${String(i + 1).padStart(2, '0')}`;
-          const boothName = getBoothName(boothId);
+          const num = i + startOffset;
+          const boothId = `${prefix}${String(num).padStart(2, '0')}`;
+          const booth = getBoothData(boothId);
           return (
             <div 
               key={i} 
-              title={boothName}
-              className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary cursor-help ${getBoothColorClass(prefix)}`}
+              title={booth?.name || boothId}
+              onClick={() => booth && setSelectedBooth(booth)}
+              className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary cursor-pointer ${getBoothColorClass(prefix)} ${!booth ? 'opacity-30 grayscale' : ''}`}
             >
-              {prefix}{String(i + 1).padStart(2, '0')}
+              {prefix}{String(num).padStart(2, '0')}
             </div>
           );
         })}
@@ -67,7 +115,90 @@ export default function Home() {
   );
 
   return (
-    <main className="min-h-screen flex flex-col bg-bg text-text">
+    <main className="min-h-screen flex flex-col bg-bg text-text relative">
+      {/* Booth Detail Modal */}
+      {selectedBooth && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm fade-in" onClick={() => setSelectedBooth(null)}>
+          <div 
+            className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className={`p-6 ${getBoothColorClass(selectedBooth.id.charAt(0))} border-b`}>
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="text-xs font-black px-2 py-1 bg-white/50 rounded-md border border-black/5 mb-2 inline-block">
+                    {selectedBooth.id}
+                  </span>
+                  <h3 className="text-xl font-bold">{selectedBooth.name}</h3>
+                  {selectedBooth.details?.region_name && (
+                    <div className="text-sm font-medium mt-1 opacity-80 flex items-center gap-1">
+                      <span>📍</span> {selectedBooth.details.region_name}
+                    </div>
+                  )}
+                </div>
+                <button 
+                  onClick={() => setSelectedBooth(null)}
+                  className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition-colors text-xl font-light"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-8 space-y-6 max-h-[70vh] overflow-y-auto">
+              {selectedBooth.details ? (
+                <>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {selectedBooth.details.type && (
+                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[0.7rem] font-bold border border-primary/20">
+                        {selectedBooth.details.type.toUpperCase()}
+                      </span>
+                    )}
+                    {getFlavorBadge(selectedBooth.details.flavor)}
+                    {selectedBooth.details.tags?.map(tag => (
+                      <span key={tag} className="px-3 py-1 rounded-full bg-accent/5 text-accent text-[0.7rem] font-bold border border-accent/10">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <section>
+                    <h4 className="text-sm font-black text-primary uppercase tracking-wider mb-2">
+                      {['food', 'service'].includes(selectedBooth.details.type || '') ? '분류 (Category)' : '역사 (History)'}
+                    </h4>
+                    <p className="text-sm leading-relaxed text-text font-medium opacity-90 whitespace-pre-wrap">{selectedBooth.details.history}</p>
+                  </section>
+                  <section>
+                    <h4 className="text-sm font-black text-primary uppercase tracking-wider mb-2">
+                      {['food', 'service'].includes(selectedBooth.details.type || '') ? '특성 (Characteristics)' : '특징 (Features)'}
+                    </h4>
+                    <p className="text-sm leading-relaxed text-text font-medium opacity-90 whitespace-pre-wrap">{selectedBooth.details.features}</p>
+                  </section>
+                  {selectedBooth.details.official_site && (
+                    <section className="pt-4">
+                      <a 
+                        href={selectedBooth.details.official_site} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-transform"
+                      >
+                        공식 사이트 방문 <span>↗</span>
+                      </a>
+                    </section>
+                  )}
+                </>
+              ) : (
+                <div className="py-10 text-center text-text-dim italic">
+                  상세 정보가 아직 업데이트되지 않았습니다.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header Section */}
       <header className="py-10 px-4 flex flex-col justify-center items-center text-center bg-bg-sub border-b border-glass-border">
         <div className="max-w-xl">
@@ -135,7 +266,7 @@ export default function Home() {
                     <div className="flex gap-8 justify-center">
                       {/* Left Sidebar: Block B */}
                       <div className="flex flex-col gap-3">
-                        {renderBlock('B', 7, 1, '수입사')}
+                        {renderBlock('B', 11, 1, '수입사', 3)}
                       </div>
 
                       {/* Main Center Blocks */}
@@ -143,7 +274,7 @@ export default function Home() {
                         <div className="flex gap-4">
                           {renderBlock('K', 5, 5, '프리미엄')}
                           <div className="w-5" />
-                          {renderBlock('J', 10, 5, '인기')}
+                          {renderBlock('J', 17, 9, '인기')}
                         </div>
                         <div className="flex gap-4">
                           {renderBlock('H', 20, 10, '전통')}
@@ -159,15 +290,17 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Right Sidebar: Block D */}
-                      <div className="flex flex-col gap-3">
+                      {/* Right Sidebar: Block D, L */}
+                      <div className="flex flex-col gap-6">
                         {renderBlock('D', 9, 1, '특별')}
+                        <div className="h-4" />
+                        {renderBlock('L', 5, 1, 'L-Zone')}
                       </div>
                     </div>
 
                     {/* Bottom row A */}
                     <div className="flex gap-4 justify-center mt-12">
-                      {renderBlock('A', 14, 14, '안내/기타')}
+                      {renderBlock('A', 13, 13, '안내/기타')}
                     </div>
 
                     {/* Hall 1 Bottom Zones */}
@@ -188,7 +321,7 @@ export default function Home() {
                       {/* Hall 2 Main Blocks */}
                       <div className="flex flex-col gap-8">
                         <div className="flex gap-4">
-                          {renderBlock('V', 10, 5, 'V-Section')}
+                          {renderBlock('V', 9, 3, '푸드/편의')}
                           <div className="w-5" />
                           {renderBlock('R', 4, 4, 'R-Section')}
                         </div>
@@ -196,10 +329,10 @@ export default function Home() {
                           {renderBlock('Q', 14, 7, 'Q-Section')}
                         </div>
                         <div className="flex gap-4">
-                          {renderBlock('P', 14, 7, 'P-Section')}
+                          {renderBlock('P', 15, 7, 'P-Section')}
                         </div>
                         <div className="flex gap-4">
-                          {renderBlock('M', 8, 8, 'M-Section')}
+                          {renderBlock('M', 12, 6, 'M-Section')}
                         </div>
                       </div>
 
@@ -242,56 +375,148 @@ export default function Home() {
               </div>
             </div>
 
-            {Object.keys(FESTIVAL_BOOTHS).sort().map((region) => {
-              const boothsInRegion = filteredBooths
-                .filter(b => b.region === region)
-                .sort((a, b) => a.id.localeCompare(b.id));
-                
-              if (boothsInRegion.length === 0) return null;
-
-              const isExpanded = expandedRegions.includes(region);
-
-              return (
-                <div key={region} className="mb-3">
-                  <button 
-                    onClick={() => {
-                      setExpandedRegions(prev => 
-                        prev.includes(region) 
-                          ? prev.filter(r => r !== region) 
-                          : [...prev, region]
-                      );
-                    }}
-                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-200 ${isExpanded ? 'bg-primary/5 border-primary/20' : 'bg-bg border-glass-border'}`}
+            {searchTerm.trim() !== '' ? (
+              <div className="grid grid-cols-1 gap-3 fade-in">
+                {filteredBooths.map((booth) => (
+                  <div 
+                    key={`${booth.region}-${booth.id}`} 
+                    onClick={() => setSelectedBooth(booth)}
+                    className="glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 border-l-4"
+                    style={{ borderLeftColor: `var(--${booth.region.toLowerCase()}-color, #ddd)` }}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black ${getBoothColorClass(region)}`}>
-                        {region}
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 shrink-0 rounded-xl flex flex-col items-center justify-center border border-glass-border/30 shadow-sm ${getBoothColorClass(booth.region)}`}>
+                        <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.region}</span>
+                        <span className="text-[0.8rem] font-black leading-none">{booth.id.replace(booth.region, '')}</span>
                       </div>
-                      <span className="font-bold text-text">{region} 구역</span>
-                      <span className="text-xs text-text-dim font-medium">{boothsInRegion.length}개 부스</span>
-                    </div>
-                    <span className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
-                      ▼
-                    </span>
-                  </button>
-
-                  {isExpanded && (
-                    <div className="mt-2 grid grid-cols-1 gap-2 fade-in">
-                      {boothsInRegion.map((booth) => (
-                        <div key={booth.id} className="glass-card p-4 flex flex-row gap-4 items-center bg-white">
-                          <div className={`w-12 h-12 shrink-0 rounded-lg flex items-center justify-center text-[0.7rem] font-black border border-glass-border/30 ${getBoothColorClass(booth.region)}`}>
-                            {booth.id}
-                          </div>
-                          <div className="flex-grow">
-                            <h3 className="text-base font-bold text-primary">{booth.name}</h3>
-                          </div>
+                      <div className="flex-grow">
+                        <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                          <h3 className="text-base font-bold text-text">{booth.name}</h3>
+                          {getFlavorBadge(booth.details?.flavor)}
                         </div>
-                      ))}
+                        <div className="flex items-center gap-2">
+                          <span className="px-1.5 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10">
+                            {booth.details?.region_name || '정보없음'}
+                          </span>
+                          {booth.details?.type && (
+                            <span className="text-[0.65rem] text-text-dim/60 font-medium">
+                              • {booth.details.type.toUpperCase()}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span className="text-primary/30 self-center">❯</span>
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                    
+                    {booth.details?.features && (
+                      <div className="mt-1">
+                        <p className="text-[0.75rem] text-text-dim leading-relaxed line-clamp-2 italic">
+                          "{booth.details.features}"
+                        </p>
+                        {booth.details.tags && (
+                          <div className="flex flex-wrap gap-1.5 mt-2.5">
+                            {booth.details.tags.slice(0, 4).map(tag => (
+                              <span key={tag} className="text-[0.65rem] text-primary/60 font-medium bg-primary/5 px-2 py-0.5 rounded-full">
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              Object.keys(FESTIVAL_BOOTHS).sort().map((region) => {
+                const boothsInRegion = filteredBooths
+                  .filter(b => b.region === region)
+                  .sort((a, b) => a.id.localeCompare(b.id));
+                  
+                if (boothsInRegion.length === 0) return null;
+
+                const isExpanded = expandedRegions.includes(region);
+
+                return (
+                  <div key={region} className="mb-3">
+                    <button 
+                      onClick={() => {
+                        setExpandedRegions(prev => 
+                          prev.includes(region) 
+                            ? prev.filter(r => r !== region) 
+                            : [...prev, region]
+                        );
+                      }}
+                      className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-200 ${isExpanded ? 'bg-primary/5 border-primary/20' : 'bg-bg border-glass-border'}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black ${getBoothColorClass(region)}`}>
+                          {region}
+                        </div>
+                        <span className="font-bold text-text">{region} 구역</span>
+                        <span className="text-xs text-text-dim font-medium">{boothsInRegion.length}개 부스</span>
+                      </div>
+                      <span className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+                        ▼
+                      </span>
+                    </button>
+
+                    {isExpanded && (
+                      <div className="mt-2 grid grid-cols-1 gap-2 fade-in">
+                        {boothsInRegion.map((booth) => (
+                          <div 
+                            key={booth.id} 
+                            onClick={() => setSelectedBooth(booth)}
+                            className="glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300"
+                          >
+                            <div className="flex items-start gap-4">
+                              <div className={`w-12 h-12 shrink-0 rounded-xl flex flex-col items-center justify-center border border-glass-border/30 shadow-sm ${getBoothColorClass(booth.region)}`}>
+                                <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.region}</span>
+                                <span className="text-[0.8rem] font-black leading-none">{booth.id.replace(booth.region, '')}</span>
+                              </div>
+                              <div className="flex-grow">
+                                <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                                  <h3 className="text-base font-bold text-text">{booth.name}</h3>
+                                  {getFlavorBadge(booth.details?.flavor)}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <span className="px-1.5 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10">
+                                    {booth.details?.region_name || '정보없음'}
+                                  </span>
+                                  {booth.details?.type && (
+                                    <span className="text-[0.65rem] text-text-dim/60 font-medium">
+                                      • {booth.details.type.toUpperCase()}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              <span className="text-primary/30 self-center">❯</span>
+                            </div>
+                            
+                            {booth.details?.features && (
+                              <div className="mt-1">
+                                <p className="text-[0.75rem] text-text-dim leading-relaxed line-clamp-2">
+                                  {booth.details.features}
+                                </p>
+                                {booth.details.tags && (
+                                  <div className="flex flex-wrap gap-1.5 mt-2.5">
+                                    {booth.details.tags.slice(0, 3).map(tag => (
+                                      <span key={tag} className="text-[0.65rem] text-primary/60 font-medium bg-primary/5 px-2 py-0.5 rounded-full">
+                                        #{tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            )}
             
             {filteredBooths.length === 0 && (
               <div className="text-center py-20 text-text-dim font-medium italic">
