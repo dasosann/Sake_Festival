@@ -10,14 +10,63 @@ export default function Home() {
   const [expandedRegions, setExpandedRegions] = useState<string[]>([]);
   const [selectedBooth, setSelectedBooth] = useState<BoothInfo | null>(null);
 
-  // Close modal with ESC key
+  // 방문 여부 및 메모 상태 (localStorage 연동)
+  const [visitedBooths, setVisitedBooths] = useState<string[]>([]);
+  const [boothNotes, setBoothNotes] = useState<Record<string, string>>({});
+
+  // 초기 로드 시 localStorage에서 데이터 복원
+  useEffect(() => {
+    const savedVisited = localStorage.getItem('sake_visited');
+    const savedNotes = localStorage.getItem('sake_notes');
+    if (savedVisited) {
+      try { setVisitedBooths(JSON.parse(savedVisited)); } catch (e) { console.error(e); }
+    }
+    if (savedNotes) {
+      try { setBoothNotes(JSON.parse(savedNotes)); } catch (e) { console.error(e); }
+    }
+  }, []);
+
+  // 상태 변경 시 localStorage에 자동 저장
+  useEffect(() => {
+    if (visitedBooths.length > 0 || localStorage.getItem('sake_visited')) {
+      localStorage.setItem('sake_visited', JSON.stringify(visitedBooths));
+    }
+  }, [visitedBooths]);
+
+  useEffect(() => {
+    if (Object.keys(boothNotes).length > 0 || localStorage.getItem('sake_notes')) {
+      localStorage.setItem('sake_notes', JSON.stringify(boothNotes));
+    }
+  }, [boothNotes]);
+
+  const toggleVisit = (id: string) => {
+    setVisitedBooths(prev => 
+      prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
+    );
+  };
+
+  const updateNote = (id: string, note: string) => {
+    setBoothNotes(prev => ({ ...prev, [id]: note }));
+  };
+
+  // Close modal with ESC key & Lock Body Scroll
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectedBooth(null);
     };
     window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+    
+    if (selectedBooth) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = 'auto'; // Cleanup
+    };
+  }, [selectedBooth]);
 
   const filteredBooths = useMemo(() => {
     const term = searchTerm.toLowerCase();
@@ -104,9 +153,12 @@ export default function Home() {
               key={i} 
               title={booth?.name || boothId}
               onClick={() => booth && setSelectedBooth(booth)}
-              className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary cursor-pointer ${getBoothColorClass(prefix)} ${!booth ? 'opacity-30 grayscale' : ''}`}
+              className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary cursor-pointer relative ${getBoothColorClass(prefix)} ${!booth ? 'opacity-30 grayscale' : ''} ${visitedBooths.includes(boothId) ? 'ring-2 ring-primary ring-inset' : ''}`}
             >
               {prefix}{String(num).padStart(2, '0')}
+              {visitedBooths.includes(boothId) && (
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary text-white rounded-full flex items-center justify-center text-[0.5rem] shadow-sm">✓</span>
+              )}
             </div>
           );
         })}
@@ -124,7 +176,7 @@ export default function Home() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className={`p-6 ${getBoothColorClass(selectedBooth.id.charAt(0))} border-b`}>
+            <div className={`p-4 ${getBoothColorClass(selectedBooth.id.charAt(0))} border-b`}>
               <div className="flex justify-between items-start">
                 <div>
                   <span className="text-xs font-black px-2 py-1 bg-white/50 rounded-md border border-black/5 mb-2 inline-block">
@@ -147,7 +199,28 @@ export default function Home() {
             </div>
 
             {/* Modal Body */}
-            <div className="p-8 space-y-6 max-h-[70vh] overflow-y-auto">
+            <div className="p-4 space-y-6 max-h-[70vh] overflow-y-auto">
+              {/* Visit Toggle Area */}
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-bg-sub border border-glass-border">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${visitedBooths.includes(selectedBooth.id) ? 'bg-primary text-white shadow-lg' : 'bg-white border border-glass-border text-text-dim/40'}`}>
+                    {visitedBooths.includes(selectedBooth.id) ? '✓' : '🍷'}
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-text-dim uppercase tracking-wider leading-none mb-1">Status</p>
+                    <p className={`text-sm font-black ${visitedBooths.includes(selectedBooth.id) ? 'text-primary' : 'text-text'}`}>
+                      {visitedBooths.includes(selectedBooth.id) ? '방문 완료' : '아직 안 가본 곳'}
+                    </p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => toggleVisit(selectedBooth.id)}
+                  className={`px-6 py-2 rounded-xl text-xs font-black transition-all duration-300 ${visitedBooths.includes(selectedBooth.id) ? 'bg-white text-primary border border-primary/20 shadow-sm' : 'bg-primary text-white shadow-md active:scale-95'}`}
+                >
+                  {visitedBooths.includes(selectedBooth.id) ? '취소' : '방문'}
+                </button>
+              </div>
+
               {selectedBooth.details ? (
                 <>
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -164,34 +237,56 @@ export default function Home() {
                     ))}
                   </div>
                   
-                  <section>
-                    <h4 className="text-sm font-black text-primary uppercase tracking-wider mb-2">
+                  <section className="bg-primary/5 p-5 rounded-2xl border border-primary/10">
+                    <h4 className="text-[0.7rem] font-black text-primary uppercase tracking-widest mb-2 flex items-center gap-2">
+                      <span className="w-5 h-5 rounded-md bg-white flex items-center justify-center shadow-sm">📜</span>
                       {['food', 'service'].includes(selectedBooth.details.type || '') ? '분류 (Category)' : '역사 (History)'}
                     </h4>
                     <p className="text-sm leading-relaxed text-text font-medium opacity-90 whitespace-pre-wrap">{selectedBooth.details.history}</p>
                   </section>
-                  <section>
-                    <h4 className="text-sm font-black text-primary uppercase tracking-wider mb-2">
+                  
+                  <section className="bg-bg p-5 rounded-2xl border border-glass-border">
+                    <h4 className="text-[0.7rem] font-black text-text uppercase tracking-widest mb-2 flex items-center gap-2">
+                      <span className="w-5 h-5 rounded-md bg-bg-sub flex items-center justify-center shadow-sm">✨</span>
                       {['food', 'service'].includes(selectedBooth.details.type || '') ? '특성 (Characteristics)' : '특징 (Features)'}
                     </h4>
                     <p className="text-sm leading-relaxed text-text font-medium opacity-90 whitespace-pre-wrap">{selectedBooth.details.features}</p>
                   </section>
+
+                  {/* Personal Notes Section */}
+                  <section className="pt-4 border-t border-glass-border">
+                    <h4 className="text-[0.7rem] font-black text-text-dim uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <span className="w-5 h-5 rounded-md bg-bg-sub flex items-center justify-center shadow-sm text-[0.8rem]">✍️</span>
+                      나의 테이스팅 노트 (My Memo)
+                    </h4>
+                    <textarea 
+                      placeholder="이 부스에서 마신 술의 맛이나 기억하고 싶은 점을 적어보세요..."
+                      value={boothNotes[selectedBooth.id] || ''}
+                      onChange={(e) => updateNote(selectedBooth.id, e.target.value)}
+                      className="w-full h-32 p-5 rounded-2xl bg-bg-sub border border-glass-border text-sm text-text outline-none focus:border-primary transition-all resize-none placeholder:text-text-dim/40 leading-relaxed"
+                    />
+                    <div className="flex justify-between items-center mt-2 px-1">
+                      <span className="text-[0.6rem] text-text-dim/60 font-medium italic">입력 시 실시간 자동 저장됩니다</span>
+                      <span className="text-[0.6rem] text-text-dim/60 font-medium">{(boothNotes[selectedBooth.id] || '').length}자</span>
+                    </div>
+                  </section>
+
                   {selectedBooth.details.official_site && (
                     <section className="pt-4">
                       <a 
                         href={selectedBooth.details.official_site} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl text-sm font-bold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-transform"
+                        className="flex items-center justify-center gap-2 w-full py-4 bg-primary text-white rounded-2xl text-sm font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
                       >
-                        공식 사이트 방문 <span>↗</span>
+                        공식 사이트 방문하기 <span>↗</span>
                       </a>
                     </section>
                   )}
                 </>
               ) : (
-                <div className="py-10 text-center text-text-dim italic">
-                  상세 정보가 아직 업데이트되지 않았습니다.
+                <div className="py-20 text-center bg-bg-sub rounded-3xl border border-dashed border-glass-border">
+                  <p className="text-text-dim italic font-medium">상세 정보가 아직 업데이트되지 않았습니다.</p>
                 </div>
               )}
             </div>
@@ -381,9 +476,14 @@ export default function Home() {
                   <div 
                     key={`${booth.region}-${booth.id}`} 
                     onClick={() => setSelectedBooth(booth)}
-                    className="glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 border-l-4"
+                    className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 border-l-4 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/[0.02]' : ''}`}
                     style={{ borderLeftColor: `var(--${booth.region.toLowerCase()}-color, #ddd)` }}
                   >
+                    {visitedBooths.includes(booth.id) && (
+                      <div className="absolute top-0 right-0 bg-primary text-white p-1.5 rounded-bl-xl shadow-sm">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"></path></svg>
+                      </div>
+                    )}
                     <div className="flex items-start gap-4">
                       <div className={`w-12 h-12 shrink-0 rounded-xl flex flex-col items-center justify-center border border-glass-border/30 shadow-sm ${getBoothColorClass(booth.region)}`}>
                         <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.region}</span>
@@ -391,7 +491,7 @@ export default function Home() {
                       </div>
                       <div className="flex-grow">
                         <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                          <h3 className="text-base font-bold text-text">{booth.name}</h3>
+                          <h3 className={`text-base font-bold ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                           {getFlavorBadge(booth.details?.flavor)}
                         </div>
                         <div className="flex items-center gap-2">
@@ -405,7 +505,7 @@ export default function Home() {
                           )}
                         </div>
                       </div>
-                      <span className="text-primary/30 self-center">❯</span>
+                      {!visitedBooths.includes(booth.id) && <span className="text-primary/30 self-center">❯</span>}
                     </div>
                     
                     {booth.details?.features && (
@@ -422,6 +522,17 @@ export default function Home() {
                             ))}
                           </div>
                         )}
+                      </div>
+                    )}
+                    
+                    {boothNotes[booth.id] && (
+                      <div className="mt-2 p-3 bg-accent/5 rounded-xl border border-accent/10">
+                        <p className="text-[0.7rem] text-accent font-bold mb-1 flex items-center gap-1">
+                          <span>📝</span> MY NOTE
+                        </p>
+                        <p className="text-[0.7rem] text-text-dim line-clamp-1 italic">
+                          {boothNotes[booth.id]}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -467,8 +578,13 @@ export default function Home() {
                           <div 
                             key={booth.id} 
                             onClick={() => setSelectedBooth(booth)}
-                            className="glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300"
+                            className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/[0.02]' : ''}`}
                           >
+                            {visitedBooths.includes(booth.id) && (
+                              <div className="absolute top-0 right-0 bg-primary text-white p-1.5 rounded-bl-xl shadow-sm">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"></path></svg>
+                              </div>
+                            )}
                             <div className="flex items-start gap-4">
                               <div className={`w-12 h-12 shrink-0 rounded-xl flex flex-col items-center justify-center border border-glass-border/30 shadow-sm ${getBoothColorClass(booth.region)}`}>
                                 <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.region}</span>
@@ -476,7 +592,7 @@ export default function Home() {
                               </div>
                               <div className="flex-grow">
                                 <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                  <h3 className="text-base font-bold text-text">{booth.name}</h3>
+                                  <h3 className={`text-base font-bold ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                                   {getFlavorBadge(booth.details?.flavor)}
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -490,7 +606,7 @@ export default function Home() {
                                   )}
                                 </div>
                               </div>
-                              <span className="text-primary/30 self-center">❯</span>
+                              {!visitedBooths.includes(booth.id) && <span className="text-primary/30 self-center">❯</span>}
                             </div>
                             
                             {booth.details?.features && (
@@ -507,6 +623,17 @@ export default function Home() {
                                     ))}
                                   </div>
                                 )}
+                              </div>
+                            )}
+
+                            {boothNotes[booth.id] && (
+                              <div className="mt-2 p-3 bg-accent/5 rounded-xl border border-accent/10">
+                                <p className="text-[0.7rem] text-accent font-bold mb-1 flex items-center gap-1">
+                                  <span>📝</span> MY NOTE
+                                </p>
+                                <p className="text-[0.7rem] text-text-dim line-clamp-1 italic">
+                                  {boothNotes[booth.id]}
+                                </p>
                               </div>
                             )}
                           </div>
