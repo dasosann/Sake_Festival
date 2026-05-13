@@ -12,14 +12,19 @@ export default function Home() {
 
   // 방문 여부 및 메모 상태 (localStorage 연동)
   const [visitedBooths, setVisitedBooths] = useState<string[]>([]);
+  const [favoriteBooths, setFavoriteBooths] = useState<string[]>([]);
   const [boothNotes, setBoothNotes] = useState<Record<string, string>>({});
 
   // 초기 로드 시 localStorage에서 데이터 복원
   useEffect(() => {
     const savedVisited = localStorage.getItem('sake_visited');
+    const savedFavorites = localStorage.getItem('sake_favorites');
     const savedNotes = localStorage.getItem('sake_notes');
     if (savedVisited) {
       try { setVisitedBooths(JSON.parse(savedVisited)); } catch (e) { console.error(e); }
+    }
+    if (savedFavorites) {
+      try { setFavoriteBooths(JSON.parse(savedFavorites)); } catch (e) { console.error(e); }
     }
     if (savedNotes) {
       try { setBoothNotes(JSON.parse(savedNotes)); } catch (e) { console.error(e); }
@@ -34,6 +39,12 @@ export default function Home() {
   }, [visitedBooths]);
 
   useEffect(() => {
+    if (favoriteBooths.length > 0 || localStorage.getItem('sake_favorites')) {
+      localStorage.setItem('sake_favorites', JSON.stringify(favoriteBooths));
+    }
+  }, [favoriteBooths]);
+
+  useEffect(() => {
     if (Object.keys(boothNotes).length > 0 || localStorage.getItem('sake_notes')) {
       localStorage.setItem('sake_notes', JSON.stringify(boothNotes));
     }
@@ -42,6 +53,12 @@ export default function Home() {
   const toggleVisit = (id: string) => {
     setVisitedBooths(prev => 
       prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]
+    );
+  };
+
+  const toggleFavorite = (id: string) => {
+    setFavoriteBooths(prev => 
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
     );
   };
 
@@ -144,6 +161,20 @@ export default function Home() {
     return colors[prefix] || 'bg-bg-sub border-[#ddd] text-[#888]';
   };
 
+  const HeartIcon = ({ filled, className }: { filled?: boolean, className?: string }) => (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" height="24" viewBox="0 0 24 24" 
+      fill={filled ? "currentColor" : "none"} 
+      stroke="currentColor" 
+      strokeWidth="2.5" 
+      strokeLinecap="round" strokeLinejoin="round" 
+      className={className}
+    >
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+    </svg>
+  );
+
   const getBoothData = (id: string) => {
     return ALL_BOOTHS.find(b => b.id === id);
   };
@@ -170,6 +201,11 @@ export default function Home() {
               {prefix}{String(num).padStart(2, '0')}
               {visitedBooths.includes(boothId) && (
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary text-white rounded-full flex items-center justify-center text-[0.5rem] shadow-sm">✓</span>
+              )}
+              {favoriteBooths.includes(boothId) && (
+                <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-pink-500 text-white rounded-full flex items-center justify-center shadow-sm border border-white">
+                  <HeartIcon filled className="w-2 h-2" />
+                </span>
               )}
             </div>
           );
@@ -225,12 +261,21 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <button 
-                  onClick={() => toggleVisit(selectedBooth.id)}
-                  className={`px-6 py-2 rounded-xl text-xs font-black transition-all duration-300 ${visitedBooths.includes(selectedBooth.id) ? 'bg-white text-primary border border-primary/20 shadow-sm' : 'bg-primary text-white shadow-md active:scale-95'}`}
-                >
-                  {visitedBooths.includes(selectedBooth.id) ? '취소' : '방문'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button 
+                    onClick={() => toggleFavorite(selectedBooth.id)}
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${favoriteBooths.includes(selectedBooth.id) ? 'bg-pink-500 text-white shadow-lg shadow-pink-200' : 'bg-white text-pink-500 border border-pink-100 shadow-sm hover:bg-pink-50'}`}
+                    title="관심 등록"
+                  >
+                    <HeartIcon filled={favoriteBooths.includes(selectedBooth.id)} className="w-6 h-6" />
+                  </button>
+                  <button 
+                    onClick={() => toggleVisit(selectedBooth.id)}
+                    className={`px-6 py-2 rounded-xl text-xs font-black transition-all duration-300 ${visitedBooths.includes(selectedBooth.id) ? 'bg-white text-primary border border-primary/20 shadow-sm' : 'bg-primary text-white shadow-md active:scale-95'}`}
+                  >
+                    {visitedBooths.includes(selectedBooth.id) ? '취소' : '방문'}
+                  </button>
+                </div>
               </div>
 
               {selectedBooth.details ? (
@@ -322,6 +367,13 @@ export default function Home() {
           onClick={() => setActiveTab('search')}
         >
           부스검색
+        </button>
+        <button 
+          className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2.5 rounded-xl transition-all duration-300 font-bold text-sm text-center flex items-center justify-center gap-1.5 ${activeTab === 'collection' ? 'bg-pink-500 text-white shadow-lg shadow-pink-200' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
+          onClick={() => setActiveTab('collection')}
+        >
+          <HeartIcon filled={activeTab === 'collection'} className="w-4 h-4" />
+          찜 목록 {favoriteBooths.length > 0 && <span className="text-[0.65rem] opacity-80">({favoriteBooths.length})</span>}
         </button>
         <button 
           className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2.5 rounded-xl transition-all duration-300 font-bold text-sm text-center ${activeTab === 'schedule' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
@@ -485,8 +537,13 @@ export default function Home() {
                     style={{ borderLeftColor: `var(--${booth.region.toLowerCase()}-color, #ddd)` }}
                   >
                     {visitedBooths.includes(booth.id) && (
-                      <div className="absolute top-0 right-0 bg-primary text-white p-1.5 rounded-bl-xl shadow-sm">
+                      <div className="absolute top-0 right-0 bg-primary text-white p-1.5 rounded-bl-xl shadow-sm z-10">
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"></path></svg>
+                      </div>
+                    )}
+                    {favoriteBooths.includes(booth.id) && (
+                      <div className="absolute top-0 right-7 bg-pink-500 text-white p-1.5 rounded-b-lg shadow-sm z-10 flex items-center justify-center">
+                        <HeartIcon filled className="w-3 h-3" />
                       </div>
                     )}
                     <div className="flex items-start gap-4">
@@ -572,8 +629,13 @@ export default function Home() {
                             className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/[0.02]' : ''}`}
                           >
                             {visitedBooths.includes(booth.id) && (
-                              <div className="absolute top-0 right-0 bg-primary text-white p-1.5 rounded-bl-xl shadow-sm">
+                              <div className="absolute top-0 right-0 bg-primary text-white p-1.5 rounded-bl-xl shadow-sm z-10">
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"></path></svg>
+                              </div>
+                            )}
+                            {favoriteBooths.includes(booth.id) && (
+                              <div className="absolute top-0 right-7 bg-pink-500 text-white p-1.5 rounded-b-lg shadow-sm z-10 flex items-center justify-center">
+                                <HeartIcon filled className="w-3 h-3" />
                               </div>
                             )}
                             <div className="flex items-start gap-4">
@@ -625,6 +687,89 @@ export default function Home() {
             {filteredBooths.length === 0 && (
               <div className="text-center py-20 text-text-dim font-medium italic">
                 검색 결과가 없습니다.
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Tab 4: Collection (Favorites) */}
+        {activeTab === 'collection' && (
+          <section className="fade-in px-2 sm:px-0">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xl font-black flex items-center gap-2">
+                <HeartIcon filled className="text-pink-500 w-6 h-6" /> 내가 찜한 부스
+              </h2>
+              <span className="text-xs font-bold text-text-dim bg-bg-sub px-3 py-1 rounded-full border border-glass-border">
+                총 {favoriteBooths.length}개
+              </span>
+            </div>
+
+            {favoriteBooths.length > 0 ? (
+              <div className="grid grid-cols-1 gap-3">
+                {favoriteBooths
+                  .map(id => ALL_BOOTHS.find(b => b.id === id))
+                  .filter((b): b is BoothInfo & { region: string } => !!b)
+                  .map((booth) => (
+                  <div 
+                    key={booth.id} 
+                    onClick={() => setSelectedBooth(booth)}
+                    className="glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-pink-300 transition-all duration-300 border-l-4 relative"
+                    style={{ borderLeftColor: '#ec4899' }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 shrink-0 rounded-xl flex flex-col items-center justify-center border border-glass-border/30 shadow-sm ${getBoothColorClass(booth.id.charAt(0))}`}>
+                        <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.id.charAt(0)}</span>
+                        <span className="text-[0.8rem] font-black leading-none">{booth.id.slice(1)}</span>
+                      </div>
+                      <div className="flex-grow">
+                        <h3 className="text-base font-bold mb-1.5">{booth.name}</h3>
+                        <div className="flex items-center gap-2">
+                          {booth.details?.type && (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10 leading-none">
+                              {TYPE_LABELS[booth.details.type] || booth.details.type.toUpperCase()}
+                            </span>
+                          )}
+                          {getFlavorBadge(booth.details?.flavor)}
+                        </div>
+                      </div>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(booth.id);
+                        }}
+                        className="w-10 h-10 rounded-full flex items-center justify-center bg-pink-50 text-pink-500 hover:bg-pink-500 hover:text-white transition-all shadow-sm border border-pink-100"
+                      >
+                        <HeartIcon filled className="w-5 h-5" />
+                      </button>
+                    </div>
+                    
+                    {booth.details?.features && (
+                      <p className="text-[0.75rem] text-text-dim leading-relaxed line-clamp-1 italic">
+                        "{booth.details.features}"
+                      </p>
+                    )}
+
+                    {boothNotes[booth.id] && (
+                      <div className="mt-1 p-2.5 bg-accent/5 rounded-xl border border-accent/10">
+                        <p className="text-[0.65rem] text-text-dim line-clamp-1 italic">
+                          📝 {boothNotes[booth.id]}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-32 bg-white rounded-3xl border border-dashed border-glass-border">
+                <div className="text-4xl mb-4">🤍</div>
+                <p className="text-text-dim font-bold mb-1">관심 부스가 없습니다.</p>
+                <p className="text-xs text-text-dim/60">부스 상세 정보에서 하트 버튼을 눌러 등록해보세요!</p>
+                <button 
+                  onClick={() => setActiveTab('search')}
+                  className="mt-6 px-6 py-2 bg-primary text-white rounded-full text-xs font-bold shadow-lg shadow-primary/20"
+                >
+                  부스 찾아보기
+                </button>
               </div>
             )}
           </section>
