@@ -1,0 +1,371 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-sub);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.heroContent {
+  max-width: 600px;
+}
+
+.heroTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.heroSubtitle {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Tabs */
+.tabsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0 2rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.tab {
+  flex: 1;
+  max-width: 120px;
+  padding: 0.6rem 0;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.tab:hover {
+  background: var(--glass-hover);
+  color: var(--text);
+}
+
+.activeTab {
+  background: var(--primary);
+  color: var(--bg);
+  border-color: var(--primary);
+}
+
+.activeTab:hover {
+  background: var(--primary);
+  color: var(--bg);
+}
+
+/* Booth Section */
+.boothSection {
+  padding-bottom: 100px;
+}
+
+.sectionHeader {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.searchBox {
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  background: var(--bg-sub);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  width: 100%;
+  outline: none;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.searchBox:focus {
+  border-color: var(--primary);
+  background: var(--glass-hover);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.imagePlaceholder {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  background: var(--bg-sub);
+  border-radius: 8px;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+}
+
+.cardContent {
+  flex-grow: 1;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: var(--primary);
+}
+
+.cardRegion {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+  display: none; /* Hide detailed desc in list view for utility feel */
+}
+
+.tagContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  background: rgba(188, 47, 50, 0.1);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Schedule */
+.scheduleItem {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.scheduleTime {
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 100px;
+}
+
+.scheduleContent h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.scheduleContent p {
+  color: var(--text-dim);
+}
+
+/* Map */
+/* Map Hall Switcher */
+.hallSwitcher {
+  display: flex;
+  background: var(--bg-sub);
+  padding: 0.3rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hallBtn {
+  padding: 0.5rem 2rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.activeHall {
+  background: var(--bg);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.mapHall {
+  background: #fff;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  overflow-x: auto; /* For mobile */
+}
+
+.hallGridContainer {
+  min-width: 600px; /* Ensure map doesn't get too crushed */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hallRow {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.mapBlock {
+  display: grid;
+  gap: 4px;
+  background: #fdfdfd;
+  padding: 4px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.mapBooth {
+  width: 32px;
+  height: 24px;
+  background: var(--bg-sub);
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #888;
+  transition: var(--transition);
+}
+
+.mapBooth:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Color sections based on image */
+.boothA { background: #ffebee; border-color: #ffcdd2; color: #c62828; }
+.boothB { background: #e3f2fd; border-color: #bbdefb; color: #1565c0; }
+.boothE { background: #f3e5f5; border-color: #e1bee7; color: #7b1fa2; }
+.boothF { background: #e8f5e9; border-color: #c8e6c9; color: #2e7d32; }
+.boothG { background: #fffde7; border-color: #fff9c4; color: #f9a825; }
+.boothH { background: #e0f2f1; border-color: #b2dfdb; color: #00695c; }
+.boothJ { background: #f1f8e9; border-color: #dcedc8; color: #33691e; }
+.boothK { background: #efebe9; border-color: #d7ccc8; color: #4e342e; }
+
+/* Hall 2 Colors */
+.boothP { background: #fce4ec; border-color: #f8bbd0; color: #c2185b; }
+.boothQ { background: #f3e5f5; border-color: #e1bee7; color: #7b1fa2; }
+.boothR { background: #e8eaf6; border-color: #c5cae9; color: #283593; }
+.boothV { background: #e0f7fa; border-color: #b2ebf2; color: #00838f; }
+.specialZone {
+  background: #f8f9fa;
+  border: 1px dashed #ced4da;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #495057;
+  padding: 10px;
+  text-align: center;
+}
+
+.seminarZone {
+  background: #e7f5ff;
+  border-color: #a5d8ff;
+  color: #1971c2;
+}
+
+.washZone {
+  background: #e3f2fd;
+  border-color: #90caf9;
+  color: #1565c0;
+}
+
+.photoZone {
+  background: #fff0f6;
+  border-color: #ffdeeb;
+  color: #c2185b;
+}
+
+.loungeZone {
+  background: #f1f3f5;
+  border-color: #dee2e6;
+  color: #495057;
+}
+
+.boothLabel {
+  position: absolute;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #666;
+  pointer-events: none;
+}
+
+.entranceLabel {
+  background: var(--bg);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 60vh;
+  }
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .searchBox {
+    width: 100%;
+  }
+  .tabsContainer {
+    width: 100%;
+    padding: 0 1rem;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+  .tab {
+    flex-shrink: 0;
+  }
+}
