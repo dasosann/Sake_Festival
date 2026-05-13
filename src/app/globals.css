@@ -3,8 +3,9 @@
 @theme {
   --color-bg: #ffffff;
   --color-bg-sub: #f8f9fa;
-  --color-primary: #af8f2c;
-  --color-primary-glow: rgba(175, 143, 44, 0.2);
+  --color-primary: #388e3c;
+  --color-primary-glow: rgba(56, 142, 60, 0.2);
+  --color-type-tag: #303f9f;
   --color-accent: #bc2f32;
   --color-text: #1a1a1e;
   --color-text-dim: #6c757d;

@@ -121,12 +121,21 @@ export default function Home() {
     other: '기타'
   };
 
+  const getTypeBadge = (type?: string, isLarge: boolean = false) => {
+    if (!type) return null;
+    return (
+      <span className={`inline-flex items-center ${isLarge ? 'px-3 py-1 rounded-full text-[0.7rem]' : 'px-2 py-0.5 rounded-md text-[0.65rem]'} bg-type-tag text-white font-bold border border-white/10 shadow-sm leading-none transition-all`}>
+        {TYPE_LABELS[type] || type.toUpperCase()}
+      </span>
+    );
+  };
+
   const getFlavorBadge = (flavor?: string) => {
     if (!flavor) return null;
     const styles: Record<string, string> = {
-      amaguchi: 'bg-pink-50 text-pink-600 border-pink-100',
-      karaguchi: 'bg-blue-50 text-blue-600 border-blue-100',
-      balance: 'bg-emerald-50 text-emerald-600 border-emerald-100'
+      amaguchi: 'bg-[#fff0f6] text-[#c2185b] border-[#ffdeeb]',
+      karaguchi: 'bg-[#e7f5ff] text-[#1971c2] border-[#a5d8ff]',
+      balance: 'bg-[#ebfbee] text-[#2b8a3e] border-[#b2f2bb]'
     };
     const labels: Record<string, string> = {
       amaguchi: '아마구치',
@@ -136,6 +145,28 @@ export default function Home() {
     return (
       <span className={`inline-flex items-center px-2 py-0.5 rounded text-[0.65rem] font-bold border leading-none ${styles[flavor]}`}>
         {labels[flavor]}
+      </span>
+    );
+  };
+
+  const getRegionTag = (region?: string) => {
+    if (!region) return null;
+    return (
+      <span className="inline-flex items-center px-2 py-0.5 rounded bg-[#f1f3f5] text-[#495057] text-[0.65rem] font-bold border border-[#dee2e6] leading-none">
+        {region}
+      </span>
+    );
+  };
+
+  const getImporterBadge = (tags?: string[]) => {
+    if (!tags) return null;
+    const importers = ['니혼SAKE', '사카야코리아'];
+    const importerTag = tags.find(tag => importers.includes(tag));
+    if (!importerTag) return null;
+    
+    return (
+      <span className="inline-flex items-center px-2 py-0.5 rounded bg-[#1a1a1e] text-white text-[0.65rem] font-black border border-black shadow-sm leading-none">
+        {importerTag}
       </span>
     );
   };
@@ -150,13 +181,14 @@ export default function Home() {
       'G': 'bg-[#fffde7] border-[#fff9c4] text-[#f9a825]',
       'H': 'bg-[#e0f2f1] border-[#b2dfdb] text-[#00695c]',
       'J': 'bg-[#f1f8e9] border-[#dcedc8] text-[#33691e]',
-      'K': 'bg-[#efebe9] border-[#d7ccc8] text-[#4e342e]',
-      'M': 'bg-[#f8f9fa] border-[#eee] text-[#888]',
+      'K': 'bg-[#f9fbe7] border-[#e6ee9c] text-[#827717]',
+      'L': 'bg-[#fff3e0] border-[#ffe0b2] text-[#e65100]',
+      'M': 'bg-[#ede7f6] border-[#d1c4e9] text-[#512da8]',
       'P': 'bg-[#fce4ec] border-[#f8bbd0] text-[#c2185b]',
-      'Q': 'bg-[#f3e5f5] border-[#e1bee7] text-[#7b1fa2]',
+      'Q': 'bg-[#fff0f3] border-[#ffccd5] text-[#c9184a]',
       'R': 'bg-[#e8eaf6] border-[#c5cae9] text-[#283593]',
       'V': 'bg-[#e0f7fa] border-[#b2ebf2] text-[#00838f]',
-      'U': 'bg-[#e0f7fa] border-[#b2ebf2] text-[#00838f]',
+      'U': 'bg-[#eceff1] border-[#cfd8dc] text-[#455a64]',
     };
     return colors[prefix] || 'bg-bg-sub border-[#ddd] text-[#888]';
   };
@@ -231,11 +263,10 @@ export default function Home() {
                     {selectedBooth.id}
                   </span>
                   <h3 className="text-xl font-bold">{selectedBooth.name}</h3>
-                  {selectedBooth.details?.region_name && (
-                    <div className="text-sm font-medium mt-1 opacity-80 flex items-center gap-1">
-                      <span>📍</span> {selectedBooth.details.region_name}
-                    </div>
-                  )}
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {getRegionTag(selectedBooth.details?.region_name)}
+                    {getImporterBadge(selectedBooth.details?.tags)}
+                  </div>
                 </div>
                 <button 
                   onClick={() => setSelectedBooth(null)}
@@ -281,11 +312,7 @@ export default function Home() {
               {selectedBooth.details ? (
                 <>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {selectedBooth.details.type && (
-                      <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-[0.7rem] font-bold border border-primary/20 leading-none">
-                        {TYPE_LABELS[selectedBooth.details.type] || selectedBooth.details.type.toUpperCase()}
-                      </span>
-                    )}
+                    {getTypeBadge(selectedBooth.details.type, true)}
                     {getFlavorBadge(selectedBooth.details.flavor)}
                   </div>
                   
@@ -507,7 +534,7 @@ export default function Home() {
             </div>
             
             <p className="mt-6 text-text-dim text-[0.8rem] text-center leading-relaxed">
-              📍 지도를 스와이프하여 전체 배치를 확인하세요.<br className="sm:hidden" /> 각 번호는 '부스검색' 탭에서 검색 가능합니다.
+              💡 지도를 스와이프하여 전체 배치를 확인하세요.<br className="sm:hidden" /> 각 번호는 '부스검색' 탭에서 검색 가능합니다.
             </p>
           </section>
         )}
@@ -554,11 +581,9 @@ export default function Home() {
                       <div className="flex-grow">
                         <h3 className={`text-base font-bold mb-1.5 ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                         <div className="flex items-center gap-2">
-                          {booth.details?.type && (
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10 leading-none">
-                              {TYPE_LABELS[booth.details.type] || booth.details.type.toUpperCase()}
-                            </span>
-                          )}
+                          {getTypeBadge(booth.details?.type)}
+                          {getRegionTag(booth.details?.region_name)}
+                          {getImporterBadge(booth.details?.tags)}
                           {getFlavorBadge(booth.details?.flavor)}
                         </div>
                       </div>
@@ -646,11 +671,9 @@ export default function Home() {
                               <div className="flex-grow">
                                 <h3 className={`text-base font-bold mb-1.5 ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                                 <div className="flex items-center gap-2">
-                                  {booth.details?.type && (
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10 leading-none">
-                                      {TYPE_LABELS[booth.details.type] || booth.details.type.toUpperCase()}
-                                    </span>
-                                  )}
+                                  {getTypeBadge(booth.details?.type)}
+                                  {getRegionTag(booth.details?.region_name)}
+                                  {getImporterBadge(booth.details?.tags)}
                                   {getFlavorBadge(booth.details?.flavor)}
                                 </div>
                               </div>
@@ -724,11 +747,9 @@ export default function Home() {
                       <div className="flex-grow">
                         <h3 className="text-base font-bold mb-1.5">{booth.name}</h3>
                         <div className="flex items-center gap-2">
-                          {booth.details?.type && (
-                            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary/5 text-primary text-[0.65rem] font-bold border border-primary/10 leading-none">
-                              {TYPE_LABELS[booth.details.type] || booth.details.type.toUpperCase()}
-                            </span>
-                          )}
+                          {getTypeBadge(booth.details?.type)}
+                          {getRegionTag(booth.details?.region_name)}
+                          {getImporterBadge(booth.details?.tags)}
                           {getFlavorBadge(booth.details?.flavor)}
                         </div>
                       </div>
