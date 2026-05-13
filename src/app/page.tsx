@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './page.module.css';
 
 interface Booth {
   id: number;
@@ -75,13 +74,37 @@ export default function Home() {
     booth.tags.some(tag => tag.includes(searchTerm))
   );
 
+  const getBoothColorClass = (prefix: string) => {
+    const colors: Record<string, string> = {
+      'A': 'bg-[#ffebee] border-[#ffcdd2] text-[#c62828]',
+      'B': 'bg-[#e3f2fd] border-[#bbdefb] text-[#1565c0]',
+      'D': 'bg-[#efebe9] border-[#d7ccc8] text-[#4e342e]',
+      'E': 'bg-[#f3e5f5] border-[#e1bee7] text-[#7b1fa2]',
+      'F': 'bg-[#e8f5e9] border-[#c8e6c9] text-[#2e7d32]',
+      'G': 'bg-[#fffde7] border-[#fff9c4] text-[#f9a825]',
+      'H': 'bg-[#e0f2f1] border-[#b2dfdb] text-[#00695c]',
+      'J': 'bg-[#f1f8e9] border-[#dcedc8] text-[#33691e]',
+      'K': 'bg-[#efebe9] border-[#d7ccc8] text-[#4e342e]',
+      'M': 'bg-[#f8f9fa] border-[#eee] text-[#888]',
+      'P': 'bg-[#fce4ec] border-[#f8bbd0] text-[#c2185b]',
+      'Q': 'bg-[#f3e5f5] border-[#e1bee7] text-[#7b1fa2]',
+      'R': 'bg-[#e8eaf6] border-[#c5cae9] text-[#283593]',
+      'V': 'bg-[#e0f7fa] border-[#b2ebf2] text-[#00838f]',
+      'U': 'bg-[#e0f7fa] border-[#b2ebf2] text-[#00838f]',
+    };
+    return colors[prefix] || 'bg-bg-sub border-[#ddd] text-[#888]';
+  };
+
   // Helper to render a block of booths
-  const renderBlock = (prefix: string, count: number, cols: number, sectionClass: string, label?: string) => (
-    <div style={{ position: 'relative' }}>
-      {label && <div className={styles.boothLabel} style={{ top: '-15px', left: '0' }}>{label}</div>}
-      <div className={styles.mapBlock} style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
+  const renderBlock = (prefix: string, count: number, cols: number, label?: string) => (
+    <div className="relative">
+      {label && <div className="absolute -top-[15px] left-0 text-[0.6rem] font-bold text-[#666] pointer-events-none whitespace-nowrap">{label}</div>}
+      <div 
+        className="grid gap-1 bg-[#fdfdfd] p-1 border border-[#eee] rounded shadow-sm" 
+        style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
+      >
         {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className={`${styles.mapBooth} ${sectionClass}`}>
+          <div key={i} className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary ${getBoothColorClass(prefix)}`}>
             {prefix}{String(i + 1).padStart(2, '0')}
           </div>
         ))}
@@ -90,52 +113,52 @@ export default function Home() {
   );
 
   return (
-    <main className={styles.main}>
+    <main className="min-h-screen flex flex-col bg-bg text-text">
       {/* Header Section */}
-      <header className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>2026 SAKE FESTIVAL</h1>
-          <p className={styles.heroSubtitle}>SEOUL SETEC · Visitor Guide</p>
+      <header className="py-10 px-4 flex flex-col justify-center items-center text-center bg-bg-sub border-b border-glass-border">
+        <div className="max-w-xl">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-primary tracking-tight">2026 SAKE FESTIVAL</h1>
+          <p className="text-xs sm:text-sm text-text-dim tracking-[0.2em] uppercase font-medium">SEOUL SETEC · Visitor Guide</p>
         </div>
       </header>
 
       {/* Tabs Navigation */}
-      <nav className={styles.tabsContainer}>
+      <nav className="flex justify-start sm:justify-center gap-2 my-0 sm:my-4 sticky top-0 z-50 bg-bg/80 backdrop-blur-md py-2 px-4 border-b border-glass-border overflow-x-auto no-scrollbar">
         <button 
-          className={`${styles.tab} ${activeTab === 'map' ? styles.activeTab : ''}`}
+          className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2.5 rounded-xl transition-all duration-300 font-bold text-sm text-center ${activeTab === 'map' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
           onClick={() => setActiveTab('map')}
         >
           배치도
         </button>
         <button 
-          className={`${styles.tab} ${activeTab === 'search' ? styles.activeTab : ''}`}
+          className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2.5 rounded-xl transition-all duration-300 font-bold text-sm text-center ${activeTab === 'search' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
           onClick={() => setActiveTab('search')}
         >
           부스검색
         </button>
         <button 
-          className={`${styles.tab} ${activeTab === 'schedule' ? styles.activeTab : ''}`}
+          className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2.5 rounded-xl transition-all duration-300 font-bold text-sm text-center ${activeTab === 'schedule' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
           onClick={() => setActiveTab('schedule')}
         >
           행사일정
         </button>
       </nav>
 
-      <div className="container" style={{ minHeight: '600px', paddingBottom: '50px' }}>
+      <div className="container min-h-[600px] pb-20 pt-6">
         {/* Tab 1: Map */}
         {activeTab === 'map' && (
           <section className="fade-in">
-            <div className={styles.sectionHeader} style={{ textAlign: 'center' }}>
-              <h2 className={styles.sectionTitle}>Booth Map</h2>
-              <div className={styles.hallSwitcher}>
+            <div className="mb-8 flex flex-col gap-4 text-center">
+              <h2 className="text-xl font-bold text-text">Booth Map</h2>
+              <div className="flex bg-bg-sub p-1 rounded-xl w-fit mx-auto shadow-inner">
                 <button 
-                  className={`${styles.hallBtn} ${activeHall === 1 ? styles.activeHall : ''}`}
+                  className={`py-2 px-6 rounded-lg text-sm font-bold transition-all duration-300 ${activeHall === 1 ? 'bg-white text-primary shadow-sm' : 'text-text-dim'}`}
                   onClick={() => setActiveHall(1)}
                 >
                   1관 (Hall 1)
                 </button>
                 <button 
-                  className={`${styles.hallBtn} ${activeHall === 2 ? styles.activeHall : ''}`}
+                  className={`py-2 px-6 rounded-lg text-sm font-bold transition-all duration-300 ${activeHall === 2 ? 'bg-white text-primary shadow-sm' : 'text-text-dim'}`}
                   onClick={() => setActiveHall(2)}
                 >
                   2관 (Hall 2)
@@ -143,139 +166,142 @@ export default function Home() {
               </div>
             </div>
 
-            <div className={styles.mapHall}>
-              <div className={styles.hallGridContainer}>
+            <div className="bg-white border border-glass-border rounded-2xl p-4 sm:p-8 relative overflow-x-auto shadow-sm">
+              <div className="min-w-[600px] flex flex-col gap-6">
                 {activeHall === 1 ? (
                   <div className="fade-in">
                     {/* Hall 1 Top Zones */}
-                    <div className={styles.hallRow} style={{ marginBottom: '30px' }}>
-                      <div className={`${styles.specialZone} ${styles.loungeZone}`} style={{ width: '120px' }}>참가업체 라운지</div>
-                      <div className={`${styles.specialZone} ${styles.loungeZone}`} style={{ width: '180px' }}>라운지 (Lounge)</div>
-                      <div className={`${styles.specialZone} ${styles.washZone}`} style={{ width: '60px' }}>세척존</div>
-                      <div className={`${styles.specialZone} ${styles.seminarZone}`} style={{ width: '120px' }}>세미나존</div>
+                    <div className="flex gap-4 justify-center mb-10">
+                      <div className="bg-[#f1f3f5] border border-dashed border-[#dee2e6] text-[#495057] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center w-[120px]">참가업체 라운지</div>
+                      <div className="bg-[#f1f3f5] border border-dashed border-[#dee2e6] text-[#495057] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center w-[180px]">라운지 (Lounge)</div>
+                      <div className="bg-[#e3f2fd] border border-dashed border-[#90caf9] text-[#1565c0] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center w-[60px]">세척존</div>
+                      <div className="bg-[#e7f5ff] border border-dashed border-[#a5d8ff] text-[#1971c2] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center w-[120px]">세미나존</div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '30px', justifyContent: 'center' }}>
+                    <div className="flex gap-8 justify-center">
                       {/* Left Sidebar: Block B */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        {renderBlock('B', 7, 1, styles.boothB, '수입사')}
+                      <div className="flex flex-col gap-3">
+                        {renderBlock('B', 7, 1, '수입사')}
                       </div>
 
                       {/* Main Center Blocks */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
-                        <div className={styles.hallRow}>
-                          {renderBlock('K', 5, 5, styles.boothK, '프리미엄')}
-                          <div style={{ width: '20px' }} />
-                          {renderBlock('J', 10, 5, styles.boothJ, '인기')}
+                      <div className="flex flex-col gap-8">
+                        <div className="flex gap-4">
+                          {renderBlock('K', 5, 5, '프리미엄')}
+                          <div className="w-5" />
+                          {renderBlock('J', 10, 5, '인기')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('H', 20, 10, styles.boothH, '전통')}
+                        <div className="flex gap-4">
+                          {renderBlock('H', 20, 10, '전통')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('G', 20, 10, styles.boothG, '모던')}
+                        <div className="flex gap-4">
+                          {renderBlock('G', 20, 10, '모던')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('F', 20, 10, styles.boothF, '신예')}
+                        <div className="flex gap-4">
+                          {renderBlock('F', 20, 10, '신예')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('E', 20, 10, styles.boothE, '정통')}
+                        <div className="flex gap-4">
+                          {renderBlock('E', 20, 10, '정통')}
                         </div>
                       </div>
 
                       {/* Right Sidebar: Block D */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        {renderBlock('D', 9, 1, styles.boothK, '특별')}
+                      <div className="flex flex-col gap-3">
+                        {renderBlock('D', 9, 1, '특별')}
                       </div>
                     </div>
 
                     {/* Bottom row A */}
-                    <div className={styles.hallRow} style={{ marginTop: '40px' }}>
-                      {renderBlock('A', 14, 14, styles.boothA, '안내/기타')}
+                    <div className="flex gap-4 justify-center mt-12">
+                      {renderBlock('A', 14, 14, '안내/기타')}
                     </div>
 
                     {/* Hall 1 Bottom Zones */}
-                    <div className={styles.hallRow} style={{ marginTop: '30px' }}>
-                      <div className={styles.specialZone} style={{ width: '100px' }}>인포/의무존</div>
-                      <div className={styles.specialZone} style={{ width: '100px' }}>한진택배</div>
-                      <div className={styles.entranceLabel}>로비 출입구 (ENTRANCE)</div>
+                    <div className="flex gap-4 justify-center items-center mt-10">
+                      <div className="bg-[#f8f9fa] border border-dashed border-[#ced4da] rounded-lg flex items-center justify-center text-[0.7rem] font-bold text-[#495057] p-2.5 text-center w-[100px]">인포/의무존</div>
+                      <div className="bg-[#f8f9fa] border border-dashed border-[#ced4da] rounded-lg flex items-center justify-center text-[0.7rem] font-bold text-[#495057] p-2.5 text-center w-[100px]">한진택배</div>
+                      <div className="bg-bg py-1.5 px-4 rounded-full text-[0.7rem] font-bold border border-glass-border shadow-sm">로비 출입구 (ENTRANCE)</div>
                     </div>
                   </div>
                 ) : (
                   <div className="fade-in">
                     {/* Hall 2 Top Zones */}
-                    <div className={styles.hallRow} style={{ marginBottom: '30px', justifyContent: 'flex-end' }}>
-                      <div className={`${styles.specialZone} ${styles.loungeZone}`} style={{ width: '250px' }}>라운지 (Lounge)</div>
+                    <div className="flex gap-4 justify-end mb-10">
+                      <div className="bg-[#f1f3f5] border border-dashed border-[#dee2e6] text-[#495057] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center w-[250px]">라운지 (Lounge)</div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '40px', justifyContent: 'center' }}>
+                    <div className="flex gap-10 justify-center">
                       {/* Hall 2 Main Blocks */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-                        <div className={styles.hallRow}>
-                          {renderBlock('V', 10, 5, styles.boothV, 'V-Section')}
-                          <div style={{ width: '20px' }} />
-                          {renderBlock('R', 4, 4, styles.boothR, 'R-Section')}
+                      <div className="flex flex-col gap-8">
+                        <div className="flex gap-4">
+                          {renderBlock('V', 10, 5, 'V-Section')}
+                          <div className="w-5" />
+                          {renderBlock('R', 4, 4, 'R-Section')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('Q', 14, 7, styles.boothQ, 'Q-Section')}
+                        <div className="flex gap-4">
+                          {renderBlock('Q', 14, 7, 'Q-Section')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('P', 14, 7, styles.boothP, 'P-Section')}
+                        <div className="flex gap-4">
+                          {renderBlock('P', 14, 7, 'P-Section')}
                         </div>
-                        <div className={styles.hallRow}>
-                          {renderBlock('M', 8, 8, styles.boothM, 'M-Section')}
+                        <div className="flex gap-4">
+                          {renderBlock('M', 8, 8, 'M-Section')}
                         </div>
                       </div>
 
                       {/* Hall 2 Right Sidebar */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                        <div className={`${styles.specialZone} ${styles.washZone}`} style={{ height: '100px', width: '60px' }}>세척존</div>
-                        {renderBlock('U', 12, 2, styles.boothV, 'U-Block')}
-                        <div className={`${styles.specialZone} ${styles.photoZone}`} style={{ height: '80px', width: '120px' }}>포토존 (술통존)</div>
+                      <div className="flex flex-col gap-6">
+                        <div className="bg-[#e3f2fd] border border-dashed border-[#90caf9] text-[#1565c0] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center h-[100px] w-[60px]">세척존</div>
+                        {renderBlock('U', 12, 2, 'U-Block')}
+                        <div className="bg-[#fff0f6] border border-dashed border-[#ffdeeb] text-[#c2185b] rounded-lg flex items-center justify-center text-[0.7rem] font-bold p-2.5 text-center h-[80px] w-[120px]">포토존 (술통존)</div>
                       </div>
                     </div>
 
                     {/* Hall 2 Bottom Zones */}
-                    <div className={styles.hallRow} style={{ marginTop: '50px' }}>
-                      <div className={styles.entranceLabel}>로비 출입구 (ENTRANCE)</div>
+                    <div className="flex gap-4 justify-center mt-12">
+                      <div className="bg-bg py-1.5 px-4 rounded-full text-[0.7rem] font-bold border border-glass-border shadow-sm">로비 출입구 (ENTRANCE)</div>
                     </div>
                   </div>
                 )}
               </div>
             </div>
             
-            <p style={{ marginTop: '1.5rem', color: 'var(--text-dim)', fontSize: '0.85rem', textAlign: 'center' }}>
-              📍 지도를 스와이프하여 전체 배치를 확인하세요. 각 번호는 '부스검색' 탭에서 검색 가능합니다.
+            <p className="mt-6 text-text-dim text-[0.8rem] text-center leading-relaxed">
+              📍 지도를 스와이프하여 전체 배치를 확인하세요.<br className="sm:hidden" /> 각 번호는 '부스검색' 탭에서 검색 가능합니다.
             </p>
           </section>
         )}
 
         {/* Tab 2: Search */}
         {activeTab === 'search' && (
-          <section className="fade-in">
-            <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Booth Search</h2>
-              <input 
-                type="text" 
-                placeholder="부스 이름, 지역 또는 태그..." 
-                className={styles.searchBox}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+          <section className="fade-in px-2 sm:px-0">
+            <div className="mb-8 flex flex-col gap-4">
+              <h2 className="text-xl font-bold">Booth Search</h2>
+              <div className="relative">
+                <input 
+                  type="text" 
+                  placeholder="부스 이름, 지역 또는 태그..." 
+                  className="py-3.5 px-5 rounded-2xl bg-bg-sub border border-glass-border text-text w-full outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 text-base"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <span className="absolute right-5 top-1/2 -translate-y-1/2 text-text-dim opacity-50">🔍</span>
+              </div>
             </div>
 
-            <div className={styles.grid}>
+            <div className="grid grid-cols-1 gap-4">
               {filteredBooths.map((booth) => (
-                <div key={booth.id} className={styles.card + " glass-card"}>
-                  <div className={styles.imagePlaceholder} style={{ color: 'var(--text-dim)', fontWeight: '700' }}>
+                <div key={booth.id} className="glass-card p-4 flex flex-row gap-4 items-center">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-bg-sub rounded-xl flex items-center justify-center text-[0.7rem] sm:text-xs font-bold text-text-dim text-center p-2 border border-glass-border/50">
                     {booth.name.split(' ')[0]}
                   </div>
-                  <div className={styles.cardContent}>
-                    <h3 className={styles.cardTitle}>{booth.name}</h3>
-                    <div className={styles.cardRegion}>
-                      <span>📍</span> {booth.region}
+                  <div className="flex-grow">
+                    <h3 className="text-lg font-bold text-primary mb-0.5">{booth.name}</h3>
+                    <div className="text-[0.8rem] text-text-dim flex items-center gap-1 mb-2 font-medium">
+                      <span className="text-accent">📍</span> {booth.region}
                     </div>
-                    <div className={styles.tagContainer}>
+                    <div className="flex gap-1.5 flex-wrap">
                       {booth.tags.map(tag => (
-                        <span key={tag} className={styles.tag} style={{ background: '#f0f0f0', color: '#666' }}>#{tag}</span>
+                        <span key={tag} className="py-1 px-2.5 rounded-lg bg-accent/5 text-accent text-[0.7rem] font-bold">#{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -284,7 +310,7 @@ export default function Home() {
             </div>
             
             {filteredBooths.length === 0 && (
-              <div style={{ textAlign: 'center', padding: '50px', color: 'var(--text-dim)' }}>
+              <div className="text-center py-20 text-text-dim font-medium italic">
                 검색 결과가 없습니다.
               </div>
             )}
@@ -293,17 +319,17 @@ export default function Home() {
 
         {/* Tab 3: Schedule */}
         {activeTab === 'schedule' && (
-          <section className="fade-in">
-            <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>Event Schedule</h2>
+          <section className="fade-in px-2 sm:px-0">
+            <div className="mb-8">
+              <h2 className="text-xl font-bold">Event Schedule</h2>
             </div>
-            <div className="glass-card" style={{ padding: '1rem' }}>
+            <div className="glass-card divide-y divide-glass-border overflow-hidden">
               {SCHEDULE.map((item, index) => (
-                <div key={index} className={styles.scheduleItem}>
-                  <div className={styles.scheduleTime}>{item.time}</div>
-                  <div className={styles.scheduleContent}>
-                    <h4 style={{ fontSize: '1rem', color: 'var(--text)' }}>{item.title}</h4>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--text-dim)' }}>{item.desc}</p>
+                <div key={index} className="flex gap-6 sm:gap-10 p-5 sm:p-6 hover:bg-bg-sub transition-colors duration-200">
+                  <div className="font-black text-primary text-lg min-w-[70px] tabular-nums">{item.time}</div>
+                  <div className="flex flex-col gap-1">
+                    <h4 className="text-base font-bold text-text">{item.title}</h4>
+                    <p className="text-sm text-text-dim leading-relaxed font-medium">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -313,7 +339,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer style={{ padding: '30px 0', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.8rem', borderTop: '1px solid var(--glass-border)' }}>
+      <footer className="py-10 text-center text-text-dim text-xs font-medium border-t border-glass-border bg-bg-sub/50">
         <p>© 2026 Sake Festival Seoul</p>
       </footer>
     </main>
