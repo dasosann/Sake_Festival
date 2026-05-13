@@ -1,77 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-
-interface Booth {
-  id: number;
-  name: string;
-  region: string;
-  description: string;
-  tags: string[];
-}
-
-const MOCK_BOOTHS: Booth[] = [
-  {
-    id: 1,
-    name: "아라마사 (Aramasa)",
-    region: "아키타현 (Akita)",
-    description: "전통적인 양조 방식을 고수하면서도 현대적인 감각을 더한 사케의 혁명가. No.6 시리즈가 특히 유명합니다.",
-    tags: ["생사케", "모던", "프리미엄"]
-  },
-  {
-    id: 2,
-    name: "닷사이 (Dassai)",
-    region: "야마구치현 (Yamaguchi)",
-    description: "야마다니시키 쌀을 극한까지 깎아내어 만드는 정교한 풍미. 전 세계적으로 가장 사랑받는 사케 브랜드 중 하나입니다.",
-    tags: ["준마이다이긴죠", "스테디셀러"]
-  },
-  {
-    id: 3,
-    name: "지콘 (Jikon)",
-    region: "미에현 (Mie)",
-    description: "과실향의 풍부함과 깨끗한 뒷맛의 완벽한 조화. 희소성이 매우 높아 사케 애호가들 사이에서 꿈의 술로 불립니다.",
-    tags: ["희귀", "풀바디", "인기부스"]
-  },
-  {
-    id: 4,
-    name: "쿠도키조즈 (Kudokijozu)",
-    region: "야마가타현 (Yamagata)",
-    description: "화려한 향기와 입안을 감싸는 부드러운 단맛이 특징입니다. 여성분들에게 특히 인기가 많은 세련된 스타일입니다.",
-    tags: ["화려한향", "부드러움"]
-  },
-  {
-    id: 5,
-    name: "나베시마 (Nabeshima)",
-    region: "사가현 (Saga)",
-    description: "신선한 탄산감과 농축된 쌀의 감칠맛이 폭발하는 사케. 국제 주류 품평회에서 다수의 수상 경력을 자랑합니다.",
-    tags: ["탄산감", "수상경력"]
-  },
-  {
-    id: 6,
-    name: "히로키 (Hiroki)",
-    region: "후쿠시마현 (Fukushima)",
-    description: "강렬한 존재감과 밸런스 잡힌 산미. 식사와 함께 곁들였을 때 최상의 퍼포먼스를 보여주는 식중주입니다.",
-    tags: ["식중주", "밸런스"]
-  }
-];
-
-const SCHEDULE = [
-  { time: "11:00", title: "축제 개막", desc: "2026 사케 페스티벌의 성대한 시작" },
-  { time: "13:00", title: "마스터 클래스 I", desc: "사케 소믈리에와 함께하는 테이스팅 기초" },
-  { time: "15:00", title: "양조장 토크", desc: "아라마사 양조장 대표와의 특별 대담" },
-  { time: "17:00", title: "재즈 공연", desc: "사케와 함께 즐기는 감미로운 선율" },
-  { time: "19:00", title: "이벤트 종료", desc: "내일을 기약하며 오늘 행사를 마무리합니다" }
-];
+import { useState, useMemo } from 'react';
+import { FESTIVAL_BOOTHS, ALL_BOOTHS } from './boothData';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'map' | 'search' | 'schedule'>('map');
   const [activeHall, setActiveHall] = useState<1 | 2>(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedRegions, setExpandedRegions] = useState<string[]>([]);
 
-  const filteredBooths = MOCK_BOOTHS.filter(booth => 
-    booth.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    booth.region.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    booth.tags.some(tag => tag.includes(searchTerm))
+  const filteredBooths = useMemo(() => 
+    ALL_BOOTHS.filter(booth => 
+      booth.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booth.id.toLowerCase().includes(searchTerm.toLowerCase())
+    ), [searchTerm]
   );
 
   const getBoothColorClass = (prefix: string) => {
@@ -95,19 +37,31 @@ export default function Home() {
     return colors[prefix] || 'bg-bg-sub border-[#ddd] text-[#888]';
   };
 
+  const getBoothName = (id: string) => {
+    return ALL_BOOTHS.find(b => b.id === id)?.name || id;
+  };
+
   // Helper to render a block of booths
   const renderBlock = (prefix: string, count: number, cols: number, label?: string) => (
-    <div className="relative">
+    <div className="relative group">
       {label && <div className="absolute -top-[15px] left-0 text-[0.6rem] font-bold text-[#666] pointer-events-none whitespace-nowrap">{label}</div>}
       <div 
         className="grid gap-1 bg-[#fdfdfd] p-1 border border-[#eee] rounded shadow-sm" 
         style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
       >
-        {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary ${getBoothColorClass(prefix)}`}>
-            {prefix}{String(i + 1).padStart(2, '0')}
-          </div>
-        ))}
+        {Array.from({ length: count }).map((_, i) => {
+          const boothId = `${prefix}${String(i + 1).padStart(2, '0')}`;
+          const boothName = getBoothName(boothId);
+          return (
+            <div 
+              key={i} 
+              title={boothName}
+              className={`w-8 h-6 border rounded-sm flex items-center justify-center text-[0.6rem] transition-all duration-300 hover:bg-primary hover:text-white hover:border-primary cursor-help ${getBoothColorClass(prefix)}`}
+            >
+              {prefix}{String(i + 1).padStart(2, '0')}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -280,7 +234,7 @@ export default function Home() {
               <div className="relative">
                 <input 
                   type="text" 
-                  placeholder="부스 이름, 지역 또는 태그..." 
+                  placeholder="부스 번호(예: A01) 또는 이름..." 
                   className="py-3.5 px-5 rounded-2xl bg-bg-sub border border-glass-border text-text w-full outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 text-base"
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -288,26 +242,56 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4">
-              {filteredBooths.map((booth) => (
-                <div key={booth.id} className="glass-card p-4 flex flex-row gap-4 items-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 bg-bg-sub rounded-xl flex items-center justify-center text-[0.7rem] sm:text-xs font-bold text-text-dim text-center p-2 border border-glass-border/50">
-                    {booth.name.split(' ')[0]}
-                  </div>
-                  <div className="flex-grow">
-                    <h3 className="text-lg font-bold text-primary mb-0.5">{booth.name}</h3>
-                    <div className="text-[0.8rem] text-text-dim flex items-center gap-1 mb-2 font-medium">
-                      <span className="text-accent">📍</span> {booth.region}
+            {Object.keys(FESTIVAL_BOOTHS).sort().map((region) => {
+              const boothsInRegion = filteredBooths
+                .filter(b => b.region === region)
+                .sort((a, b) => a.id.localeCompare(b.id));
+                
+              if (boothsInRegion.length === 0) return null;
+
+              const isExpanded = expandedRegions.includes(region);
+
+              return (
+                <div key={region} className="mb-3">
+                  <button 
+                    onClick={() => {
+                      setExpandedRegions(prev => 
+                        prev.includes(region) 
+                          ? prev.filter(r => r !== region) 
+                          : [...prev, region]
+                      );
+                    }}
+                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-200 ${isExpanded ? 'bg-primary/5 border-primary/20' : 'bg-bg border-glass-border'}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black ${getBoothColorClass(region)}`}>
+                        {region}
+                      </div>
+                      <span className="font-bold text-text">{region} 구역</span>
+                      <span className="text-xs text-text-dim font-medium">{boothsInRegion.length}개 부스</span>
                     </div>
-                    <div className="flex gap-1.5 flex-wrap">
-                      {booth.tags.map(tag => (
-                        <span key={tag} className="py-1 px-2.5 rounded-lg bg-accent/5 text-accent text-[0.7rem] font-bold">#{tag}</span>
+                    <span className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
+                      ▼
+                    </span>
+                  </button>
+
+                  {isExpanded && (
+                    <div className="mt-2 grid grid-cols-1 gap-2 fade-in">
+                      {boothsInRegion.map((booth) => (
+                        <div key={booth.id} className="glass-card p-4 flex flex-row gap-4 items-center bg-white">
+                          <div className={`w-12 h-12 shrink-0 rounded-lg flex items-center justify-center text-[0.7rem] font-black border border-glass-border/30 ${getBoothColorClass(booth.region)}`}>
+                            {booth.id}
+                          </div>
+                          <div className="flex-grow">
+                            <h3 className="text-base font-bold text-primary">{booth.name}</h3>
+                          </div>
+                        </div>
                       ))}
                     </div>
-                  </div>
+                  )}
                 </div>
-              ))}
-            </div>
+              );
+            })}
             
             {filteredBooths.length === 0 && (
               <div className="text-center py-20 text-text-dim font-medium italic">
@@ -324,7 +308,13 @@ export default function Home() {
               <h2 className="text-xl font-bold">Event Schedule</h2>
             </div>
             <div className="glass-card divide-y divide-glass-border overflow-hidden">
-              {SCHEDULE.map((item, index) => (
+              {[
+                { time: "11:00", title: "축제 개막", desc: "2026 사케 페스티벌의 성대한 시작" },
+                { time: "13:00", title: "마스터 클래스 I", desc: "사케 소믈리에와 함께하는 테이스팅 기초" },
+                { time: "15:00", title: "양조장 토크", desc: "아라마사 양조장 대표와의 특별 대담" },
+                { time: "17:00", title: "재즈 공연", desc: "사케와 함께 즐기는 감미로운 선율" },
+                { time: "19:00", title: "이벤트 종료", desc: "내일을 기약하며 오늘 행사를 마무리합니다" }
+              ].map((item, index) => (
                 <div key={index} className="flex gap-6 sm:gap-10 p-5 sm:p-6 hover:bg-bg-sub transition-colors duration-200">
                   <div className="font-black text-primary text-lg min-w-[70px] tabular-nums">{item.time}</div>
                   <div className="flex flex-col gap-1">
