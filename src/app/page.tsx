@@ -11,6 +11,7 @@ import BoothSearch from './components/BoothSearch';
 import BoothCollection from './components/BoothCollection';
 import Schedule from './components/Schedule';
 import BoothDetailModal from './components/BoothDetailModal';
+import ImagePreviewModal from './components/ImagePreviewModal';
 import Footer from './components/Footer';
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedRegions, setExpandedRegions] = useState<string[]>([]);
   const [selectedBooth, setSelectedBooth] = useState<BoothInfo | null>(null);
+  const [previewImage, setPreviewImage] = useState<{ src: string, alt: string } | null>(null);
 
   // 방문 여부 및 메모 상태 (localStorage 연동)
   const [visitedBooths, setVisitedBooths] = useState<string[]>([]);
@@ -178,8 +180,18 @@ export default function Home() {
           updateNote={updateNote}
           productNotes={productNotes}
           updateProductNote={updateProductNote}
+          setPreviewImage={setPreviewImage}
         />
 
+      )}
+
+      {/* Image Preview Modal */}
+      {previewImage && (
+        <ImagePreviewModal 
+          src={previewImage.src}
+          alt={previewImage.alt}
+          onClose={() => setPreviewImage(null)}
+        />
       )}
 
       {/* Header Section */}
@@ -230,6 +242,7 @@ export default function Home() {
             boothNotes={boothNotes}
             productNotes={productNotes}
             setActiveTab={setActiveTab}
+            setPreviewImage={setPreviewImage}
           />
         )}
 

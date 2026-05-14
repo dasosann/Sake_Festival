@@ -13,6 +13,7 @@ interface BoothCollectionProps {
   boothNotes: Record<string, string>;
   productNotes: Record<string, string>;
   setActiveTab: (tab: 'map' | 'search' | 'collection' | 'schedule') => void;
+  setPreviewImage: (image: { src: string, alt: string } | null) => void;
 }
 
 const BoothCollection = ({
@@ -23,7 +24,8 @@ const BoothCollection = ({
   toggleFavoriteProduct,
   boothNotes,
   productNotes,
-  setActiveTab
+  setActiveTab,
+  setPreviewImage
 }: BoothCollectionProps) => {
   return (
     <section className="fade-in px-2 sm:px-0">
@@ -120,8 +122,20 @@ const BoothCollection = ({
                 className="glass-card p-4 flex gap-4 bg-white hover:border-primary/30 transition-all duration-300 relative cursor-pointer"
                 onClick={() => setSelectedBooth(booth)}
               >
-                <div className="w-16 h-20 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center border border-glass-border/30">
-                  <span className="text-2xl opacity-40">🍶</span>
+                <div className="w-16 h-20 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center border border-glass-border/30 overflow-hidden">
+                  {product.image ? (
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-contain p-1 cursor-zoom-in"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPreviewImage({ src: product.image!, alt: product.name });
+                      }}
+                    />
+                  ) : (
+                    <span className="text-2xl opacity-40">🍶</span>
+                  )}
                 </div>
                 <div className="flex-1 flex flex-col justify-center">
                   <div className="flex items-center gap-2 mb-1">

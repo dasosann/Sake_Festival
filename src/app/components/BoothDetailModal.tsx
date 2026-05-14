@@ -17,6 +17,7 @@ interface BoothDetailModalProps {
   updateNote: (id: string, note: string) => void;
   productNotes: Record<string, string>;
   updateProductNote: (boothId: string, productIdx: number, note: string) => void;
+  setPreviewImage: (image: { src: string, alt: string } | null) => void;
 }
 
 
@@ -33,7 +34,8 @@ const BoothDetailModal = ({
   boothNotes,
   updateNote,
   productNotes,
-  updateProductNote
+  updateProductNote,
+  setPreviewImage
 }: BoothDetailModalProps) => {
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm fade-in" onClick={() => setSelectedBooth(null)}>
@@ -136,8 +138,17 @@ const BoothDetailModal = ({
                       return (
                         <div key={idx} className="bg-white border border-glass-border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/20">
                           <div className="p-4 flex gap-4">
-                            <div className="w-20 h-28 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center">
-                              <span className="text-[1.5rem] opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 scale-100 hover:scale-110">🍶</span>
+                            <div className="w-20 h-28 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-glass-border">
+                              {product.image ? (
+                                <img 
+                                  src={product.image} 
+                                  alt={product.name} 
+                                  className="w-full h-full object-contain p-1 transition-transform duration-500 hover:scale-110 cursor-zoom-in"
+                                  onClick={() => setPreviewImage({ src: product.image!, alt: product.name })}
+                                />
+                              ) : (
+                                <span className="text-[1.5rem] opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 scale-100 hover:scale-110">🍶</span>
+                              )}
                             </div>
                             <div className="flex-1 flex flex-col justify-between">
                               <div className="flex justify-between items-start mb-2">
