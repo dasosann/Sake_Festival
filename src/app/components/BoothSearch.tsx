@@ -35,6 +35,7 @@ const BoothSearch = ({
             type="text" 
             placeholder="부스 번호(예: A01) 또는 이름..." 
             className="py-3 px-5 rounded-2xl bg-bg-sub border border-glass-border text-text w-full outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 text-sm"
+            value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <span className="absolute right-5 top-1/2 -translate-y-1/2 text-text-dim opacity-50">🔍</span>
@@ -75,6 +76,15 @@ const BoothSearch = ({
                 </div>
                 {!visitedBooths.includes(booth.id) && <span className="text-primary/30 self-center">❯</span>}
               </div>
+              
+              {booth.details?.products && booth.details.products.length > 0 && (
+                <div className="mt-2 flex items-start gap-1.5 overflow-hidden px-1">
+                  <span className="text-[0.7rem] shrink-0 opacity-70">🍶</span>
+                  <p className="text-[0.65rem] text-text-dim line-clamp-1">
+                    {booth.details.products.map(p => p.name).join(', ')}
+                  </p>
+                </div>
+              )}
               
               {booth.details?.features && (
                 <div className="mt-1">
@@ -165,6 +175,15 @@ const BoothSearch = ({
                         {!visitedBooths.includes(booth.id) && <span className="text-primary/30 self-center">❯</span>}
                       </div>
                       
+                      {booth.details?.products && booth.details.products.length > 0 && (
+                        <div className="mt-2 flex items-start gap-1.5 overflow-hidden px-1">
+                          <span className="text-[0.7rem] shrink-0 opacity-70">🍶</span>
+                          <p className="text-[0.65rem] text-text-dim line-clamp-1">
+                            {booth.details.products.map(p => p.name).join(', ')}
+                          </p>
+                        </div>
+                      )}
+
                       {booth.details?.features && (
                         <div className="mt-1">
                           <p className="text-[0.7rem] text-text-dim leading-relaxed line-clamp-2">

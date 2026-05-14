@@ -33,7 +33,7 @@ const Navigation = ({ activeTab, setActiveTab, favoriteCount }: NavigationProps)
         className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2 rounded-xl transition-all duration-300 font-bold text-xs text-center ${activeTab === 'schedule' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
         onClick={() => setActiveTab('schedule')}
       >
-        행사일정
+        행사정보
       </button>
     </nav>
   );

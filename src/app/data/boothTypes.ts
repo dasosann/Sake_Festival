@@ -1,5 +1,8 @@
 export interface SakeProduct {
   name: string;
+  abv?: string;
+  description?: string;
+  awards?: string[];
   image?: string;
 }
 

@@ -132,6 +132,11 @@ export default function Home() {
     };
   }, [selectedBooth]);
 
+  // 탭 전환 시 검색어 초기화 (검색목록 기본값을 전체로 보여주기 위함)
+  useEffect(() => {
+    setSearchTerm('');
+  }, [activeTab]);
+
   const filteredBooths = useMemo(() => {
     const term = searchTerm.toLowerCase();
     return ALL_BOOTHS.filter(booth => {

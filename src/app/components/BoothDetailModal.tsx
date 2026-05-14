@@ -131,39 +131,81 @@ const BoothDetailModal = ({
                     </span>
                   </div>
                   <div className="grid grid-cols-1 gap-4">
-                    {selectedBooth.details.products.map((product, idx) => (
-                      <div key={idx} className="bg-white border border-glass-border rounded-2xl p-4 flex gap-4 transition-all duration-300 hover:shadow-md hover:border-primary/20">
-                        <div className="w-20 h-28 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center">
-                          <span className="text-[1.5rem] opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 scale-100 hover:scale-110">🍶</span>
-                        </div>
-                        <div className="flex-1 flex flex-col justify-between">
-                          <div className="flex justify-between items-start mb-2">
-                            <p className="text-[0.75rem] font-black text-text leading-tight pr-2">
-                              {product.name}
-                            </p>
-                            <button 
-                              onClick={() => toggleFavoriteProduct(selectedBooth.id, idx)}
-                              className={`flex-shrink-0 transition-transform active:scale-90 ${favoriteProducts.includes(`${selectedBooth.id}_${idx}`) ? 'text-red-500' : 'text-text-dim/20 hover:text-red-300'}`}
-                            >
-                              <HeartIcon filled={favoriteProducts.includes(`${selectedBooth.id}_${idx}`)} className="w-4 h-4" />
-                            </button>
-                          </div>
-                          <div className="relative">
-                            <textarea 
-                              placeholder="테이스팅 노트 작성..."
-                              value={productNotes[`${selectedBooth.id}_${idx}`] || ''}
-                              onChange={(e) => updateProductNote(selectedBooth.id, idx, e.target.value)}
-                              className="w-full h-16 p-2 rounded-xl bg-bg-sub/50 border border-glass-border text-[0.7rem] text-text outline-none focus:border-primary transition-all resize-none placeholder:text-text-dim/30 leading-snug"
-                            />
-                            {productNotes[`${selectedBooth.id}_${idx}`] && (
-                              <div className="absolute right-2 bottom-1.5 pointer-events-none opacity-40">
-                                <span className="text-[0.5rem] font-bold text-primary">저장됨</span>
+                    {selectedBooth.details.products.map((product, idx) => {
+                      const [isExpanded, setIsExpanded] = React.useState(false);
+                      return (
+                        <div key={idx} className="bg-white border border-glass-border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/20">
+                          <div className="p-4 flex gap-4">
+                            <div className="w-20 h-28 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center">
+                              <span className="text-[1.5rem] opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 scale-100 hover:scale-110">🍶</span>
+                            </div>
+                            <div className="flex-1 flex flex-col justify-between">
+                              <div className="flex justify-between items-start mb-2">
+                                <div className="flex-1 pr-2">
+                                  <p className="text-[0.75rem] font-black text-text leading-tight mb-1">
+                                    {product.name}
+                                  </p>
+                                  {(product.description || product.abv || product.awards) && (
+                                    <button 
+                                      onClick={() => setIsExpanded(!isExpanded)}
+                                      className="text-[0.6rem] font-black text-primary flex items-center gap-1 hover:underline mt-1"
+                                    >
+                                      {isExpanded ? '상세 정보 닫기 ▴' : '상세 정보 보기 ▾'}
+                                    </button>
+                                  )}
+                                </div>
+                                <button 
+                                  onClick={() => toggleFavoriteProduct(selectedBooth.id, idx)}
+                                  className={`flex-shrink-0 transition-transform active:scale-90 ${favoriteProducts.includes(`${selectedBooth.id}_${idx}`) ? 'text-red-500' : 'text-text-dim/20 hover:text-red-300'}`}
+                                >
+                                  <HeartIcon filled={favoriteProducts.includes(`${selectedBooth.id}_${idx}`)} className="w-4 h-4" />
+                                </button>
                               </div>
-                            )}
+                              <div className="relative">
+                                <textarea 
+                                  placeholder="테이스팅 노트 작성..."
+                                  value={productNotes[`${selectedBooth.id}_${idx}`] || ''}
+                                  onChange={(e) => updateProductNote(selectedBooth.id, idx, e.target.value)}
+                                  className="w-full h-16 p-2 rounded-xl bg-bg-sub/50 border border-glass-border text-[0.7rem] text-text outline-none focus:border-primary transition-all resize-none placeholder:text-text-dim/30 leading-snug"
+                                />
+                                {productNotes[`${selectedBooth.id}_${idx}`] && (
+                                  <div className="absolute right-2 bottom-1.5 pointer-events-none opacity-40">
+                                      <span className="text-[0.5rem] font-bold text-primary">저장됨</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
                           </div>
+                          
+                          {/* Expanded Details Section */}
+                          {isExpanded && (
+                            <div className="px-4 pb-4 pt-2 border-t border-glass-border bg-bg-sub/30 animate-in fade-in slide-in-from-top-1 duration-200">
+                              <div className="space-y-3">
+                                {product.abv && (
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[0.6rem] font-black px-2 py-0.5 bg-primary/10 text-primary rounded-full">도수 {product.abv}</span>
+                                  </div>
+                                )}
+                                {product.description && (
+                                  <p className="text-[0.7rem] text-text-dim leading-relaxed font-medium">
+                                    {product.description}
+                                  </p>
+                                )}
+                                {product.awards && product.awards.length > 0 && (
+                                  <div className="flex flex-wrap gap-1.5 pt-1">
+                                    {product.awards.map((award, aIdx) => (
+                                      <span key={aIdx} className="text-[0.55rem] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg flex items-center gap-1 shadow-sm">
+                                        🏆 {award}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </section>
               )}
