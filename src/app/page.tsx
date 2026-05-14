@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'map' | 'search' | 'collection' | 'schedule'>('map');
-  const [activeHall, setActiveHall] = useState<1 | 2>(1);
+  const [activeHall, setActiveHall] = useState<1 | 2 | 'layout'>(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedRegions, setExpandedRegions] = useState<string[]>([]);
   const [selectedBooth, setSelectedBooth] = useState<BoothInfo | null>(null);
