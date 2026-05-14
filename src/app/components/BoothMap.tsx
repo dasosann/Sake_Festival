@@ -45,7 +45,7 @@ const BoothMap = ({
                 <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary text-white rounded-full flex items-center justify-center text-[0.5rem] shadow-sm">✓</span>
               )}
               {favoriteBooths.includes(boothId) && (
-                <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-pink-500 text-white rounded-full flex items-center justify-center shadow-sm border border-white">
+                <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 text-white rounded-full flex items-center justify-center shadow-sm border border-white">
                   <HeartIcon filled className="w-1.5 h-1.5" />
                 </span>
               )}

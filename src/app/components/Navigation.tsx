@@ -23,7 +23,7 @@ const Navigation = ({ activeTab, setActiveTab, favoriteCount }: NavigationProps)
         부스검색
       </button>
       <button 
-        className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2 rounded-xl transition-all duration-300 font-bold text-xs text-center flex items-center justify-center gap-1.5 ${activeTab === 'collection' ? 'bg-pink-500 text-white shadow-lg shadow-pink-200' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
+        className={`flex-none sm:flex-1 min-w-[100px] max-w-[120px] py-2 rounded-xl transition-all duration-300 font-bold text-xs text-center flex items-center justify-center gap-1.5 ${activeTab === 'collection' ? 'bg-red-500 text-white shadow-lg shadow-red-200' : 'bg-transparent text-text-dim hover:bg-glass-hover'}`}
         onClick={() => setActiveTab('collection')}
       >
         <HeartIcon filled={activeTab === 'collection'} className="w-3.5 h-3.5" />

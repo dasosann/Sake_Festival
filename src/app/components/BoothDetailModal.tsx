@@ -11,6 +11,8 @@ interface BoothDetailModalProps {
   toggleVisit: (id: string) => void;
   favoriteBooths: string[];
   toggleFavorite: (id: string) => void;
+  favoriteProducts: string[];
+  toggleFavoriteProduct: (boothId: string, productIdx: number) => void;
   boothNotes: Record<string, string>;
   updateNote: (id: string, note: string) => void;
   productNotes: Record<string, string>;
@@ -26,6 +28,8 @@ const BoothDetailModal = ({
   toggleVisit,
   favoriteBooths,
   toggleFavorite,
+  favoriteProducts,
+  toggleFavoriteProduct,
   boothNotes,
   updateNote,
   productNotes,
@@ -68,16 +72,16 @@ const BoothDetailModal = ({
                 {visitedBooths.includes(selectedBooth.id) ? '✓' : '🍷'}
               </div>
               <div>
-                <p className="text-[0.6rem] font-bold text-text-dim uppercase tracking-wider leading-none mb-1">Status</p>
+                <p className="text-[0.6rem] font-bold text-text-dim uppercase tracking-wider leading-none mb-1">방문 상태</p>
                 <p className={`text-[0.8rem] font-black ${visitedBooths.includes(selectedBooth.id) ? 'text-primary' : 'text-text'}`}>
-                  {visitedBooths.includes(selectedBooth.id) ? '방문 완료' : '아직 안 가본 곳'}
+                  {visitedBooths.includes(selectedBooth.id) ? '방문 완료' : '미방문'}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => toggleFavorite(selectedBooth.id)}
-                className="w-10 h-10 flex items-center justify-center text-pink-500 transition-transform active:scale-90"
+                className="w-10 h-10 flex items-center justify-center text-red-500 transition-transform active:scale-90"
                 title="관심 등록"
               >
                 <HeartIcon filled={favoriteBooths.includes(selectedBooth.id)} className="w-6 h-6" />
@@ -101,7 +105,7 @@ const BoothDetailModal = ({
               <section className="bg-primary/5 p-5 rounded-2xl border border-primary/10">
                 <h4 className="text-[0.7rem] font-black text-primary uppercase tracking-widest mb-2 flex items-center gap-2">
                   <span className="w-5 h-5 rounded-md bg-white flex items-center justify-center shadow-sm">📜</span>
-                  {['food', 'service'].includes(selectedBooth.details.type || '') ? '분류 (Category)' : '역사 (History)'}
+                  {['food', 'service'].includes(selectedBooth.details.type || '') ? '분류' : '역사'}
                 </h4>
                 <p className="text-[0.8rem] leading-relaxed text-text font-medium opacity-90 whitespace-pre-wrap">{selectedBooth.details.history}</p>
               </section>
@@ -109,7 +113,7 @@ const BoothDetailModal = ({
               <section className="bg-bg p-5 rounded-2xl border border-glass-border">
                 <h4 className="text-[0.7rem] font-black text-text uppercase tracking-widest mb-2 flex items-center gap-2">
                   <span className="w-5 h-5 rounded-md bg-bg-sub flex items-center justify-center shadow-sm">✨</span>
-                  {['food', 'service'].includes(selectedBooth.details.type || '') ? '특성 (Characteristics)' : '특징 (Features)'}
+                  {['food', 'service'].includes(selectedBooth.details.type || '') ? '특성' : '특징'}
                 </h4>
                 <p className="text-[0.8rem] leading-relaxed text-text font-medium opacity-90 whitespace-pre-wrap">{selectedBooth.details.features}</p>
               </section>
@@ -120,10 +124,10 @@ const BoothDetailModal = ({
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-[0.7rem] font-black text-primary uppercase tracking-widest flex items-center gap-2">
                       <span className="w-5 h-5 rounded-md bg-primary/10 text-primary flex items-center justify-center shadow-sm text-[0.8rem]">🍶</span>
-                      사케 출품 목록 (Exhibited Products)
+                      사케 출품 목록
                     </h4>
                     <span className="text-[0.6rem] text-text-dim/60 font-bold bg-bg-sub px-2 py-0.5 rounded-full border border-glass-border">
-                      {selectedBooth.details.products.length} Items
+                      {selectedBooth.details.products.length}개 품목
                     </span>
                   </div>
                   <div className="grid grid-cols-1 gap-4">
@@ -133,9 +137,17 @@ const BoothDetailModal = ({
                           <span className="text-[1.5rem] opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 scale-100 hover:scale-110">🍶</span>
                         </div>
                         <div className="flex-1 flex flex-col justify-between">
-                          <p className="text-[0.75rem] font-black text-text leading-tight mb-2">
-                            {product.name}
-                          </p>
+                          <div className="flex justify-between items-start mb-2">
+                            <p className="text-[0.75rem] font-black text-text leading-tight pr-2">
+                              {product.name}
+                            </p>
+                            <button 
+                              onClick={() => toggleFavoriteProduct(selectedBooth.id, idx)}
+                              className={`flex-shrink-0 transition-transform active:scale-90 ${favoriteProducts.includes(`${selectedBooth.id}_${idx}`) ? 'text-red-500' : 'text-text-dim/20 hover:text-red-300'}`}
+                            >
+                              <HeartIcon filled={favoriteProducts.includes(`${selectedBooth.id}_${idx}`)} className="w-4 h-4" />
+                            </button>
+                          </div>
                           <div className="relative">
                             <textarea 
                               placeholder="테이스팅 노트 작성..."
@@ -145,7 +157,7 @@ const BoothDetailModal = ({
                             />
                             {productNotes[`${selectedBooth.id}_${idx}`] && (
                               <div className="absolute right-2 bottom-1.5 pointer-events-none opacity-40">
-                                <span className="text-[0.5rem] font-bold text-primary">SAVED</span>
+                                <span className="text-[0.5rem] font-bold text-primary">저장됨</span>
                               </div>
                             )}
                           </div>
@@ -160,7 +172,7 @@ const BoothDetailModal = ({
               <section className="pt-6 border-t border-glass-border">
                 <h4 className="text-[0.7rem] font-black text-text-dim uppercase tracking-widest mb-4 flex items-center gap-2">
                   <span className="w-5 h-5 rounded-md bg-bg-sub flex items-center justify-center shadow-sm text-[0.8rem]">✍️</span>
-                  나의 테이스팅 노트 (My Memo)
+                  나의 테이스팅 노트
                 </h4>
                 <textarea 
                   placeholder="이 부스에서 마신 술의 맛이나 기억하고 싶은 점을 적어보세요..."

@@ -22,15 +22,17 @@ export default function Home() {
 
   // 방문 여부 및 메모 상태 (localStorage 연동)
   const [visitedBooths, setVisitedBooths] = useState<string[]>([]);
-  const [favoriteBooths, setFavoriteBooths] = useState<string[]>([]);
-  const [boothNotes, setBoothNotes] = useState<Record<string, string>>({});
-  const [productNotes, setProductNotes] = useState<Record<string, string>>({});
+   const [favoriteBooths, setFavoriteBooths] = useState<string[]>([]);
+   const [favoriteProducts, setFavoriteProducts] = useState<string[]>([]);
+   const [boothNotes, setBoothNotes] = useState<Record<string, string>>({});
+   const [productNotes, setProductNotes] = useState<Record<string, string>>({});
 
 
   // 초기 로드 시 localStorage에서 데이터 복원
   useEffect(() => {
     const savedVisited = localStorage.getItem('sake_visited');
     const savedFavorites = localStorage.getItem('sake_favorites');
+    const savedFavoriteProducts = localStorage.getItem('sake_favorite_products');
     const savedNotes = localStorage.getItem('sake_notes');
     const savedProductNotes = localStorage.getItem('sake_product_notes');
     if (savedVisited) {
@@ -38,6 +40,9 @@ export default function Home() {
     }
     if (savedFavorites) {
       try { setFavoriteBooths(JSON.parse(savedFavorites)); } catch (e) { console.error(e); }
+    }
+    if (savedFavoriteProducts) {
+      try { setFavoriteProducts(JSON.parse(savedFavoriteProducts)); } catch (e) { console.error(e); }
     }
     if (savedNotes) {
       try { setBoothNotes(JSON.parse(savedNotes)); } catch (e) { console.error(e); }
@@ -62,6 +67,12 @@ export default function Home() {
   }, [favoriteBooths]);
 
   useEffect(() => {
+    if (favoriteProducts.length > 0 || localStorage.getItem('sake_favorite_products')) {
+      localStorage.setItem('sake_favorite_products', JSON.stringify(favoriteProducts));
+    }
+  }, [favoriteProducts]);
+
+  useEffect(() => {
     if (Object.keys(boothNotes).length > 0 || localStorage.getItem('sake_notes')) {
       localStorage.setItem('sake_notes', JSON.stringify(boothNotes));
     }
@@ -83,6 +94,13 @@ export default function Home() {
   const toggleFavorite = (id: string) => {
     setFavoriteBooths(prev => 
       prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    );
+  };
+
+  const toggleFavoriteProduct = (boothId: string, productIdx: number) => {
+    const key = `${boothId}_${productIdx}`;
+    setFavoriteProducts(prev => 
+      prev.includes(key) ? prev.filter(p => p !== key) : [...prev, key]
     );
   };
 
@@ -149,6 +167,8 @@ export default function Home() {
           toggleVisit={toggleVisit}
           favoriteBooths={favoriteBooths}
           toggleFavorite={toggleFavorite}
+          favoriteProducts={favoriteProducts}
+          toggleFavoriteProduct={toggleFavoriteProduct}
           boothNotes={boothNotes}
           updateNote={updateNote}
           productNotes={productNotes}
@@ -164,7 +184,7 @@ export default function Home() {
       <Navigation 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        favoriteCount={favoriteBooths.length} 
+        favoriteCount={favoriteBooths.length + favoriteProducts.length} 
       />
 
       <div className="container min-h-[600px] pb-20 pt-6">
@@ -198,9 +218,12 @@ export default function Home() {
         {activeTab === 'collection' && (
           <BoothCollection 
             favoriteBooths={favoriteBooths}
+            favoriteProducts={favoriteProducts}
             setSelectedBooth={setSelectedBooth}
             toggleFavorite={toggleFavorite}
+            toggleFavoriteProduct={toggleFavoriteProduct}
             boothNotes={boothNotes}
+            productNotes={productNotes}
             setActiveTab={setActiveTab}
           />
         )}

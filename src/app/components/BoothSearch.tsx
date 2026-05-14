@@ -56,7 +56,7 @@ const BoothSearch = ({
                 </div>
               )}
               {favoriteBooths.includes(booth.id) && (
-                <div className="absolute top-0 right-6 bg-pink-500 text-white p-1 rounded-b-lg shadow-sm z-10 flex items-center justify-center">
+                <div className="absolute top-0 right-6 bg-red-500 text-white p-1 rounded-b-lg shadow-sm z-10 flex items-center justify-center">
                   <HeartIcon filled className="w-3 h-3" />
                 </div>
               )}
@@ -87,7 +87,7 @@ const BoothSearch = ({
               {boothNotes[booth.id] && (
                 <div className="mt-2 p-3 bg-accent/5 rounded-xl border border-accent/10">
                   <p className="text-[0.7rem] text-accent font-bold mb-1 flex items-center gap-1">
-                    <span>📝</span> MY NOTE
+                    <span>📝</span> 나의 메모
                   </p>
                   <p className="text-[0.7rem] text-text-dim line-clamp-1 italic">
                     {boothNotes[booth.id]}
