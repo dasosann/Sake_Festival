@@ -1,3 +1,8 @@
+export interface SakeProduct {
+  name: string;
+  image?: string;
+}
+
 export interface BoothDetail {
   region_name: string;
   history: string;
@@ -6,7 +11,9 @@ export interface BoothDetail {
   type?: "sake" | "shochu" | "awamori" | "beer" | "whisky" | "liqueur" | "food" | "service" | "other";
   tags?: string[];
   flavor?: "amaguchi" | "karaguchi" | "balance";
+  products?: SakeProduct[];
 }
+
 
 export interface BoothInfo {
   id: string;
