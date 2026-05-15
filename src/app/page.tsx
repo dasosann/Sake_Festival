@@ -13,6 +13,7 @@ import Schedule from './components/Schedule';
 import BoothDetailModal from './components/BoothDetailModal';
 import ImagePreviewModal from './components/ImagePreviewModal';
 import Footer from './components/Footer';
+import { boothMatchesStyleSearchTerm } from './data/styleCategories';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'map' | 'search' | 'collection' | 'schedule'>('map');
@@ -140,7 +141,7 @@ export default function Home() {
   }, [activeTab]);
 
   const filteredBooths = useMemo(() => {
-    const term = searchTerm.toLowerCase();
+    const term = searchTerm.toLowerCase().trim();
     return ALL_BOOTHS.filter(booth => {
       const flavorMap: Record<string, string[]> = {
         amaguchi: ['amaguchi', '아마구치', '단맛', '달콤'],
@@ -149,7 +150,11 @@ export default function Home() {
       };
       
       const flavorTerms = booth.details?.flavor ? flavorMap[booth.details.flavor] : [];
-      
+
+      if (term === '') {
+        return true;
+      }
+
       return (
         booth.name.toLowerCase().includes(term) ||
         booth.id.toLowerCase().includes(term) ||
@@ -158,7 +163,8 @@ export default function Home() {
         (booth.details?.region_name || '').toLowerCase().includes(term) ||
         (booth.details?.type || '').toLowerCase().includes(term) ||
         (booth.details?.tags || []).some(tag => tag.toLowerCase().includes(term)) ||
-        flavorTerms.some(f => f.includes(term))
+        flavorTerms.some(f => f.includes(term)) ||
+        boothMatchesStyleSearchTerm(booth, term)
       );
     });
   }, [searchTerm]);
@@ -204,7 +210,7 @@ export default function Home() {
         favoriteCount={favoriteBooths.length + favoriteProducts.length} 
       />
 
-      <div className="container min-h-[600px] pb-20 pt-6">
+      <div className="container min-h-150 pb-20 pt-6">
         {/* Tab 1: Map */}
         {activeTab === 'map' && (
           <BoothMap 

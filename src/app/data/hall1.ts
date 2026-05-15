@@ -21,16 +21,16 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
     { id: "B04", name: "아와모리잔파", details: { region_name: "오키나와", history: "아와모리 대중화의 상징.", features: "부드럽고 깔끔한 아와모리, 입문자도 즐기기 좋음.", official_site: "", type: "awamori", flavor: "karaguchi" } },
     { id: "B05", name: "본", details: { region_name: "후쿠이", history: "장기 저온 숙성 전문 명가.", features: "빙온 숙성을 통한 농밀한 감칠맛과 중후함.", official_site: "", type: "sake", flavor: "balance" } },
     { id: "B06", name: "쿠마가이주류 판매부스", details: COMMON_SERVICE_DETAIL },
-    { id: "B07", name: "SODAWARI (소다와리)", details: { region_name: "기획부스", history: "기존 소주·리큐르 문화를 ‘탄산과 섞어 마시는 스타일’로 재해석하는 콘셉트 부스입니다.", features: "소다와리 스타일 하이볼을 중심으로 청량감 있는 조합을 제안합니다.", official_site: "", type: "other", tags: ["하이볼", "청량감", "믹솔로지"] } },
-    { id: "B08", name: "사케노이치자 (酒の一좌)", details: { region_name: "기획/유통", history: "후쿠오카 기반의 주류 기획 브랜드로, 여러 양조장과 협업해 다양한 술을 소개합니다.", features: "큐슈 지역의 숨은 명주와 개성 강한 소주·리큐르를 선별해 소개하는 편집숍 콘셉트입니다.", official_site: "", type: "other", tags: ["편집숍", "큐레이션", "큐슈"] } },
+    { id: "B07", name: "SODAWARI", details: { region_name: "기획부스", history: "기존 소주·리큐르 문화를 ‘탄산과 섞어 마시는 스타일’로 재해석하는 콘셉트 부스입니다.", features: "소다와리 스타일 하이볼을 중심으로 청량감 있는 조합을 제안합니다.", official_site: "", type: "other", tags: ["하이볼", "청량감", "믹솔로지"] } },
+    { id: "B08", name: "사케노이치자", details: { region_name: "기획/유통", history: "후쿠오카 기반의 주류 기획 브랜드로, 여러 양조장과 협업해 다양한 술을 소개합니다.", features: "큐슈 지역의 숨은 명주와 개성 강한 소주·리큐르를 선별해 소개하는 편집숍 콘셉트입니다.", official_site: "", type: "other", tags: ["편집숍", "큐레이션", "큐슈"] } },
     { id: "B09", name: "미이노고토부키", details: { region_name: "후쿠오카", history: "슬램덩크 정대만 사케로 유명한 드라이 사케의 명가.", features: "깔끔하면서도 선명한 맛, 드라이한 설계가 특징.", official_site: "", type: "sake", flavor: "karaguchi" } },
     { id: "B10", name: "비죠후", details: { region_name: "고치", history: "고치 식문화와 함께 성장한 명가.", features: "산뜻한 산미와 가벼운 질감으로 해산물과 잘 어울림.", official_site: "", type: "sake", flavor: "karaguchi" } },
-    { id: "B11", name: "사라 (SARA)", details: { region_name: "리큐르", history: "젊은 층을 타깃으로 한 디자인·맛 중심의 모던 브랜드입니다.", features: "달콤·산뜻한 풍미의 리큐르가 많으며, 칵테일 베이스로도 훌륭합니다.", official_site: "", type: "liqueur", tags: ["모던", "트렌디", "칵테일"] } },
+    { id: "B11", name: "사라", details: { region_name: "리큐르", history: "젊은 층을 타깃으로 한 디자인·맛 중심의 모던 브랜드입니다.", features: "달콤·산뜻한 풍미의 리큐르가 많으며, 칵테일 베이스로도 훌륭합니다.", official_site: "", type: "liqueur", tags: ["모던", "트렌디", "칵테일"] } },
     { id: "B12", name: "칸코바이", details: { region_name: "미에", history: "지역 밀착형 소규모 양조장.", features: "은은한 꽃향과 부드러운 단맛의 편안한 사케.", official_site: "", type: "sake", flavor: "amaguchi" } },
     { id: "B13", name: "지자케CY코리아(판매부스)", details: COMMON_SERVICE_DETAIL },
   ],
   D: [
-    { id: "D01", name: "겐비시 주조", details: { region_name: "효고", history: "1505년 창업한 초장수 양조장.", features: "묵직한 클래식 스타일, 데워 마셔도 훌륭한 전통파.", official_site: "https://www.kenbishi.co.jp", type: "sake", flavor: "karaguchi", tags: ["니혼SAKE"], products: [
+    { id: "D01", name: "겐비시", details: { region_name: "효고", history: "1505년 창업한 초장수 양조장.", features: "묵직한 클래식 스타일, 데워 마셔도 훌륭한 전통파.", official_site: "https://www.kenbishi.co.jp", type: "sake", flavor: "karaguchi", tags: ["니혼SAKE"], products: [
       { 
         name: "쵸토쿠센 고쿠죠 쿠로마츠 겐비시", 
         abv: "16%",
@@ -52,7 +52,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "5년 이상에 걸쳐 장기 숙성한 다이코슈(大古酒)로, 농후한 향과 단맛이 화려하게 조화되어 있습니다. 입에 닿는 부드러운 느낌이 일품입니다."
       }
     ] } },
-    { id: "D02", name: "나카노 주조", details: { region_name: "오이타", history: "부드러운 단맛의 사케와 리큐르로 인기.", features: "디저트 같은 부드러운 단맛과 산미의 균형.", official_site: "https://chiebijin.com", type: "sake", flavor: "amaguchi", tags: ["니혼SAKE"], products: [
+    { id: "D02", name: "치에비진", details: { region_name: "오이타", history: "부드러운 단맛의 사케와 리큐르로 인기.", features: "디저트 같은 부드러운 단맛과 산미의 균형.", official_site: "https://chiebijin.com", type: "sake", flavor: "amaguchi", tags: ["니혼SAKE"], products: [
       { 
         name: "치에비진 쥰마이", 
         abv: "16%",
@@ -91,7 +91,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "리치 또는 머스캣을 연상시키는 후르티한 향과 달콤하고 깔끔한 뒷맛에 과실의 여운이 매력입니다."
       }
     ] } },
-    { id: "D03", name: "이와사키 주조", details: { region_name: "야마구치", history: "1919년 창업, 야마구치의 부드러운 연수를 사용한 전통 양조장입니다.", features: "쌀 본연의 포근한 단맛과 온화한 과실 향이 특징인 힐링 스타일입니다.", official_site: "", type: "sake", flavor: "amaguchi", tags: ["포근함", "단맛", "전통", "니혼SAKE"], products: [
+    { id: "D03", name: "쵸요후쿠무스메", details: { region_name: "야마구치", history: "1919년 창업, 야마구치의 부드러운 연수를 사용한 전통 양조장입니다.", features: "쌀 본연의 포근한 단맛과 온화한 과실 향이 특징인 힐링 스타일입니다.", official_site: "", type: "sake", flavor: "amaguchi", tags: ["포근함", "단맛", "전통", "니혼SAKE"], products: [
       { 
         name: "초요후쿠무스메 쥰마이 무로카나마겐슈 지카구미 生", 
         abv: "16%",
@@ -118,7 +118,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "지카구미 특유의 신선함과 미탄산감, 시원함에 더해 카라구치 특유의 샤프함이 일품인 사케 입니다."
       }
     ] } },
-    { id: "D04", name: "즈이요 주조", details: { region_name: "구마모토", history: "1867년 창업, 전통주 ‘아카자케(붉은 술)’ 생산으로도 유명합니다.", features: "묵직한 감칠맛과 두터운 풍미를 가진 전통 규슈 스타일입니다.", official_site: "", type: "sake", flavor: "karaguchi", tags: ["아카자케", "감칠맛", "묵직함", "니혼SAKE"], products: [
+    { id: "D04", name: "즈이요", details: { region_name: "구마모토", history: "1867년 창업, 전통주 ‘아카자케(붉은 술)’ 생산으로도 유명합니다.", features: "묵직한 감칠맛과 두터운 풍미를 가진 전통 규슈 스타일입니다.", official_site: "", type: "sake", flavor: "karaguchi", tags: ["아카자케", "감칠맛", "묵직함", "니혼SAKE"], products: [
       { 
         name: "호우쥰 쥰마이슈 즈이요", 
         abv: "15%",
@@ -145,7 +145,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "잡미가 없으며 담백한 맛에 쌀의 감칠맛과 긴조향을 더해 마일드함과 상쾌한 뒷맛을 추구 하였습니다."
       }
     ] } },
-    { id: "D05", name: "에미시키 주조", details: { region_name: "시가", history: "실험적인 '센세이션' 시리즈로 유명한 모던 명가.", features: "열대 과일 향과 개성적인 산미, 팝한 라벨이 특징.", official_site: "https://www.emishiki.com", type: "sake", flavor: "amaguchi", tags: ["니혼SAKE"], products: [
+    { id: "D05", name: "에미시키센세이션", details: { region_name: "시가", history: "실험적인 '센세이션' 시리즈로 유명한 모던 명가.", features: "열대 과일 향과 개성적인 산미, 팝한 라벨이 특징.", official_site: "https://www.emishiki.com", type: "sake", flavor: "amaguchi", tags: ["니혼SAKE"], products: [
       { 
         name: "에미시키 쥰마이다이긴죠 아카이이토 生", 
         abv: "16%",
@@ -183,7 +183,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "딸기 잎의 효모를 이용해 종래의 사케에서 느낄 수 없는 아련하고 달콤환 딸기의 산미를 느낄 수 있습니다."
       }
     ] } },
-    { id: "D06", name: "혼다쇼텐", details: { region_name: "효고", history: "전세계에서 가장 비싼 쌀 생산지인 나카쿠의 쌀만 고집하는 장인 브랜드.", features: "쌀의 등급과 산지에 따른 미묘한 맛의 차이를 극한까지 표현합니다.", official_site: "", type: "sake", flavor: "karaguchi", tags: ["니혼SAKE"], products: [
+    { id: "D06", name: "타츠리키", details: { region_name: "효고", history: "전세계에서 가장 비싼 쌀 생산지인 나카쿠의 쌀만 고집하는 장인 브랜드.", features: "쌀의 등급과 산지에 따른 미묘한 맛의 차이를 극한까지 표현합니다.", official_site: "", type: "sake", flavor: "karaguchi", tags: ["니혼SAKE"], products: [
       { 
         name: "타츠리키 토쿠베츠 쥰마이 쥰마이88 코메코도부키", 
         abv: "15%",
@@ -205,7 +205,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "효고현의 황새 서식 농법으로 재배한 햐쿠만고쿠를 사용하여 샤인 머스캣을 연상시키는 후레쉬함, 탁월한 탄산감과 풋풋함이 살아있는 신슈입니다."
       }
     ] } },
-    { id: "D07", name: "니혼사케 (D07~D09)", details: { ...COMMON_SERVICE_DETAIL, products: [
+    { id: "D07", name: "니혼사케이벤트", details: { ...COMMON_SERVICE_DETAIL, products: [
       { 
         name: "미야칸바이 쥰마이다이긴죠 무로카 나카도리生", 
         abv: "15%",
@@ -268,8 +268,8 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         awards: ["SAKE COMPETITION 2016 금상수상", "ANA국제선 일등석과 비지니스석 채용주"]
       }
     ] } },
-    { id: "D08", name: "니혼사케 판매부스", details: COMMON_SERVICE_DETAIL },
-    { id: "D09", name: "니혼사케 시음부스", details: COMMON_SERVICE_DETAIL },
+    { id: "D08", name: "니혼사케판매부스", details: COMMON_SERVICE_DETAIL },
+    { id: "D09", name: "니혼사케시음부스", details: COMMON_SERVICE_DETAIL },
   ],
   E: [
     { id: "E01", name: "닷사이", details: { region_name: "야마구치", history: "세계적인 프리미엄 사케 브랜드.", features: "화사한 과실 향과 실크 같은 질감의 준마이 다이긴조.", official_site: "https://dassai.com", type: "sake", flavor: "amaguchi" } },
@@ -284,8 +284,8 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
     { id: "E10", name: "다카라", details: { region_name: "교토", history: "1925년 설립, ‘쇼치쿠바이’ 브랜드로 알려진 일본 대표 주류 기업입니다.", features: "깔끔하고 안정된 맛을 가진 국민 브랜드 성격의 사케를 선보입니다.", official_site: "", type: "sake", flavor: "karaguchi", tags: ["쇼치쿠바이", "종합주류"] } },
     { id: "E11", name: "카츠야마", details: { region_name: "미야기", history: "1688년 창업, 다테 마사무네 가문의 어용주를 만들던 미야기현 센다이의 명가입니다.", features: "높은 정미율로 구현한 밀도 높은 감칠맛과 구조감이 돋보이는 프리미엄 식중주입니다.", official_site: "https://www.katsuyamasake.com", type: "sake", tags: ["프리미엄", "센다이", "세련됨"], flavor: "amaguchi" } },
     { id: "E12", name: "킨료", details: { region_name: "카가와", history: "1789년 창업, 시코쿠 지역을 대표하는 전통 양조장입니다.", features: "온화한 산미와 부드러운 쌀 풍미로 해산물과의 궁합이 좋습니다.", official_site: "https://kinryo.co.jp", type: "sake", flavor: "balance", tags: ["시코쿠", "해산물궁합"] } },
-    { id: "E13", name: "키타야 고쿠", details: { region_name: "후쿠오카", history: "1818년 창업, 국제 대회 IWC 챔피언 수상 경력의 명가입니다.", features: "정제된 스타일의 사케와 오크 숙성 보리소주 ‘고쿠’가 유명합니다.", official_site: "https://www.kitaya.co.jp", type: "sake", flavor: "karaguchi", tags: ["IWC챔피언", "오크숙성소주"] } },
-    { id: "E14", name: "호우잔 텐부", details: { region_name: "가고시마", history: "전통 고구마 소주 '호우잔'과 최근 선보인 모던 사케 브랜드 '텐부'를 전개합니다.", features: "구수한 소주의 풍미와 맑고 깨끗한 산미의 사케를 모두 즐길 수 있는 라인업입니다.", official_site: "", type: "shochu", tags: ["가고시마", "혁신", "고구마소주"], flavor: "balance" } },
+    { id: "E13", name: "키타야/고쿠", details: { region_name: "후쿠오카", history: "1818년 창업, 국제 대회 IWC 챔피언 수상 경력의 명가입니다.", features: "정제된 스타일의 사케와 오크 숙성 보리소주 ‘고쿠’가 유명합니다.", official_site: "https://www.kitaya.co.jp", type: "sake", flavor: "karaguchi", tags: ["IWC챔피언", "오크숙성소주"] } },
+    { id: "E14", name: "호우잔/텐부", details: { region_name: "가고시마", history: "전통 고구마 소주 '호우잔'과 최근 선보인 모던 사케 브랜드 '텐부'를 전개합니다.", features: "구수한 소주의 풍미와 맑고 깨끗한 산미의 사케를 모두 즐길 수 있는 라인업입니다.", official_site: "", type: "shochu", tags: ["가고시마", "혁신", "고구마소주"], flavor: "balance" } },
     { id: "E15", name: "나나쿠보", details: { region_name: "가고시마", history: "전통 소주 메이커가 선보이는 프리미엄 고구마 소주 브랜드입니다.", features: "고구마의 강한 향을 정제해 부드러운 단맛과 깔끔한 마무리를 강조합니다.", official_site: "", type: "shochu", flavor: "amaguchi", tags: ["프리미엄소주", "고구마소주"] } },
     { id: "E16", name: "핫카이산", details: { region_name: "니가타", history: "설산 지하수를 사용하는 니가타 대표 양조장.", features: "질리지 않는 깨끗한 맛의 올라운더 식중주.", official_site: "https://www.hakkaisan.co.jp", type: "sake", flavor: "karaguchi" } },
     { id: "E17", name: "호라이센", details: { region_name: "아이치", history: "1864년 창업, 아이치현 오쿠미카와에서 체험형 프로그램을 운영하는 지역 친화적 양조장입니다.", features: "프리미엄 라인 ‘쿠우(空)’로 대표되는 우아한 과실 향과 실크 같은 텍스처가 특징입니다.", official_site: "https://www.houraisen.co.jp", type: "sake", tags: ["아이치", "우아함", "인기주"], flavor: "amaguchi" } },
@@ -294,7 +294,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
     { id: "E20", name: "나베시마", details: { region_name: "사가", history: "IWC 챔피언 사케 수상으로 명성을 얻은 프리미엄 브랜드.", features: "화사한 향과 세련된 산미, 풍부한 단맛의 조화.", official_site: "https://www.fukuchiyo.co.jp", type: "sake", flavor: "amaguchi" } },
   ],
   F: [
-    { id: "F01", name: "토코야마 (죠잔)", details: { region_name: "후쿠이", history: "후쿠이현의 산간 지역에서 19세기 후반 설립되어 지역 지하수와 쌀로 사케를 빚어왔습니다.", features: "잡미 없이 깨끗하게 떨어지는 피니시가 특징인 드라이한 식중주 스타일입니다.", type: "sake", tags: ["후쿠이", "드라이", "강직함", "니혼SAKE"], flavor: "karaguchi", products: [
+    { id: "F01", name: "죠잔", details: { region_name: "후쿠이", history: "후쿠이현의 산간 지역에서 19세기 후반 설립되어 지역 지하수와 쌀로 사케를 빚어왔습니다.", features: "잡미 없이 깨끗하게 떨어지는 피니시가 특징인 드라이한 식중주 스타일입니다.", type: "sake", tags: ["후쿠이", "드라이", "강직함", "니혼SAKE"], flavor: "karaguchi", products: [
       { 
         name: "죠잔 쥰마이다이긴죠 아라이소 生", 
         abv: "16%",
@@ -321,8 +321,8 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "입안 가득히 복숭아 향을 느끼게 해주며 시보리타테의 깨끝한 투명감과 톡톡 튀는탄산감이 모던 후레쉬함을 전해주고 있습니다."
       }
     ], official_site: "" } },
-    { id: "F02", name: "우메노야도 주조", details: { region_name: "나라", history: "1893년 창업, 전통 사케와 함께 생과일 리큐르 ‘아라고시’ 시리즈로 세계적인 인기를 얻었습니다.", features: "부드러운 질감의 사케와 실제 과일을 듬뿍 사용한 진한 과실 리큐르가 강점입니다.", official_site: "https://umenoyado.com", type: "liqueur", tags: ["리큐르", "아라고시", "나라", "니혼SAKE"], flavor: "amaguchi", products: [{ name: "우메노야도 아라고시 유즈슈" }, { name: "우메노야도 아라고시 모모" }, { name: "우메노야도 토마토" }, { name: "우메노야도 시트러스위트 Citrusweet" }] } },
-    { id: "F03", name: "타마다주조", details: { region_name: "아오모리", history: "아오모리현의 자연환경을 담아 전통적인 방식과 현대적인 감각을 조화시킨 양조장입니다.", features: "깔끔하고 청량한 맛을 지향하며, 지역 특산물과의 페어링을 중요하게 생각합니다.", official_site: "", type: "sake", tags: ["아오모리", "청량함", "니혼SAKE"], flavor: "balance", products: [
+    { id: "F02", name: "우메노야도", details: { region_name: "나라", history: "1893년 창업, 전통 사케와 함께 생과일 리큐르 ‘아라고시’ 시리즈로 세계적인 인기를 얻었습니다.", features: "부드러운 질감의 사케와 실제 과일을 듬뿍 사용한 진한 과실 리큐르가 강점입니다.", official_site: "https://umenoyado.com", type: "liqueur", tags: ["리큐르", "아라고시", "나라", "니혼SAKE"], flavor: "amaguchi", products: [{ name: "우메노야도 아라고시 유즈슈" }, { name: "우메노야도 아라고시 모모" }, { name: "우메노야도 토마토" }, { name: "우메노야도 시트러스위트 Citrusweet" }] } },
+    { id: "F03", name: "(주)카네타 타마다 주조점", details: { region_name: "아오모리", history: "아오모리현의 자연환경을 담아 전통적인 방식과 현대적인 감각을 조화시킨 양조장입니다.", features: "깔끔하고 청량한 맛을 지향하며, 지역 특산물과의 페어링을 중요하게 생각합니다.", official_site: "", type: "sake", tags: ["아오모리", "청량함", "니혼SAKE"], flavor: "balance", products: [
       { 
         name: "쥰마이긴죠 하나잇푸", 
         abv: "16%",
@@ -334,7 +334,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "일본 스노우 보드의 메카인 \"하쿠바의 전용 340 설 돔\"에서 전세계 보더들 약 1만명으로부터 찬사를 얻은 명품 니고리 사케 입니다."
       }
     ] } },
-    { id: "F04", name: "나가노 메이죠", details: { region_name: "나가노", history: "나가노현의 산악 지대에서 지하수를 활용하여 상쾌한 주질을 추구합니다.", features: "부드러운 산미와 깨끗한 목넘김으로 산지 채소 요리와 훌륭한 궁합을 보여줍니다.", official_site: "", type: "sake", tags: ["니혼SAKE"], products: [
+    { id: "F04", name: "나가노메이죠", details: { region_name: "나가노", history: "나가노현의 산악 지대에서 지하수를 활용하여 상쾌한 주질을 추구합니다.", features: "부드러운 산미와 깨끗한 목넘김으로 산지 채소 요리와 훌륭한 궁합을 보여줍니다.", official_site: "", type: "sake", tags: ["니혼SAKE"], products: [
       { 
         name: "쥰마이다이긴죠 타나다 라그라스", 
         abv: "15%",
@@ -362,7 +362,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "사과, 또는 오렌지를 연상시키는 후루티한 향기와 품격 높은 부드러움과 감칠맛을 잘 표현 하였습니다."
       }
     ] } },
-    { id: "F05", name: "이이누마혼케 (키노에네)", details: { region_name: "치바", history: "에도 시대부터 사케와 발효 식품을 함께 만들어온 치바현의 유서 깊은 곳입니다.", features: "산뜻한 향과 균형 잡힌 맛을 지향하며 일상 식탁에 곁들이기 좋은 사케를 생산합니다.", official_site: "", type: "sake", tags: ["니혼SAKE"], products: [
+    { id: "F05", name: "키노에네", details: { region_name: "치바", history: "에도 시대부터 사케와 발효 식품을 함께 만들어온 치바현의 유서 깊은 곳입니다.", features: "산뜻한 향과 균형 잡힌 맛을 지향하며 일상 식탁에 곁들이기 좋은 사케를 생산합니다.", official_site: "", type: "sake", tags: ["니혼SAKE"], products: [
       { 
         name: "키노에네 쥰마이 우마카라 미가키하치와리", 
         abv: "15%",
@@ -386,7 +386,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "후레쉬한 산미, 화려한 긴죠향의 절묘한 밸런스를 살리며, 여름 한 철 동안 숙성시켜 만든 가을 한정주 입니다."
       }
     ] } },
-    { id: "F06", name: "니카이도주조", details: { region_name: "오이타", history: "지역산 보리와 지하수를 사용하여 전통적인 보리 소주를 생산해 왔습니다.", features: "구수한 곡물 향과 부드러운 목넘김이 특징인 깔끔한 스타일의 보리 소주입니다.", official_site: "", type: "shochu", tags: ["니혼SAKE"], products: [
+    { id: "F06", name: "나카이도", details: { region_name: "오이타", history: "지역산 보리와 지하수를 사용하여 전통적인 보리 소주를 생산해 왔습니다.", features: "구수한 곡물 향과 부드러운 목넘김이 특징인 깔끔한 스타일의 보리 소주입니다.", official_site: "", type: "shochu", tags: ["니혼SAKE"], products: [
       { 
         name: "니카이도", 
         abv: "25%",
@@ -398,7 +398,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "충분하게 숙성시켜 향을 중요시한 최고급품 보리소주입니다."
       }
     ] } },
-    { id: "F07", name: "요시다주조 (갓산)", details: { region_name: "시마네", history: "1826년 설립, 일본 100대 명수로 꼽히는 시마네현 야에가키의 물을 사용합니다.", features: "녹은 눈처럼 맑고 깨끗한 주질과 은은한 단맛이 담백한 요리와 잘 어울립니다.", official_site: "https://gassan-sake.co.jp", type: "sake", tags: ["시마네", "초연수", "부드러움"], flavor: "amaguchi", products: [
+    { id: "F07", name: "갓산", details: { region_name: "시마네", history: "1826년 설립, 일본 100대 명수로 꼽히는 시마네현 야에가키의 물을 사용합니다.", features: "녹은 눈처럼 맑고 깨끗한 주질과 은은한 단맛이 담백한 요리와 잘 어울립니다.", official_site: "https://gassan-sake.co.jp", type: "sake", tags: ["시마네", "초연수", "부드러움"], flavor: "amaguchi", products: [
       { 
         name: "갓산 쥰마이긴죠 나카도리지카구미 生", 
         abv: "16%",
@@ -422,7 +422,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         awards: ["와인글라스로 맛있는 사케 금상 수상", "KURA MASTER 2022 플라티나상 수상"]
       }
     ] } },
-    { id: "F08", name: "배니오토메", details: { region_name: "후쿠오카", history: "1970년대 세계 최초로 참깨를 주원료로 한 증류주를 상업화한 혁신적 증류소입니다.", features: "볶은 참깨 특유의 고소한 향과 바닐라 같은 여운이 남는 독창적인 소주입니다.", official_site: "", type: "shochu", tags: ["참깨소주", "고소함", "세계최초", "니혼SAKE"], flavor: "balance", products: [
+    { id: "F08", name: "베니오토메", details: { region_name: "후쿠오카", history: "1970년대 세계 최초로 참깨를 주원료로 한 증류주를 상업화한 혁신적 증류소입니다.", features: "볶은 참깨 특유의 고소한 향과 바닐라 같은 여운이 남는 독창적인 소주입니다.", official_site: "", type: "shochu", tags: ["참깨소주", "고소함", "세계최초", "니혼SAKE"], flavor: "balance", products: [
       { 
         name: "캇파 큐센보우(와인효모)", 
         abv: "25%",
@@ -444,7 +444,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         description: "참깨소주에 흑참깨를 으깨어 용해시켜 고소하고 달콤한 흑참깨의 본성을 살린 농후한 맛입니다."
       }
     ] } },
-    { id: "F09", name: "타츠우마 (하쿠시카)", details: { region_name: "효고(나다)", history: "에도 시대부터 이어진 전통을 바탕으로 나다 사케 문화를 알리는 효고현의 대표 양조장입니다.", features: "힘 있고 드라이한 주질을 중심으로 일상에서 프리미엄까지 폭넓은 라인업을 갖췄습니다.", official_site: "https://www.hakushika.co.jp/en/", type: "sake", tags: ["나다", "전통", "클래식", "니혼SAKE"], flavor: "karaguchi", products: [
+    { id: "F09", name: "하쿠시카", details: { region_name: "효고(나다)", history: "에도 시대부터 이어진 전통을 바탕으로 나다 사케 문화를 알리는 효고현의 대표 양조장입니다.", features: "힘 있고 드라이한 주질을 중심으로 일상에서 프리미엄까지 폭넓은 라인업을 갖췄습니다.", official_site: "https://www.hakushika.co.jp/en/", type: "sake", tags: ["나다", "전통", "클래식", "니혼SAKE"], flavor: "karaguchi", products: [
       { 
         name: "토쿠베츠 혼죠조 키쥬로", 
         abv: "14~15%",
@@ -472,7 +472,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
         awards: ["2020 런던 사케 챌린지 은상 수상"]
       }
     ] } },
-    { id: "F10", name: "하나노마이주조", details: { region_name: "시즈오카", history: "시즈오카현 하마마쓰 인근의 양조장으로 지역의 깨끗한 수자원을 적극 활용합니다.", features: "부드러운 꽃향과 멜론 계열의 은은한 과실 향이 맑은 물맛과 조화를 이룹니다.", official_site: "https://www.hananomai.co.jp", type: "sake", tags: ["시즈오카", "와인효모", "청량감", "니혼SAKE"], flavor: "balance", products: [
+    { id: "F10", name: "하나노마이", details: { region_name: "시즈오카", history: "시즈오카현 하마마쓰 인근의 양조장으로 지역의 깨끗한 수자원을 적극 활용합니다.", features: "부드러운 꽃향과 멜론 계열의 은은한 과실 향이 맑은 물맛과 조화를 이룹니다.", official_site: "https://www.hananomai.co.jp", type: "sake", tags: ["시즈오카", "와인효모", "청량감", "니혼SAKE"], flavor: "balance", products: [
       { 
         name: "하나노마이 쥰마이긴죠슈", 
         abv: "14.5%",
@@ -498,7 +498,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
     { id: "F12", name: "치요무스비", details: { region_name: "돗토리", history: "돗토리현 사카이미나토에서 메이지 시대부터 사케와 소주를 함께 생산해 왔습니다.", features: "해안 지역 특유의 산뜻한 드라이함과 실험적인 발포성 사케 등이 유명합니다.", official_site: "https://www.chiyomusubi.co.jp", type: "sake", tags: ["돗토리", "스파클링", "인연"], flavor: "balance" } },
     { id: "F13", name: "쿠로우시", details: { region_name: "와카야마", history: "와카야마현 헤이와주조가 1866년 창업 이후 생산해 온 대표 사케 브랜드입니다.", features: "쌀의 두터운 감칠맛과 적당한 산미를 살린 범용성 높은 준마이 스타일입니다.", official_site: "https://www.heiwa-shuzou.co.jp", type: "sake", tags: ["와카야마", "감칠맛", "식중주"], flavor: "balance" } },
     { id: "F14", name: "하나가키", details: { region_name: "후쿠이", history: "1733년 창업, 에치젠 오노의 명수와 지역 쌀을 사용하여 정성껏 술을 빚는 전통 명가입니다.", features: "쌀의 감칠맛을 살리면서도 깔끔하게 떨어지는 전형적인 식중주 스타일입니다.", type: "sake", flavor: "balance" } },
-    { id: "F15", name: "시치다 (미노야마쓰모네)", details: { region_name: "사가", history: "사가현 텐잔주조가 설립된 이후 무여과 생 원주 스타일로 큰 인기를 얻은 브랜드입니다.", features: "여과를 최소화하여 쌀의 농밀한 풍미와 볼륨감이 강하게 느껴지는 주질이 특징입니다.", official_site: "", type: "sake", tags: ["사가", "모던", "풍부함"], flavor: "balance", products: [{ name: "마츠모네 CLASSIC 90" }, { name: "마츠모네 CORE 60" }, { name: "마츠모네 ID-series K" }, { name: "마츠모네 ID-series W" }] } },
+    { id: "F15", name: "시치다", details: { region_name: "사가", history: "사가현 텐잔주조가 설립된 이후 무여과 생 원주 스타일로 큰 인기를 얻은 브랜드입니다.", features: "여과를 최소화하여 쌀의 농밀한 풍미와 볼륨감이 강하게 느껴지는 주질이 특징입니다.", official_site: "", type: "sake", tags: ["사가", "모던", "풍부함"], flavor: "balance", products: [{ name: "마츠모네 CLASSIC 90" }, { name: "마츠모네 CORE 60" }, { name: "마츠모네 ID-series K" }, { name: "마츠모네 ID-series W" }] } },
     { id: "F16", name: "죠키겐", details: { region_name: "이시카와", history: "19세기부터 지역의 물을 사용하여 정성껏 사케를 빚어온 이시카와현의 양조장입니다.", features: "깔끔한 향과 균형 잡힌 맛을 지향하는 전형적인 식중주 스타일입니다.", official_site: "", type: "sake" } },
     { id: "F17", name: "이요카기야", details: { region_name: "에히메", history: "에히메현의 소규모 양조장으로 시코쿠 지역의 자원을 활용해 가족 경영을 이어왔습니다.", features: "가벼운 산미와 부드러운 단맛이 특징인 산뜻한 주질의 사케입니다.", official_site: "", type: "sake" } },
     { id: "F18", name: "카쿠레이", details: { region_name: "니가타", history: "니가타현 설산 지역의 지하수를 사용하여 정통 니가타 사케를 빚습니다.", features: "단맛을 억제하고 깨끗하게 떨어지는 니가타 탄레이 카라쿠치 스타일의 정석입니다.", official_site: "https://www.kakurei.co.jp", type: "sake" } },
@@ -508,14 +508,14 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
   ],
   G: [
     { id: "G01", name: "일로사케", details: { region_name: "큐레이션", history: "일본 각지의 우수한 사케를 한국에 소개하며 여러 양조장과 파트너십을 맺고 있습니다.", features: "다양한 지역과 스타일의 사케를 선별하여 소개하는 플랫폼적인 성격이 강합니다.", official_site: "", type: "other" } },
-    { id: "G02", name: "코바야시주조 (호오비덴)", details: { region_name: "토치기", history: "1872년 창업, 니코 산맥의 지하수와 지역 쌀을 사용하여 양조합니다.", features: "멜론이나 머스캣을 연상시키는 화려한 향과 풍부한 단맛이 돋보이는 모던 사케입니다.", official_site: "https://hououbiden.jp", type: "sake", tags: ["화사함", "인기주", "토치기"], flavor: "amaguchi", products: [{ name: "호오비덴 준마이다이긴죠 아카반" }, { name: "호오비덴 츠루기" }] } },
-    { id: "G03", name: "츠치야주조점 (카메노우미)", details: { region_name: "나가노", history: "나가노현의 산악 지대에서 깨끗한 물과 지역 쌀을 바탕으로 양조하는 소규모 브랜드입니다.", features: "부드러운 과실 향과 둥근 산미를 가진 편안하고 세련된 모던 사케가 중심입니다.", official_site: "", type: "sake", products: [{ name: "카메노우미 우마구치 준마이" }] } },
-    { id: "G04", name: "나루노나마주조 (미코츠루)", details: { region_name: "나가노", history: "현대의 젊은 감각을 사케에 투영하여 새로운 스타일을 전개하는 나가노의 양조장입니다.", features: "화사한 향과 산뜻한 산미가 차갑게 마셨을 때 더욱 돋보이는 모던 스타일입니다.", official_site: "", type: "sake", products: [{ name: "나루노나마 칼파 쥰마이다이긴죠" }, { name: "나루노나마 칼파 쥰마이긴죠" }, { name: "나루노나마 토쿠베츠쥰마이 시보리타테" }] } },
-    { id: "G05", name: "킷도 츠루우메", details: { region_name: "와카야마", history: "와카야마현 헤이와주조의 브랜드로 사케 '킷도'와 리큐르 '츠루우메'를 전개합니다.", features: "경쾌한 사케와 실제 유자 과즙을 듬뿍 사용한 상큼한 리큐르가 특징입니다.", type: "sake", tags: ["와카야마", "젊은감각", "매실주"], flavor: "amaguchi", official_site: "" } },
+    { id: "G02", name: "호오비덴", details: { region_name: "토치기", history: "1872년 창업, 니코 산맥의 지하수와 지역 쌀을 사용하여 양조합니다.", features: "멜론이나 머스캣을 연상시키는 화려한 향과 풍부한 단맛이 돋보이는 모던 사케입니다.", official_site: "https://hououbiden.jp", type: "sake", tags: ["화사함", "인기주", "토치기"], flavor: "amaguchi", products: [{ name: "호오비덴 준마이다이긴죠 아카반" }, { name: "호오비덴 츠루기" }] } },
+    { id: "G03", name: "카메노우미", details: { region_name: "나가노", history: "나가노현의 산악 지대에서 깨끗한 물과 지역 쌀을 바탕으로 양조하는 소규모 브랜드입니다.", features: "부드러운 과실 향과 둥근 산미를 가진 편안하고 세련된 모던 사케가 중심입니다.", official_site: "", type: "sake", products: [{ name: "카메노우미 우마구치 준마이" }] } },
+    { id: "G04", name: "미코츠루", details: { region_name: "나가노", history: "현대의 젊은 감각을 사케에 투영하여 새로운 스타일을 전개하는 나가노의 양조장입니다.", features: "화사한 향과 산뜻한 산미가 차갑게 마셨을 때 더욱 돋보이는 모던 스타일입니다.", official_site: "", type: "sake", products: [{ name: "나루노나마 칼파 쥰마이다이긴죠" }, { name: "나루노나마 칼파 쥰마이긴죠" }, { name: "나루노나마 토쿠베츠쥰마이 시보리타테" }] } },
+    { id: "G05", name: "킷도,츠루우메", details: { region_name: "와카야마", history: "와카야마현 헤이와주조의 브랜드로 사케 '킷도'와 리큐르 '츠루우메'를 전개합니다.", features: "경쾌한 사케와 실제 유자 과즙을 듬뿍 사용한 상큼한 리큐르가 특징입니다.", type: "sake", tags: ["와카야마", "젊은감각", "매실주"], flavor: "amaguchi", official_site: "" } },
     { id: "G06", name: "일로사케" },
     { id: "G07", name: "이와노이", details: { region_name: "치바", history: "치바현 해안가 인근 환경에서 미네랄감 있는 사케를 빚어온 양조장입니다.", features: "해산물과 잘 어울리도록 깨끗하고 산뜻한 산미를 살린 주질을 지향합니다.", official_site: "", type: "sake" } },
-    { id: "G08", name: "사와야마츠모토 (자쿠)", details: { region_name: "미에", history: "미에현 스즈카에서 1869년 설립, G7 서밋 건배주로 선정되어 세계적 주목을 받았습니다.", features: "투명한 과실 향과 정교한 단맛·산미의 조화가 세련된 인상을 주는 모던 명작입니다.", official_site: "https://www.shimizu-seizaburo.jp", type: "sake", tags: ["G7공식주", "우아함", "미에"], flavor: "amaguchi", products: [{ name: "쇼호 쥰마이긴죠37" }, { name: "쇼호 쥰마" }, { name: "이리초 준마이긴죠" }, { name: "코토바카리이와레테키테(사와야마츠모토)" }] } },
-    { id: "G09", name: "하야시호텐 (햐쿠쥬로)", details: { region_name: "기후", history: "가부키 배우의 이름에서 따온 강렬한 이미지로 브랜드를 전개하는 기후현의 양조장입니다.", features: "붉은 가부키 마스크 레이블처럼 향과 바디감이 강렬한 존재감 있는 스타일입니다.", official_site: "https://hyakujuro-sake.com", type: "sake", tags: ["가부키", "강렬함", "기후"], flavor: "karaguchi", products: [{ name: "반쇼잇코" }, { name: "하야시호텐" }, { name: "기타무로가와쵸" }, { name: "유즈슈" }] } },
+    { id: "G08", name: "자쿠", details: { region_name: "미에", history: "미에현 스즈카에서 1869년 설립, G7 서밋 건배주로 선정되어 세계적 주목을 받았습니다.", features: "투명한 과실 향과 정교한 단맛·산미의 조화가 세련된 인상을 주는 모던 명작입니다.", official_site: "https://www.shimizu-seizaburo.jp", type: "sake", tags: ["G7공식주", "우아함", "미에"], flavor: "amaguchi", products: [{ name: "쇼호 쥰마이긴죠37" }, { name: "쇼호 쥰마" }, { name: "이리초 준마이긴죠" }, { name: "코토바카리이와레테키테(사와야마츠모토)" }] } },
+    { id: "G09", name: "햐쿠쥬로", details: { region_name: "기후", history: "가부키 배우의 이름에서 따온 강렬한 이미지로 브랜드를 전개하는 기후현의 양조장입니다.", features: "붉은 가부키 마스크 레이블처럼 향과 바디감이 강렬한 존재감 있는 스타일입니다.", official_site: "https://hyakujuro-sake.com", type: "sake", tags: ["가부키", "강렬함", "기후"], flavor: "karaguchi", products: [{ name: "반쇼잇코" }, { name: "하야시호텐" }, { name: "기타무로가와쵸" }, { name: "유즈슈" }] } },
     { id: "G10", name: "아카루이노우손", details: { region_name: "가고시마", history: "‘밝은 농촌’이라는 이름으로 지역 농업과의 연결을 강조하는 고구마 소주 명가입니다.", features: "고구마의 구수함에 부드러움을 더해 마시기 편한 밝은 이미지를 구현했습니다.", official_site: "", type: "shochu" } },
     { id: "G11", name: "크래프츠맨타다", details: { region_name: "후쿠오카", history: "전통 보리 소주를 현대적 감각으로 재해석하여 전개하는 후쿠오카의 브랜드입니다.", features: "보리의 고소함을 세련되게 다듬어 위스키처럼 즐길 수 있는 모던 소주입니다.", official_site: "", type: "shochu" } },
     { id: "G12", name: "미치자쿠라", details: { region_name: "야마가타", history: "벚꽃의 이미지를 담아 산뜻하고 마시기 쉬운 사케를 목표로 하는 야마가타의 브랜드입니다.", features: "은은한 꽃향과 부드러운 단맛이 일품인 봄날 같은 사케를 선보입니다.", official_site: "", type: "sake" } },
@@ -557,17 +557,17 @@ export const hall1Booths: Record<string, BoothInfo[]> = {
     { id: "J04", name: "무소우", details: { region_name: "모던사케", history: "나가노 등지의 양조장들이 ‘꿈속의 상상’이라는 모토로 재정비한 라인업입니다.", features: "과실 향과 산미를 살려 캐주얼한 안주와 즐기기 좋은 경쾌한 주질을 지녔습니다.", official_site: "", type: "sake" } },
     { id: "J05", name: "케센토하루카", details: { region_name: "이와테", history: "지역 부흥을 목표로 기획된 브랜드.", features: "깔끔하고 산뜻한 드라이함과 가벼운 산미.", official_site: "", type: "sake", flavor: "karaguchi" } },
     { id: "J06", name: "일로사케 판매부스", details: COMMON_SERVICE_DETAIL },
-    { id: "J07", name: "일로사케 이벤트", details: COMMON_SERVICE_DETAIL },
-    { id: "J08", name: "센게츠", details: { region_name: "구마모토", history: "100년 이상 히토요시의 맑은 물로 쌀 소주를 빚어온 구마모토의 명가입니다.", features: "부드러운 목넘김과 은은한 곡물 향이 조화로운 맑은 타입의 쌀 소주입니다.", official_site: "", type: "shochu" } },
-    { id: "J09", name: "소우텐덴", details: { region_name: "미야기", history: "지진 이후 지역 복구를 상징하며 해산물 궁합을 최우선으로 설계된 브랜드입니다.", features: "깔끔하고 산뜻한 드라이함이 특징인 항구 도시 미야기 특유의 주질입니다.", official_site: "", type: "sake" } },
-    { id: "J10", name: "후쿠쵸", details: { region_name: "히로시마", history: "유명 양조장 이마다주조의 브랜드로 부드럽고 섬세한 긴조 스타일을 지향합니다.", features: "은은 향과 섬세한 단맛이 돋보이는 히로시마의 대표적인 모던 사케입니다.", official_site: "https://www.imada.jp", type: "sake", flavor: "amaguchi" } },
-    { id: "J11", name: "고젠슈", details: { region_name: "오카야마", history: "전통 제법과 오마치 쌀 100% 사용으로 요구르트 같은 개성적 산미를 선사합니다.", features: "독특한 젖산 산미와 깊은 풍미가 어우러진 오카야마의 명물 사케입니다.", official_site: "https://www.gozenshu.co.jp", type: "sake", flavor: "karaguchi" } },
-    { id: "J12", name: "타이쇼노츠루", details: { region_name: "오카야마", history: "메이지~타이쇼 시대부터 오카야마 지역에 뿌리 내린 유서 깊은 브랜드입니다.", features: "화려함보다는 쌀의 깊은 맛과 부드러운 단맛에 집중한 식중주 사케입니다.", official_site: "", type: "sake" } },
-    { id: "J13", name: "츠쿠시", details: { region_name: "후쿠오카", history: "수십 년간 규슈 지역에서 큰 사랑을 받아온 후쿠오카의 정통 보리 소주입니다.", features: "보리를 구운 듯한 고소함과 스모키한 여운이 매력적인 소주입니다.", official_site: "", type: "shochu" } },
-    { id: "J14", name: "시게마스", details: { region_name: "후쿠오카", history: "높은 도정비와 정성 어린 양조로 알려진 후쿠오카의 프리미엄급 브랜드입니다.", features: "잡미 없이 정갈한 주질과 섬세한 단맛이 돋보이는 고품격 사케입니다.", official_site: "", type: "sake" } },
-    { id: "J15", name: "와카나미", details: { region_name: "후쿠오카", history: "젊은 양조자와 여성 토지가 이끄는 부드러운 감성의 모던 양조장입니다.", features: "부드러운 파도처럼 밀려오는 섬세한 산미와 맛의 조화가 탁월한 사케입니다.", official_site: "", type: "sake" } },
-    { id: "J16", name: "키쿠비진", details: { region_name: "규슈전통", history: "20세기 초반부터 예술가들 사이에서 회자된 전통과 권위의 브랜드입니다.", features: "진중한 쌀맛과 깊은 감칠맛을 정직하게 표현한 정통파 스타일의 사케입니다.", official_site: "", type: "sake" } },
-    { id: "J17", name: "리브롬", details: { region_name: "후쿠오카", history: "과일·허브 등을 활용해 실험적인 크래프트 사케를 빚는 신생 양조장입니다.", features: "전통의 틀을 깬 다채로운 재료의 조화와 신선한 맛이 특징입니다.", official_site: "https://www.librom.jp", type: "other", tags: ["크래프트"] } },
+    { id: "J09", name: "일로사케 이벤트", details: COMMON_SERVICE_DETAIL },
+    { id: "J11", name: "센게츠", details: { region_name: "구마모토", history: "100년 이상 히토요시의 맑은 물로 쌀 소주를 빚어온 구마모토의 명가입니다.", features: "부드러운 목넘김과 은은한 곡물 향이 조화로운 맑은 타입의 쌀 소주입니다.", official_site: "", type: "shochu" } },
+    { id: "J12", name: "소우텐덴", details: { region_name: "미야기", history: "지진 이후 지역 복구를 상징하며 해산물 궁합을 최우선으로 설계된 브랜드입니다.", features: "깔끔하고 산뜻한 드라이함이 특징인 항구 도시 미야기 특유의 주질입니다.", official_site: "", type: "sake" } },
+    { id: "J13", name: "후쿠쵸", details: { region_name: "히로시마", history: "유명 양조장 이마다주조의 브랜드로 부드럽고 섬세한 긴조 스타일을 지향합니다.", features: "은은 향과 섬세한 단맛이 돋보이는 히로시마의 대표적인 모던 사케입니다.", official_site: "https://www.imada.jp", type: "sake", flavor: "amaguchi" } },
+    { id: "J14", name: "고젠슈", details: { region_name: "오카야마", history: "전통 제법과 오마치 쌀 100% 사용으로 요구르트 같은 개성적 산미를 선사합니다.", features: "독특한 젖산 산미와 깊은 풍미가 어우러진 오카야마의 명물 사케입니다.", official_site: "https://www.gozenshu.co.jp", type: "sake", flavor: "karaguchi" } },
+    { id: "J15", name: "타이쇼노츠루", details: { region_name: "오카야마", history: "메이지~타이쇼 시대부터 오카야마 지역에 뿌리 내린 유서 깊은 브랜드입니다.", features: "화려함보다는 쌀의 깊은 맛과 부드러운 단맛에 집중한 식중주 사케입니다.", official_site: "", type: "sake" } },
+    { id: "J16", name: "츠쿠시", details: { region_name: "후쿠오카", history: "수십 년간 규슈 지역에서 큰 사랑을 받아온 후쿠오카의 정통 보리 소주입니다.", features: "보리를 구운 듯한 고소함과 스모키한 여운이 매력적인 소주입니다.", official_site: "", type: "shochu" } },
+    { id: "J17", name: "시게마스", details: { region_name: "후쿠오카", history: "높은 도정비와 정성 어린 양조로 알려진 후쿠오카의 프리미엄급 브랜드입니다.", features: "잡미 없이 정갈한 주질과 섬세한 단맛이 돋보이는 고품격 사케입니다.", official_site: "", type: "sake" } },
+    { id: "J18", name: "와카나미", details: { region_name: "후쿠오카", history: "젊은 양조자와 여성 토지가 이끄는 부드러운 감성의 모던 양조장입니다.", features: "부드러운 파도처럼 밀려오는 섬세한 산미와 맛의 조화가 탁월한 사케입니다.", official_site: "", type: "sake" } },
+    { id: "J19", name: "키쿠비진", details: { region_name: "규슈전통", history: "20세기 초반부터 예술가들 사이에서 회자된 전통과 권위의 브랜드입니다.", features: "진중한 쌀맛과 깊은 감칠맛을 정직하게 표현한 정통파 스타일의 사케입니다.", official_site: "", type: "sake" } },
+    { id: "J20", name: "리브롬", details: { region_name: "후쿠오카", history: "과일·허브 등을 활용해 실험적인 크래프트 사케를 빚는 신생 양조장입니다.", features: "전통의 틀을 깬 다채로운 재료의 조화와 신선한 맛이 특징입니다.", official_site: "https://www.librom.jp", type: "other", tags: ["크래프트"] } },
   ],
   K: [
     { id: "K01", name: "미요키쿠", details: { region_name: "도쿠시마", history: "실험적인 양조와 개성 강한 산미, 팝한 라벨 디자인으로 지지층이 두터운 양조장입니다.", features: "내추럴 와인과 유사한 뚜렷한 산미와 쥬시한 단맛이 특징인 모던 사케입니다.", official_site: "https://www.miyoshikiku.com", type: "sake", tags: ["내추럴", "산미", "개성적"], flavor: "amaguchi" } },

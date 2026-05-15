@@ -504,7 +504,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "P04",
-      name: "마치다슈죠",
+      name: "기쿄",
       details: {
         region_name: "군마",
         history:

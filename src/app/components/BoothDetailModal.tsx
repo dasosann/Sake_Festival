@@ -1,8 +1,9 @@
 import React from 'react';
 import { BoothInfo } from '../boothData';
 import { HeartIcon } from './Icons';
-import { getTypeBadge, getFlavorBadge, getRegionTag, getImporterBadge } from './Badges';
+import { getTypeBadge, getFlavorBadge, getRegionTag, getImporterBadge, getStyleBadges } from './Badges';
 import { getBoothColorClass } from '../utils';
+import { getBoothStyleCategories } from '../data/styleCategories';
 
 interface BoothDetailModalProps {
   selectedBooth: BoothInfo;
@@ -38,13 +39,13 @@ const BoothDetailModal = ({
   setPreviewImage
 }: BoothDetailModalProps) => {
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm fade-in" onClick={() => setSelectedBooth(null)}>
+    <div className="fixed inset-0 z-100 flex items-center justify-center px-4 py-8 bg-black/60 backdrop-blur-sm fade-in" onClick={() => setSelectedBooth(null)}>
       <div 
         className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative" 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className={`p-4 ${getBoothColorClass(selectedBooth.id.charAt(0))} border-b`}>
+        <div className={`p-3 ${getBoothColorClass(selectedBooth.id.charAt(0))} border-b`}>
           <div className="flex justify-between items-start">
             <div>
               <span className="text-xs font-black px-2 py-1 bg-white/50 rounded-md border border-black/5 mb-2 inline-block">
@@ -54,6 +55,7 @@ const BoothDetailModal = ({
               <div className="flex flex-wrap gap-1.5 mt-2">
                 {getRegionTag(selectedBooth.details?.region_name)}
                 {getImporterBadge(selectedBooth.details?.tags)}
+                {getStyleBadges(getBoothStyleCategories(selectedBooth))}
               </div>
             </div>
             <button 
@@ -66,7 +68,7 @@ const BoothDetailModal = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-4 space-y-6 max-h-[85vh] overflow-y-auto">
+        <div className="p-4 space-y-6 max-h-[80vh] overflow-y-auto">
           {/* Visit Toggle Area */}
           <div className="flex items-center justify-between p-4 rounded-2xl bg-bg-sub border border-glass-border">
             <div className="flex items-center gap-3">
@@ -101,6 +103,7 @@ const BoothDetailModal = ({
             <>
               <div className="flex flex-wrap gap-2 mb-4">
                 {getTypeBadge(selectedBooth.details.type, true)}
+                {getStyleBadges(getBoothStyleCategories(selectedBooth))}
                 {getFlavorBadge(selectedBooth.details.flavor)}
               </div>
               
@@ -138,7 +141,7 @@ const BoothDetailModal = ({
                       return (
                         <div key={idx} className="bg-white border border-glass-border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md hover:border-primary/20">
                           <div className="p-4 flex gap-4">
-                            <div className="w-20 h-28 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center overflow-hidden border border-glass-border">
+                            <div className="w-20 h-28 bg-bg-sub rounded-xl shrink-0 flex items-center justify-center overflow-hidden border border-glass-border">
                               {product.image ? (
                                 <img 
                                   src={product.image} 
@@ -167,7 +170,7 @@ const BoothDetailModal = ({
                                 </div>
                                 <button 
                                   onClick={() => toggleFavoriteProduct(selectedBooth.id, idx)}
-                                  className={`flex-shrink-0 transition-transform active:scale-90 ${favoriteProducts.includes(`${selectedBooth.id}_${idx}`) ? 'text-red-500' : 'text-text-dim/20 hover:text-red-300'}`}
+                                  className={`shrink-0 transition-transform active:scale-90 ${favoriteProducts.includes(`${selectedBooth.id}_${idx}`) ? 'text-red-500' : 'text-text-dim/20 hover:text-red-300'}`}
                                 >
                                   <HeartIcon filled={favoriteProducts.includes(`${selectedBooth.id}_${idx}`)} className="w-4 h-4" />
                                 </button>

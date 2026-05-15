@@ -1,8 +1,9 @@
 import React from 'react';
 import { BoothInfo, FESTIVAL_BOOTHS } from '../boothData';
 import { HeartIcon } from './Icons';
-import { getFlavorBadge, getRegionTag, getImporterBadge } from './Badges';
+import { getFlavorBadge, getRegionTag, getImporterBadge, getStyleBadges } from './Badges';
 import { getBoothColorClass } from '../utils';
+import { getBoothStyleCategories } from '../data/styleCategories';
 
 interface BoothSearchProps {
   searchTerm: string;
@@ -33,7 +34,7 @@ const BoothSearch = ({
         <div className="relative">
           <input 
             type="text" 
-            placeholder="부스 번호(예: A01) 또는 이름..." 
+            placeholder="부스 번호, 이름, 또는 클래식/모던/뉴에이지..." 
             className="py-3 px-5 rounded-2xl bg-bg-sub border border-glass-border text-text w-full outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 text-sm"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -48,7 +49,7 @@ const BoothSearch = ({
             <div 
               key={`${booth.region}-${booth.id}`} 
               onClick={() => setSelectedBooth(booth)}
-              className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 border-l-4 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/[0.02]' : ''}`}
+              className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 border-l-4 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/2' : ''}`}
               style={{ borderLeftColor: `var(--${booth.region.toLowerCase()}-color, #ddd)` }}
             >
               {visitedBooths.includes(booth.id) && (
@@ -66,11 +67,12 @@ const BoothSearch = ({
                   <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.region}</span>
                   <span className="text-[0.8rem] font-black leading-none">{booth.id.replace(booth.region, '')}</span>
                 </div>
-                <div className="flex-grow">
+                <div className="grow">
                   <h3 className={`text-sm font-bold mb-1.5 ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                   <div className="flex items-center gap-2 overflow-x-auto scrollbar-thin">
                     {getRegionTag(booth.details?.region_name)}
                     {getImporterBadge(booth.details?.tags, true)}
+                    {getStyleBadges(getBoothStyleCategories(booth))}
                     {getFlavorBadge(booth.details?.flavor)}
                   </div>
                 </div>
@@ -147,7 +149,7 @@ const BoothSearch = ({
                     <div 
                       key={booth.id} 
                       onClick={() => setSelectedBooth(booth)}
-                      className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/[0.02]' : ''}`}
+                      className={`glass-card p-4 flex flex-col gap-3 bg-white cursor-pointer hover:border-primary/50 transition-all duration-300 relative overflow-hidden ${visitedBooths.includes(booth.id) ? 'bg-primary/2' : ''}`}
                     >
                       {visitedBooths.includes(booth.id) && (
                         <div className="absolute top-0 right-0 bg-primary text-white p-1 rounded-bl-xl shadow-sm z-10">
@@ -164,11 +166,12 @@ const BoothSearch = ({
                           <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.region}</span>
                           <span className="text-[0.8rem] font-black leading-none">{booth.id.replace(booth.region, '')}</span>
                         </div>
-                        <div className="flex-grow">
+                        <div className="grow">
                           <h3 className={`text-sm font-bold mb-1.5 ${visitedBooths.includes(booth.id) ? 'text-primary' : 'text-text'}`}>{booth.name}</h3>
                           <div className="flex items-center gap-2 overflow-x-auto scrollbar-thin">
                             {getRegionTag(booth.details?.region_name)}
                             {getImporterBadge(booth.details?.tags, true)}
+                            {getStyleBadges(getBoothStyleCategories(booth))}
                             {getFlavorBadge(booth.details?.flavor)}
                           </div>
                         </div>

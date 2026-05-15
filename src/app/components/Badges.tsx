@@ -1,4 +1,5 @@
 import React from 'react';
+import { BoothStyleCategory } from '../data/styleCategories';
 
 export const TYPE_LABELS: Record<string, string> = {
   sake: '사케',
@@ -62,5 +63,33 @@ export const getImporterBadge = (tags?: string[], isSearch: boolean = false) => 
     <span className="inline-flex items-center px-2 py-0.5 rounded bg-[#1a1a1e] text-white text-[0.65rem] font-black border border-black shadow-sm leading-none whitespace-nowrap">
       {importerTag}
     </span>
+  );
+};
+
+export const getStyleBadge = (category?: BoothStyleCategory) => {
+  if (!category) return null;
+
+  const styles: Record<BoothStyleCategory, string> = {
+    클래식: 'bg-[#f8f0e3] text-[#8a5a00] border-[#ecd3a3]',
+    모던: 'bg-[#e7f5ff] text-[#0b7285] border-[#a5d8ff]',
+    뉴에이지: 'bg-[#fff0f6] text-[#a61e4d] border-[#fcc2d7]'
+  };
+
+  return (
+    <span className={`inline-flex items-center px-2 py-0.5 rounded text-[0.65rem] font-bold border leading-none whitespace-nowrap ${styles[category]}`}>
+      {category}
+    </span>
+  );
+};
+
+export const getStyleBadges = (categories?: BoothStyleCategory[]) => {
+  if (!categories || categories.length === 0) return null;
+
+  return (
+    <>
+      {categories.map((category) => (
+        <React.Fragment key={category}>{getStyleBadge(category)}</React.Fragment>
+      ))}
+    </>
   );
 };

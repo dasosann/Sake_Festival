@@ -55,7 +55,7 @@ const BoothCollection = ({
                   <span className="text-[0.6rem] opacity-60 font-bold leading-none mb-0.5">{booth.id.charAt(0)}</span>
                   <span className="text-[0.8rem] font-black leading-none">{booth.id.slice(1)}</span>
                 </div>
-                <div className="flex-grow">
+                <div className="grow">
                   <h3 className="text-sm font-bold mb-1.5">{booth.name}</h3>
                   <div className="flex items-center gap-2 overflow-x-auto scrollbar-thin">
                     {getRegionTag(booth.details?.region_name)}
@@ -122,7 +122,7 @@ const BoothCollection = ({
                 className="glass-card p-4 flex gap-4 bg-white hover:border-primary/30 transition-all duration-300 relative cursor-pointer"
                 onClick={() => setSelectedBooth(booth)}
               >
-                <div className="w-16 h-20 bg-bg-sub rounded-xl flex-shrink-0 flex items-center justify-center border border-glass-border/30 overflow-hidden">
+                <div className="w-16 h-20 bg-bg-sub rounded-xl shrink-0 flex items-center justify-center border border-glass-border/30 overflow-hidden">
                   {product.image ? (
                     <img 
                       src={product.image} 

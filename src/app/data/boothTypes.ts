@@ -13,6 +13,7 @@ export interface BoothDetail {
   official_site?: string;
   type?: "sake" | "shochu" | "awamori" | "beer" | "whisky" | "liqueur" | "food" | "service" | "other";
   tags?: string[];
+  styleTags?: ("클래식" | "모던" | "뉴에이지")[];
   flavor?: "amaguchi" | "karaguchi" | "balance";
   products?: SakeProduct[];
 }
