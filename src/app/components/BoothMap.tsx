@@ -67,7 +67,7 @@ const BoothMap = ({
       </div>
       
       <p className="mt-6 text-text-dim text-[0.75rem] text-center leading-relaxed">
-        💡 지도를 스와이프하여 전체 배치를 확인하세요.<br className="sm:hidden" /> 각 번호는 '부스검색' 탭에서 검색 가능합니다.
+        💡 지도를 스와이프하여 전체 배치를 확인하세요.<br className="sm:hidden" /> 각 번호는 &apos;부스검색&apos; 탭에서 검색 가능합니다.
       </p>
     </section>
   );
