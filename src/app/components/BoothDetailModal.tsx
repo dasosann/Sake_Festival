@@ -39,9 +39,12 @@ const BoothDetailModal = ({
   setPreviewImage
 }: BoothDetailModalProps) => {
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center px-4 py-8 bg-black/60 backdrop-blur-sm fade-in" onClick={() => setSelectedBooth(null)}>
+    <div
+      className="fixed inset-0 z-100 flex items-start justify-center px-3 py-3 bg-black/60 backdrop-blur-sm fade-in sm:items-center sm:px-4"
+      onClick={() => setSelectedBooth(null)}
+    >
       <div 
-        className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative" 
+        className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative max-h-[90dvh] flex flex-col" 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
@@ -68,7 +71,7 @@ const BoothDetailModal = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-4 space-y-6 max-h-[80vh] overflow-y-auto">
+        <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {/* Visit Toggle Area */}
           <div className="flex items-center justify-between p-4 rounded-2xl bg-bg-sub border border-glass-border">
             <div className="flex items-center gap-3">
