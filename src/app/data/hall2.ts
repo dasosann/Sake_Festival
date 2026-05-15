@@ -55,11 +55,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M03",
-      name: "스이센",
+      name: "스이센주조",
       details: {
         region_name: "이와테",
         history:
-          "2011년 쓰나미 피해를 극복하고 부활한 지역 부흥의 상징적 양조장입니다.",
+          "스이센주조 - 2011년 쓰나미 피해를 극복하고 부활한 지역 부흥의 상징적 양조장입니다.",
         features:
           "상큼하고 드라이한 주질이 해산물과 탁월한 마리아주를 이루는 사케입니다.",
         official_site: "https://www.suisenshuzo.jp",
@@ -90,11 +90,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M04",
-      name: "초카이산",
+      name: "텐쥬주조",
       details: {
         region_name: "아키타",
         history:
-          "초카이산 기슭의 만년설 복류수를 사용하는 자연 친화적 양조장입니다.",
+          "텐쥬주조 - 초카이산 기슭의 만년설 복류수를 사용하는 자연 친화적 양조장입니다.",
         features:
           "맑고 부드러운 주질에 화사한 꽃향기를 더한 우아한 다이긴조가 명품입니다.",
         official_site: "https://www.tenju.co.jp",
@@ -131,11 +131,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M05",
-      name: "사쿠라가오",
+      name: "사쿠라가오주조",
       details: {
         region_name: "이와테",
         history:
-          "벚꽃의 서정적인 이미지를 콘셉트로 메이지 시대 설립된 양조장입니다.",
+          "사쿠라가오주조 - 벚꽃의 서정적인 이미지를 콘셉트로 메이지 시대 설립된 양조장입니다.",
         features:
           "부드러운 단맛과 정제된 향을 지녀 매일 마셔도 질리지 않는 편안한 스타일입니다.",
         official_site: "",
@@ -165,11 +165,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M06",
-      name: "하마치도리",
+      name: "하마치도리주조",
       details: {
         region_name: "이와테",
         history:
-          "이와테현 해안 도시 미야코에서 지역 수산물과 조화로운 사케를 생산합니다.",
+          "하마치도리주조 - 이와테현 해안 도시 미야코에서 지역 수산물과 조화로운 사케를 생산합니다.",
         features:
           "상쾌한 산미와 드라이한 주질이 초밥이나 해산물 요리의 맛을 돋워줍니다.",
         official_site: "",
@@ -227,11 +227,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M08",
-      name: "아키타세이슈",
+      name: "아키타세이슈 주식회사",
       details: {
         region_name: "아키타",
         history:
-          "20세기 초부터 아키타의 사계절을 담은 정통 사케를 빚어온 명가입니다.",
+          "아키타세이슈 주식회사 - 20세기 초부터 아키타의 사계절을 담은 정통 사케를 빚어온 명가입니다.",
         features:
           "깨끗한 주질 속에 은은하게 배어 나오는 과실 향과 산미가 매력적인 모던 타입입니다.",
         official_site: "https://www.akitaseishu.co.jp",
@@ -268,11 +268,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M10",
-      name: "마츠노츠카사",
+      name: "마츠세주조주식회사",
       details: {
         region_name: "시가",
         history:
-          "19세기 후반부터 시가현 비와호 인근의 테루아를 사케에 담아온 명소입니다.",
+          "마츠세주조주식회사 - 19세기 후반부터 시가현 비와호 인근의 테루아를 사케에 담아온 명소입니다.",
         features:
           "지역 유기농 쌀을 사용한 라인업 등 대지의 풍미와 감칠맛이 살아있는 명주입니다.",
         official_site: "https://www.matsunotsukasa.com",
@@ -334,10 +334,10 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     },
     {
       id: "M12",
-      name: "아베",
+      name: "아베주조",
       details: {
         region_name: "니가타",
-        history: "혁신적인 젊은 양조장.",
+        history: "아베주조 - 혁신적인 젊은 양조장.",
         features: "풍부한 산미와 감칠맛의 모던 스타일.",
         official_site: "https://abe-sake.com",
         type: "sake",
@@ -354,11 +354,11 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
           { name: "베가" },
         ],
       },
-    },
-  ],
-  P: [
-    {
-      id: "P01",
+      },
+    ],
+    P: [
+      {
+        id: "P01",
       name: "히라이즈미혼포",
       details: {
         region_name: "아키타",
@@ -572,7 +572,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       details: {
         region_name: "군마",
         history:
-          "젊은 감각의 양조를 통해 사케와 소주 모두에서 개성을 뽐내는 군마의 명소입니다.",
+          "마치다슈죠 - 젊은 감각의 양조를 통해 사케와 소주 모두에서 개성을 뽐내는 군마의 명소입니다.",
         features:
           "쥬시한 과실 향이 돋보이는 모던 사케 라인업으로 큰 인기를 얻고 있습니다.",
         official_site: "",
