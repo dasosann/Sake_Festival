@@ -40,11 +40,11 @@ const BoothDetailModal = ({
 }: BoothDetailModalProps) => {
   return (
     <div
-      className="fixed inset-0 z-100 flex items-start justify-center px-3 py-3 bg-black/60 backdrop-blur-sm fade-in sm:items-center sm:px-4"
+      className="fixed inset-0 z-100 flex items-center justify-center px-3 py-3 bg-black/60 backdrop-blur-sm fade-in sm:px-4"
       onClick={() => setSelectedBooth(null)}
     >
       <div 
-        className="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative max-h-[90dvh] flex flex-col" 
+        className="bg-white w-[92vw] sm:w-full max-w-md rounded-3xl overflow-hidden shadow-2xl relative max-h-[85vh] flex flex-col" 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
