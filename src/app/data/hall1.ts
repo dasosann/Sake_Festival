@@ -65,7 +65,7 @@ export const hall1Booths: Record<string, BoothInfo[]> = { A: [
       { name: "이소지만 준마이긴죠 야마다니시키" },
       { name: "이소지만 토쿠베츠준마이 오마치53" }
     ] } },
-    { id: "A12", name: "우고노츠키 우타시로", details: { region_name: "히로시마/니가타", history: "아이하라주조와 텐료하이주조 - 히로시마와 니가타의 아이하라주조와 텐료하이주조가 각각 빚어내는 명품 사케.", features: "부드럽고 투명한 주질이 공통적인 특징.", official_site: "", type: "sake", tags: ["부드러움", "섬세함"], flavor: "amaguchi", products: [
+    { id: "A12", name: "우고노츠키/우타시로", details: { region_name: "히로시마/니가타", history: "아이하라주조와 텐료하이주조 - 히로시마와 니가타의 아이하라주조와 텐료하이주조가 각각 빚어내는 명품 사케.", features: "부드럽고 투명한 주질이 공통적인 특징.", official_site: "", type: "sake", tags: ["부드러움", "섬세함"], flavor: "amaguchi", products: [
       { name: "우고노츠키 토쿠베츠준마이 야마다니시키" },
       { name: "우고노츠키 준마이다이긴죠 핫탄니시키" },
       { name: "우타시로 릿카" },
