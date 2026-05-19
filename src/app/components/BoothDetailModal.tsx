@@ -136,7 +136,7 @@ const ProductItem = ({
             )}
             {product.awards && product.awards.length > 0 && (
               <div className="flex flex-wrap gap-1.5 pt-1">
-                {product.awards.map((award, aIdx) => (
+                {product.awards.map((award: string, aIdx: number) => (
                   <span
                     key={aIdx}
                     className="text-[0.55rem] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg flex items-center gap-1 shadow-sm"
