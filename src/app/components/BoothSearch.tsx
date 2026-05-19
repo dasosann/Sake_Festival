@@ -91,7 +91,7 @@ const BoothSearch = ({
               {booth.details?.features && (
                 <div className="mt-1">
                   <p className="text-[0.7rem] text-text-dim leading-relaxed line-clamp-2 italic">
-                    "{booth.details.features}"
+                    &quot;{booth.details.features}&quot;
                   </p>
                 </div>
               )}

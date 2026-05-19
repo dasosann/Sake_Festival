@@ -76,7 +76,7 @@ const BoothCollection = ({
               
               {booth.details?.features && (
                 <p className="text-[0.7rem] text-text-dim leading-relaxed line-clamp-1 italic">
-                  "{booth.details.features}"
+                  &quot;{booth.details.features}&quot;
                 </p>
               )}
 

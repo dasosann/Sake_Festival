@@ -9,42 +9,49 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         ...COMMON_SERVICE_DETAIL,
         products: [
           {
+            image: "/신슈키레이/1.jpg",
             name: "신슈키레이 프리미엄골드 준마이다이긴죠 39",
             abv: "15%",
             description:
               "나가노현 우에다시의 최적의 자연 환경 속에서 재배된 야마다니시키를 손수 수확해 빚은 최고급 프리미엄 사케입니다. 맑고 투명한 인상 속에 은은한 열대과일 향이 감돌며, 청포도를 연상시키는 투명한 맛과 섬세한 단맛이 조화를 이룹니다.",
           },
           {
+            image: "/신슈키레이/2.jpg",
             name: "신슈키레이 미야마니시키 준마이다이긴죠 39",
             abv: "15%",
             description:
               "나가노현 우에다의 미야마니시키를 39%까지 정미하여 정성스럽게 빚어낸 최고급 준마이다이긴조입니다. 화려하면서도 세련된 풍미는 다양한 요리와도 조화를 이룹니다.",
           },
           {
+            image: "/신슈키레이/3.jpg",
             name: "신슈키레이 킨몬니시키 준마이다이긴죠 39",
             abv: "15%",
             description:
               "나가노현 우에다의 킨몬니시키를 39%까지 정미하여 빚어낸 최고급 준마이다이긴조입니다. 품격 있는 분위기와 세련된 풍미를 선사합니다.",
           },
           {
+            image: "/사카야코리아/1.jpg",
             name: "와다치 크래프트맥주",
             abv: "6%",
             description:
               "요시노 삼나무 목통에서 빚어 은은한 나무 향이 느껴지는 특별한 크래프트 맥주입니다. 일식과 잘 어울리도록 설계되어 부드러운 단맛과 섬세한 거품이 조화를 이룹니다.",
           },
           {
+            image: "/사카야코리아/2.jpg",
             name: "와다치 화이트크래프트 맥주",
             abv: "6%",
             description:
               "사케용 쌀인 ‘아카이와 오마치’를 사용해 목통에서 양조한 고급 맥주입니다. 시트러스와 배의 과일 향과 기분 좋은 산미가 조화를 이루며, 일본 미쉐린 스타 스시 레스토랑에서도 채택된 명품입니다.",
           },
           {
+            image: "/사카야코리아/3.jpg",
             name: "하토마사무네 크리스탈 오브 스노우 준마이 나마",
             abv: "16%",
             description:
               "맑고 선명한 산미가 매력적인 준마이 나마입니다. 백누룩에서 오는 산미와 쌀의 감칠맛이 균형을 이루어 여운까지 산뜻하게 정리해 줍니다.",
           },
           {
+            image: "/사카야코리아/4.jpg",
             name: "하토마사무네 특별준마이 하나후부키 지카구미 나마",
             abv: "16%",
             description:
@@ -68,18 +75,21 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/스이센/1.jpg",
             name: "타테가미 특별준마이 나마",
             abv: "15%",
             description:
               "머스캣을 연상시키는 상쾌한 아로마와 부드러운 산미, 맑은 단맛이 균형 있게 어우러집니다. 투명한 질감 속에 가벼운 감칠맛이 더해진 균형감 좋은 식중주입니다.",
           },
           {
+            image: "/스이센/2.jpg",
             name: "다이긴죠 스이센 블루",
             abv: "16%",
             description:
               "이와테현산 쌀 ‘긴긴가’를 사용해 저온 장기 발효로 완성한 다이긴죠입니다. 산뜻하고 부드러운 질감과 함께 화사하게 퍼지는 긴죠향이 우아한 스타일을 자랑합니다.",
           },
           {
+            image: "/스이센/3.jpg",
             name: "준마이긴죠 스이센 레드",
             abv: "16%",
             description:
@@ -103,24 +113,28 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/초카이산/1.jpg",
             name: "텐쥬 준마이",
             abv: "15.5%",
             description:
               "계약 재배미로 빚은 진중한 매력의 식중주입니다. 따뜻하고 깊은 쌀의 감칠맛과 풍성한 누룩 향, 그리고 두터운 여운의 묵직한 무게감이 특징입니다.",
           },
           {
+            image: "/초카이산/2.jpg",
             name: "초카이산 키모토준마이긴죠 초카이린도코보시코미",
             abv: "15.5%",
             description:
               "초카이산 린도 꽃 효모로 양조한 우아한 식중주입니다. 신선한 살구와 패션후르츠 같은 열대 과일 향이 우아하게 퍼지며 긴 여운을 남깁니다.",
           },
           {
+            image: "/초카이산/3.jpg",
             name: "초카이산 준마이다이긴죠",
             abv: "15%",
             description:
               "전통의 기술로 빚어낸 일품입니다. 시트러스 계열의 풍미와 훌륭한 에너지가 느껴지며, 화려함과 감칠맛이 적절한 밸런스를 이루어 식욕을 자극합니다.",
           },
           {
+            image: "/초카이산/4.jpg",
             name: "초카이산 준마이다이긴죠 무로카나마겐슈",
             abv: "15%",
             description:
@@ -143,18 +157,21 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/사쿠라가오/1.jpg",
             name: "히텐쇼 준마이다이긴죠",
             abv: "15%",
             description:
               "야마다니시키를 40%까지 도정하여 잡미 없이 향기로운 준마이다이긴죠로 완성했습니다. 균형 잡힌 맛이 돋보이는 최상의 일품입니다.",
           },
           {
+            image: "/사쿠라가오/2.jpg",
             name: "은하철도의밤 준마이긴죠",
             abv: "15%",
             description:
               "시인 미야자와 켄지의 작품을 모티브로 양조했습니다. 밤하늘의 별과 같은 청량감과 깨끗한 맛, 은은한 과일 향과 단맛이 부드럽게 이어지는 명주입니다.",
           },
           {
+            image: "/사쿠라가오/3.jpg",
             name: "준마이 사카야",
             abv: "14%",
             description:
@@ -177,18 +194,21 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/하마치도리/1.jpg",
             name: "하마치도리 준마이긴죠 깅긴가 한정나마자케",
             abv: "16.6%",
             description:
-              "이와테현산 쌀과 효모로 빚은 ‘GI 올 이와테’ 사케입니다. 은은하고 화사한 아로마와 맑고 정제된 터치, 깨끗하게 떨어지는 피니시가 일품입니다.",
+              "이와테현산 쌀 and 효모로 빚은 ‘GI 올 이와테’ 사케입니다. 은은하고 화사한 아로마와 맑고 정제된 터치, 깨끗하게 떨어지는 피니시가 일품입니다.",
           },
           {
+            image: "/하마치도리/2.jpg",
             name: "겐스이 준마이긴죠",
             abv: "16.6%",
             description:
               "잘 익은 바나나를 연상시키는 부드러운 긴죠 향과 산뜻한 산미가 중심을 잡아줍니다. 날렵하게 떨어지는 드라이한 피니시로 깔끔하게 정리됩니다.",
           },
           {
+            image: "/하마치도리/3.jpg",
             name: "겐스이 준마이다이긴죠",
             abv: "16.6%",
             description:
@@ -211,12 +231,14 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/야히코주조/1.jpg",
             name: "폰슈볼",
             abv: "18%",
             description:
               "새로운 감각의 사케-탄산수 칵테일 베이스입니다. 상쾌한 청량감과 산뜻한 마무리가 특징이며, 레몬을 곁들이면 더욱 좋습니다.",
           },
           {
+            image: "/야히코주조/2.jpg",
             name: "코운 준마이긴죠",
             abv: "16%",
             description:
@@ -240,24 +262,28 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/아키타세이슈/1.jpg",
             name: "카리호 이치호즈미 준마이긴죠 (3년 빙온저장)",
             abv: "16%",
             description:
               "아키타 고유 쌀 ‘이치호즈미’로 빚어 3년간 빙온 저장한 작품입니다. 농밀한 과일 향과 아이리스 꽃 향이 화려하게 퍼지며 완벽한 밸런스를 보여줍니다.",
           },
           {
+            image: "/아키타세이슈/2.jpg",
             name: "야마토시즈쿠 미사토니시키 준마이긴죠",
             abv: "16%",
             description:
               "라임, 복숭아의 신선한 과실 향과 미네랄 향이 우아하게 퍼집니다. 크리스피한 산미와 입안을 채우는 과실 풍미가 인상적입니다.",
           },
           {
+            image: "/아키타세이슈/3.jpg",
             name: "야마코시즈쿠 준마이긴죠 유키노야마토",
             abv: "16%",
             description:
               "백누룩을 사용해 맑고 정제된 산미와 청량감을 살린 사케입니다. 오리가라미 상태로 담아 갓 짜낸 듯한 생동감과 산뜻한 탁도를 즐길 수 있습니다.",
           },
           {
+            image: "/아키타세이슈/4.jpg",
             name: "데와츠루 준마이다이긴죠나마 사일런나잇",
             abv: "16%",
             description:
@@ -281,30 +307,35 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         flavor: "balance",
         products: [
           {
+            image: "/마츠노츠카사/1.jpg",
             name: "마츠노츠카사 울티머스 다이긴죠 나카도리",
             abv: "16%",
             description:
               "마츠노츠카사의 플래그십 명주입니다. 사과와 멜론의 화사한 향, 품격 있는 단맛, 그리고 저온 숙성에서 오는 둥근 여운이 특징인 프리미엄 사케입니다.",
           },
           {
+            image: "/마츠노츠카사/2.jpg",
             name: "마츠노츠카사 준마이다이긴죠 아졸라35",
             abv: "16%",
             description:
               "무농약·무화학비료 야마다니시키를 35%까지 도정해 빚은 프리미엄 유기농 사케입니다. 부드러운 질감과 미네랄리한 긴 여운, 뛰어난 숙성 잠재력을 지녔습니다.",
           },
           {
+            image: "/마츠노츠카사/3.jpg",
             name: "마츠노츠카사 준마이다이긴죠 아졸라 50",
             abv: "16%",
             description:
               "류오초의 자연을 담은 오가닉 준마이다이긴죠입니다. 맑고 투명한 인상 속에 깊이 있는 풍미와 입체적인 여운이 조화롭게 어우러집니다.",
           },
           {
+            image: "/마츠노츠카사/4.jpg",
             name: "마츠노츠카사 준마이",
             abv: "16%",
             description:
               "맛과 가성비의 균형을 맞춘 스탠다드 준마이입니다. 은은한 향과 쌀의 부드러운 단맛이 조화로워 어떤 요리와도 잘 어울리는 식중주입니다.",
           },
           {
+            image: "/마츠노츠카사/5.jpg",
             name: "마츠노츠카사 준마이긴죠 시보리다테 라쿠",
             abv: "16%",
             description:
@@ -371,30 +402,35 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/히라이즈미혼포/1.jpg",
             name: "포시즌 우스니고리",
             abv: "15%",
             description:
               "칼피스를 연상시키는 부드러운 유산감과 크리미한 질감이 돋보이는 독창적인 사케입니다. 산뜻한 산미와 섬세한 비터감이 기름진 요리와 최상의 조화를 이룹니다.",
           },
           {
+            image: "/히라이즈미혼포/2.jpg",
             name: "야마하이 준마이 마루히",
             abv: "14%",
             description:
               "높은 산미를 자랑하는 교카이 77호 효모를 사용해 야마하이 방식으로 빚었습니다. 풍부한 사과산이 기존 청주와는 다른 신선한 자극을 선사합니다.",
           },
           {
+            image: "/히라이즈미혼포/3.jpg",
             name: "히텐 히나",
             abv: "12%",
             description:
               "27대 장인의 오리지널 효모를 사용한 경쾌하고 깔끔한 작품입니다. 전통 야마하이의 깊이를 유지하면서도 상쾌한 산미를 강조한 현대적 스타일입니다.",
           },
           {
+            image: "/히라이즈미혼포/4.jpg",
             name: "히텐 하쿠쵸",
             abv: "14%",
             description:
               "구연산(백국), 사과산(77호 효모), 유산(야마하이) 세 가지 산이 조화롭게 어우러진 독창적인 사케입니다. 시간의 흐름에 따라 변화하는 풍미가 일품입니다.",
           },
           {
+            image: "/히라이즈미혼포/5.jpg",
             name: "히텐 치도리 나마",
             abv: "13%",
             description:
@@ -418,18 +454,21 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         flavor: "amaguchi",
         products: [
           {
+            image: "/텐비/1.jpg",
             name: "텐비 토쿠베츠준마이(쿠로텐)",
             abv: "15%",
             description:
               "텐비를 대표하는 플래그십 상품입니다. 야마구치현산 ‘사이토노시즈쿠’ 쌀의 개성을 담아 신선한 향과 부드러운 단맛, 균형 잡힌 산미를 선사합니다.",
           },
           {
+            image: "/텐비/2.jpg",
             name: "텐비 준마이긴죠 (시로텐)",
             abv: "15%",
             description:
               "전량 야마다니시키로 빚어 흰 포도를 연상시키는 산뜻한 향과 단맛을 자랑합니다. 감귤류의 상큼함이 더해져 다양한 요리와 훌륭하게 매치됩니다.",
           },
           {
+            image: "/텐비/3.jpg",
             name: "텐비 준마이다이긴죠",
             abv: "15%",
             description:
@@ -610,6 +649,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       name: "야마탄마사무네",
       details: {
         region_name: "에히메",
+        brewery: "야마탄마사무네",
         history:
           "20세기 초반부터 이름을 알려온 에히메현의 세련된 브랜드입니다.",
         features:
@@ -629,6 +669,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       name: "에헤지 하쿠류",
       details: {
         region_name: "후쿠이",
+        brewery: "하쿠류주조",
         history:
           "후쿠이현의 명찰 에이헤이지 인근에서 맑은 물로 사케를 빚는 유서 깊은 곳입니다.",
         features:
@@ -715,36 +756,42 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         tags: ["사카야코리아"],
         products: [
           {
+            image: "/겐콘이치/1.jpg",
             name: "겐콘이치 준마이 우스니고리 나마",
             abv: "16%",
             description:
               "겨울에만 한정적으로 선보이는 니고리 사케입니다. 입안 가득 퍼지는 신선하고 촉촉한 질감과 함께 사사니시키 쌀의 부드럽고 순한 풍미가 자연스럽게 펼쳐집니다.",
           },
           {
+            image: "/겐콘이치/2.jpg",
             name: "겐콘이치 준마이 신리키",
             abv: "16%",
             description:
               "무농약 유기 비료로 재배한 ‘신리키’ 쌀을 사용한 사케입니다. 청포도 같은 과실 향과 은은한 솔티함, 밀도감 있는 질감을 지닌 균형 잡힌 식중주입니다.",
           },
           {
+            image: "/겐콘이치/3.jpg",
             name: "겐콘이치 죠네츠준마이긴죠 겐슈",
             abv: "17%",
             description:
               "궁극의 카라구치 식중주로 쌀의 우마미, 알코올, 산도의 밸런스가 완벽한 조화를 이룹니다. 롱피니쉬와 함께 부드러운 목넘김이 특징입니다.",
           },
           {
+            image: "/겐콘이치/4.jpg",
             name: "겐콘이치 준마이긴죠 긴노이로하",
             abv: "16%",
             description:
               "미야기현의 ‘긴노이로하’ 쌀을 사용한 준마이긴죠입니다. 잘 익은 배와 백도를 연상시키는 우아한 향과 부드러운 질감이 매력적입니다.",
           },
           {
+            image: "/겐콘이치/5.jpg",
             name: "겐콘이치 준마이다긴죠 오마치",
             abv: "16%",
             description:
               "오카야마산 오마치를 40%까지 정미한 최고의 사케입니다. 샤도네이에서 느낄 수 있는 오일리한 맛과 오마치 특유의 우마미를 느낄 수 있습니다.",
           },
           {
+            image: "/겐콘이치/6.jpg",
             name: "카타카나 겐콘이치 준마이다이긴죠",
             abv: "16%",
             description:
@@ -803,6 +850,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       name: "류진/오제노유키도케",
       details: {
         region_name: "군마",
+        brewery: "류진주조 / 오제노유키도케",
         history:
           "군마현 오제 국립공원의 맑은 이미지를 담아 시원한 주질을 선보이는 브랜드입니다.",
         features:
@@ -866,6 +914,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       name: "하기노츠루/히와타",
       details: {
         region_name: "미야기",
+        brewery: "하기노츠루주조 / 히와타",
         history: "인기 많은 모던 양조장.",
         features: "산미와 단맛의 균형이 좋은 식중주.",
         official_site: "",
@@ -923,6 +972,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       name: "더블유/호라이",
       details: {
         region_name: "기후",
+        brewery: "더블유 / 호라이",
         history: "와인 같은 향과 산미를 강조.",
         features: "화사한 향기와 선명한 캐릭터.",
         official_site: "",
@@ -944,6 +994,7 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
       name: "세키토바/다이야메",
       details: {
         region_name: "가고시마",
+        brewery: "세키토바 / 다이야메",
         history: "현대 소주 붐을 이끈 대표 브랜드.",
         features: "다이야메는 라이치 향이 나는 고구마 소주.",
         official_site: "",
@@ -1435,18 +1486,21 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
         type: "sake",
         products: [
           {
+            image: "/이와테메이죠/1.jpg",
             name: '오쿠로쿠 토쿠베츠 준마이 키모토 "Lotus"',
             abv: "15%",
             description:
               "히라이즈미의 ‘히토메보레’로 빚어, 은은한 미세 발포와 청사과 같은 상큼한 향이 인상적입니다. 맑고 투명한 질감 위에 경쾌한 산미가 더해져 깔끔한 밸런스를 보여줍니다.",
           },
           {
+            image: "/이와테메이죠/2.jpg",
             name: '오쿠로쿠 토쿠베츠 준마이 키모토 "Unite"',
             abv: "15%",
             description:
               "부드럽고 맑은 첫 인상이 매력적입니다. 풍성하지만 과하지 않은 단맛과 경쾌한 산미가 균형을 잡아주며 키모토 특유의 깊이감이 여운으로 이어집니다.",
           },
           {
+            image: "/이와테메이죠/3.jpg",
             name: '오쿠로쿠 토쿠베츠 준마이 키모토 "White Beach"',
             description:
               "30년 동안 계약 재배해온 가네가사키산 ‘카메노오’ 쌀로 만든 사케입니다. 백누룩에서 오는 은은하고 고급스러운 산미와 부드러운 단맛이 특징입니다. 맛은 진하지만 도수가 낮아 부담 없이 즐기실 수 있습니다.",
@@ -1506,3 +1560,79 @@ export const hall2Booths: Record<string, BoothInfo[]> = {
     { id: "L05", name: "CR트레이딩판매부스", details: COMMON_SERVICE_DETAIL },
   ],
 };
+// 추가된 매핑용 고유 데이터 맵
+const BREWERY_MAP: Record<string, string> = {
+  // ... 기존 A ~ L 부스 데이터 유지
+
+  // M 부스
+  M01: "사카야코리아",
+  M03: "스이센주조",
+  M04: "텐쥬주조",
+  M05: "사쿠라가오주조",
+  M06: "하마치도리주조",
+  M07: "야히코주조",
+  M08: "아키타세이슈 주식회사",
+  M10: "마츠세주조주식회사",
+  M11: "산요하이슈죠",
+  M12: "아베주조",
+
+  // P 부스
+  P01: "히라이즈미혼포",
+  P02: "쵸슈주조",
+  P03: "하치노헤주조",
+  P04: "야마츄혼케주조",
+  P05: "마치다슈조텐",
+  P06: "나카시마야슈죠",
+  P07: "야기슈조부",
+  P08: "요시다슈죠",
+  P09: "오누마주조점",
+  P10: "히라코우주조",
+  P11: "에이쿤주조",
+  P13: "류진슈조",
+  P14: "이이누마메이죠",
+  P15: "카네미츠슈죠",
+
+  // L 부스 (기존 중복 및 주소지 데이터 업데이트)
+  L02: "이와테메이죠",
+  L03: "CR트레이딩",
+  L04: "CR트레이딩",
+
+  // Q 부스
+  Q01: "하기노슈조",
+  Q02: "오야타카시슈조",
+  Q03: "쥬하치자카리슈조",
+  Q04: "와타나베슈조텐",
+  Q05: "하마다슈죠",
+  Q06: "오쿠치슈조",
+  Q07: "토노이케슈죠텐",
+  Q08: "키쿠노사토슈조",
+  Q09: "미야오슈조",
+  Q10: "토미카와슈조텐",
+  Q11: "후미기쿠슈죠",
+  Q12: "야마노고토부키슈죠",
+  Q13: "토코로슈조",
+  Q14: "신타니슈조",
+
+  // R 부스
+  R01: "토요나가슈죠",
+  R02: "오치아이 슈조장 / 쇼츄리퍼블릭", // R02 부스 통합 처리
+  R03: "타카자와 슈조장 / 이치노야",     // R03 부스 통합 처리
+  R04: "잇본기쿠보혼텐",
+
+  // U 부스
+  U01: "닛카프론티어",
+  U12: "에비스 맥주",
+};
+// 참조 오염 방지를 위해 얕은 복사(...)를 적용한 안전한 런타임 매핑 로직
+for (const section of Object.values(hall2Booths)) {
+  for (const booth of section) {
+    if (!booth.details) continue;
+    
+    if (BREWERY_MAP[booth.id]) {
+      booth.details = {
+        ...booth.details,
+        brewery: BREWERY_MAP[booth.id],
+      };
+    }
+  }
+}
