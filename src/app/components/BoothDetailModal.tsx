@@ -1,5 +1,6 @@
 import React from "react";
 import { BoothInfo } from "../boothData";
+import { SakeProduct } from "../data/boothTypes";
 import { HeartIcon } from "./Icons";
 import {
   getTypeBadge,
@@ -41,7 +42,7 @@ const ProductItem = ({
   updateProductNote,
   setPreviewImage,
 }: {
-  product: any;
+  product: SakeProduct;
   idx: number;
   boothId: string;
   favoriteProducts: string[];

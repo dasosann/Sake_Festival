@@ -15,6 +15,24 @@ import ImagePreviewModal from "./components/ImagePreviewModal";
 import Footer from "./components/Footer";
 import { boothMatchesStyleSearchTerm } from "./data/styleCategories";
 
+function readStoredJson<T>(key: string, fallback: T): T {
+  if (typeof window === "undefined") {
+    return fallback;
+  }
+
+  const value = localStorage.getItem(key);
+  if (!value) {
+    return fallback;
+  }
+
+  try {
+    return JSON.parse(value) as T;
+  } catch (e) {
+    console.error(e);
+    return fallback;
+  }
+}
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState<
     "map" | "search" | "collection" | "schedule"
@@ -29,57 +47,21 @@ export default function Home() {
   } | null>(null);
 
   // 방문 여부 및 메모 상태 (localStorage 연동)
-  const [visitedBooths, setVisitedBooths] = useState<string[]>([]);
-  const [favoriteBooths, setFavoriteBooths] = useState<string[]>([]);
-  const [favoriteProducts, setFavoriteProducts] = useState<string[]>([]);
-  const [boothNotes, setBoothNotes] = useState<Record<string, string>>({});
-  const [productNotes, setProductNotes] = useState<Record<string, string>>({});
-
-  // 초기 로드 시 localStorage에서 데이터 복원
-  useEffect(() => {
-    const savedVisited = localStorage.getItem("sake_visited");
-    const savedFavorites = localStorage.getItem("sake_favorites");
-    const savedFavoriteProducts = localStorage.getItem(
-      "sake_favorite_products",
-    );
-    const savedNotes = localStorage.getItem("sake_notes");
-    const savedProductNotes = localStorage.getItem("sake_product_notes");
-    if (savedVisited) {
-      try {
-        setVisitedBooths(JSON.parse(savedVisited));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedFavorites) {
-      try {
-        setFavoriteBooths(JSON.parse(savedFavorites));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedFavoriteProducts) {
-      try {
-        setFavoriteProducts(JSON.parse(savedFavoriteProducts));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedNotes) {
-      try {
-        setBoothNotes(JSON.parse(savedNotes));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    if (savedProductNotes) {
-      try {
-        setProductNotes(JSON.parse(savedProductNotes));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, []);
+  const [visitedBooths, setVisitedBooths] = useState<string[]>(() =>
+    readStoredJson<string[]>("sake_visited", []),
+  );
+  const [favoriteBooths, setFavoriteBooths] = useState<string[]>(() =>
+    readStoredJson<string[]>("sake_favorites", []),
+  );
+  const [favoriteProducts, setFavoriteProducts] = useState<string[]>(() =>
+    readStoredJson<string[]>("sake_favorite_products", []),
+  );
+  const [boothNotes, setBoothNotes] = useState<Record<string, string>>(() =>
+    readStoredJson<Record<string, string>>("sake_notes", {}),
+  );
+  const [productNotes, setProductNotes] = useState<Record<string, string>>(() =>
+    readStoredJson<Record<string, string>>("sake_product_notes", {}),
+  );
 
   // 상태 변경 시 localStorage에 자동 저장
   useEffect(() => {
@@ -177,10 +159,12 @@ export default function Home() {
     };
   }, [selectedBooth]);
 
-  // 탭 전환 시 검색어 초기화 (검색목록 기본값을 전체로 보여주기 위함)
-  useEffect(() => {
+  const handleTabChange = (
+    tab: "map" | "search" | "collection" | "schedule",
+  ) => {
+    setActiveTab(tab);
     setSearchTerm("");
-  }, [activeTab]);
+  };
 
   const filteredBooths = useMemo(() => {
     const term = searchTerm.toLowerCase().trim();
@@ -252,7 +236,7 @@ export default function Home() {
       {/* Tabs Navigation */}
       <Navigation
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={handleTabChange}
         favoriteCount={favoriteBooths.length + favoriteProducts.length}
       />
 
